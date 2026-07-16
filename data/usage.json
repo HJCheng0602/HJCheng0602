@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-16T04:39:52.407Z",
+  "updatedAt": "2026-07-16T07:08:01.876Z",
   "devices": [
     {
       "name": "linux",
@@ -9,17 +9,17 @@
     {
       "name": "mac_work01",
       "platform": "darwin",
-      "collectedAt": "2026-07-16T04:39:33.874Z"
+      "collectedAt": "2026-07-16T07:07:45.642Z"
     }
   ],
   "models": [
     {
-      "name": "gpt-5.6-terra",
-      "tokens": 23944873
+      "name": "gpt-5.6-sol",
+      "tokens": 24606580
     },
     {
-      "name": "gpt-5.6-sol",
-      "tokens": 14256909
+      "name": "gpt-5.6-terra",
+      "tokens": 23944873
     },
     {
       "name": "gpt-5.5",
@@ -45,7 +45,7 @@
     },
     {
       "date": "2026-07-16",
-      "tokens": 36907453
+      "tokens": 47257124
     }
   ]
 }
