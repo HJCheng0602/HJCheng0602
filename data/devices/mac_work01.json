@@ -1,15 +1,15 @@
 {
   "device": "mac_work01",
   "platform": "darwin",
-  "collectedAt": "2026-07-16T04:07:52.084Z",
+  "collectedAt": "2026-07-16T04:39:33.874Z",
   "models": [
     {
       "name": "gpt-5.5",
-      "tokens": 397080
+      "tokens": 953705
     },
     {
       "name": "gpt-5.6-sol",
-      "tokens": 21896
+      "tokens": 857567
     }
   ],
   "days": [
@@ -19,7 +19,7 @@
     },
     {
       "date": "2026-07-16",
-      "tokens": 402124
+      "tokens": 1794420
     }
   ]
 }
