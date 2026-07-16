@@ -1,0 +1,24 @@
+name: Render AI workbench
+
+on:
+  push:
+    paths: [data/devices/**, scripts/render-dashboard.mjs]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - name: Merge device snapshots
+        run: |
+          node -e "const fs=require('fs'); const files=fs.existsSync('data/devices')?fs.readdirSync('data/devices').filter(f=>f.endsWith('.json')):[]; const ds=files.map(f=>JSON.parse(fs.readFileSync('data/devices/'+f))); const map=new Map(), days=new Map(); for(const d of ds){for(const x of d.models)map.set(x.name,(map.get(x.name)||0)+x.tokens);for(const x of d.days)days.set(x.date,(days.get(x.date)||0)+x.tokens)} fs.writeFileSync('data/usage.json',JSON.stringify({updatedAt:new Date().toISOString(),devices:ds.map(d=>({name:d.device,platform:d.platform,collectedAt:d.collectedAt})),models:[...map].map(([name,tokens])=>({name,tokens})).sort((a,b)=>b.tokens-a.tokens),days:[...days].map(([date,tokens])=>({date,tokens})).sort((a,b)=>a.date.localeCompare(b.date))},null,2)+'\\n')"
+      - run: node scripts/render-dashboard.mjs
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: render AI workbench"
