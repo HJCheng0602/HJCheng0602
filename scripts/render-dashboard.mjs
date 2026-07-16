@@ -222,6 +222,10 @@ function render(mode) {
 }
 
 mkdirSync('assets', { recursive: true });
-writeFileSync('assets/ai-workbench-dark.svg', render('dark').replace(/[ \t]+$/gm, ''));
-writeFileSync('assets/ai-workbench-light.svg', render('light').replace(/[ \t]+$/gm, ''));
+const darkSvg = render('dark').replace(/[ \t]+$/gm, '');
+const lightSvg = render('light').replace(/[ \t]+$/gm, '');
+writeFileSync('assets/ai-workbench-dark.svg', darkSvg);
+writeFileSync('assets/ai-workbench-light.svg', lightSvg);
+writeFileSync('assets/token-terrain-dark.svg', darkSvg);
+writeFileSync('assets/token-terrain-light.svg', lightSvg);
 console.log(`Rendered token terrain: ${compact(total)} tokens across ${days.length} observed days.`);
