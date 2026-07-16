@@ -1,6 +1,6 @@
-# Hi, I'm HJ Cheng 👋
+# Hi, I'm JinCheng Han 👋
 
-Building AI systems from models to infrastructure.
+Undergraduate at PKU, exploring the path from intelligent systems to ML infrastructure.
 
 <p align="center">
   <picture>
@@ -12,14 +12,14 @@ Building AI systems from models to infrastructure.
 
 ## Focus
 
-`AI Systems` · `Computer Vision` · `LLM Infrastructure` · `Efficient Computing`
+`ML Systems` · `LLM Inference` · `Computer Vision` · `Efficient Computing`
 
 ## Selected work
 
-- [SLAM3R](https://github.com/HJCheng0602/SLAM3R) — 3D scene understanding research and experiments.
-- [ai-infra-hpc](https://github.com/HJCheng0602/ai-infra-hpc) — notes and work on AI infrastructure and high-performance computing.
-- [mini-sglang](https://github.com/HJCheng0602/mini-sglang) — learning and exploring LLM serving systems.
+- [nanoPD](https://github.com/HJCheng0602/nanoPD) — a from-scratch Prefill/Decode disaggregation inference engine for LLMs.
+- [SLAM3R OnlineCam](https://github.com/HJCheng0602/SLAM3R_onlinecam) — real-time dense reconstruction from an online camera stream.
+- [paperwise](https://github.com/HJCheng0602/paperwise) — deep reading for research papers with LLM reports, a vector KB, and a knowledge graph.
 
 ---
 
-<p align="center"><i>Learn deeply. Build carefully. Share what matters.</i></p>
+<p align="center"><i>Understand the system. Build the system.</i></p>
