@@ -28,7 +28,7 @@
 
   <text x="24" y="31" class="title">VIBE CODING STATS</text>
   <text x="24" y="51" class="eyebrow">CODEX CLI · LOCAL LEDGER · @HJCHENG0602</text>
-  <text x="816" y="40" class="hero" text-anchor="end">52.0M<tspan class="heroUnit"> TOKENS</tspan></text>
+  <text x="816" y="40" class="hero" text-anchor="end">62.8M<tspan class="heroUnit"> TOKENS</tspan></text>
   <text x="816" y="58" class="muted" text-anchor="end">OBSERVED TOTAL · 2026-07-16</text>
 
   <g><rect x="26" y="70" width="119" height="23" rx="11.5" class="pill"/>
@@ -1852,7 +1852,7 @@
     <polygon points="699.0999999999999,389.5 699.0999999999999,392.5 692.0999999999999,388.8 692.0999999999999,385.8" fill="#142019"/>
 
   </g><g opacity="1">
-    <polygon points="718,379 725,382.7 718,386.4 711,382.7" fill="#2b6745" stroke="#A6F4BC" stroke-opacity="0.28" stroke-width=".42"/>
+    <polygon points="718,379 725,382.7 718,386.4 711,382.7" fill="#2a6744" stroke="#A6F4BC" stroke-opacity="0.28" stroke-width=".42"/>
     <polygon points="725,382.7 725,389.7 718,393.4 718,386.4" fill="#1c4c32"/>
     <polygon points="718,386.4 718,393.4 711,389.7 711,382.7" fill="#153c29"/>
     <animate attributeName="opacity" values=".78;1;.86" keyTimes="0;.48;1" dur="3.4s" begin="0.77s" repeatCount="indefinite"/>
@@ -1862,14 +1862,14 @@
     <polygon points="673,392.4 673,395.4 666,391.7 666,388.7" fill="#142019"/>
 
   </g><g opacity="1">
-    <polygon points="691.9,376.90000000000003 698.9,380.6 691.9,384.3 684.9,380.6" fill="#498661" stroke="#A6F4BC" stroke-opacity="0.28" stroke-width=".42"/>
-    <polygon points="698.9,380.6 698.9,392.6 691.9,396.3 691.9,384.3" fill="#256741"/>
-    <polygon points="691.9,384.3 691.9,396.3 684.9,392.6 684.9,380.6" fill="#1a5033"/>
+    <polygon points="691.9,377.90000000000003 698.9,381.6 691.9,385.3 684.9,381.6" fill="#46835e" stroke="#A6F4BC" stroke-opacity="0.28" stroke-width=".42"/>
+    <polygon points="698.9,381.6 698.9,392.6 691.9,396.3 691.9,385.3" fill="#24653f"/>
+    <polygon points="691.9,385.3 691.9,396.3 684.9,392.6 684.9,381.6" fill="#1a4e32"/>
     <animate attributeName="opacity" values=".78;1;.86" keyTimes="0;.48;1" dur="3.4s" begin="0.66s" repeatCount="indefinite"/>
   </g><g opacity="1">
-    <polygon points="710.8,380.79999999999995 717.8,384.49999999999994 710.8,388.19999999999993 703.8,384.49999999999994" fill="#34704d" stroke="#A6F4BC" stroke-opacity="0.28" stroke-width=".42"/>
-    <polygon points="717.8,384.49999999999994 717.8,393.49999999999994 710.8,397.19999999999993 710.8,388.19999999999993" fill="#1e5436"/>
-    <polygon points="710.8,388.19999999999993 710.8,397.19999999999993 703.8,393.49999999999994 703.8,384.49999999999994" fill="#17422c"/>
+    <polygon points="710.8,381.79999999999995 717.8,385.49999999999994 710.8,389.19999999999993 703.8,385.49999999999994" fill="#336f4c" stroke="#A6F4BC" stroke-opacity="0.28" stroke-width=".42"/>
+    <polygon points="717.8,385.49999999999994 717.8,393.49999999999994 710.8,397.19999999999993 710.8,389.19999999999993" fill="#1e5336"/>
+    <polygon points="710.8,389.19999999999993 710.8,397.19999999999993 703.8,393.49999999999994 703.8,385.49999999999994" fill="#17412c"/>
     <animate attributeName="opacity" values=".78;1;.86" keyTimes="0;.48;1" dur="3.4s" begin="0.77s" repeatCount="indefinite"/>
   </g><g opacity="0.9">
     <polygon points="684.6999999999999,389.70000000000005 691.6999999999999,393.40000000000003 684.6999999999999,397.1 677.6999999999999,393.40000000000003" fill="#243129" stroke="#2D3832" stroke-opacity="0.38" stroke-width=".42"/>
@@ -1877,9 +1877,9 @@
     <polygon points="684.6999999999999,397.1 684.6999999999999,400.1 677.6999999999999,396.40000000000003 677.6999999999999,393.40000000000003" fill="#142019"/>
 
   </g><g opacity="1">
-    <polygon points="703.6,382.59999999999997 710.6,386.29999999999995 703.6,389.99999999999994 696.6,386.29999999999995" fill="#45825d" stroke="#A6F4BC" stroke-opacity="0.28" stroke-width=".42"/>
-    <polygon points="710.6,386.29999999999995 710.6,397.29999999999995 703.6,400.99999999999994 703.6,389.99999999999994" fill="#23643e"/>
-    <polygon points="703.6,389.99999999999994 703.6,400.99999999999994 696.6,397.29999999999995 696.6,386.29999999999995" fill="#194e32"/>
+    <polygon points="703.6,382.59999999999997 710.6,386.29999999999995 703.6,389.99999999999994 696.6,386.29999999999995" fill="#427f5a" stroke="#A6F4BC" stroke-opacity="0.28" stroke-width=".42"/>
+    <polygon points="710.6,386.29999999999995 710.6,397.29999999999995 703.6,400.99999999999994 703.6,389.99999999999994" fill="#23613d"/>
+    <polygon points="703.6,389.99999999999994 703.6,400.99999999999994 696.6,397.29999999999995 696.6,386.29999999999995" fill="#194c31"/>
     <animate attributeName="opacity" values=".78;1;.86" keyTimes="0;.48;1" dur="3.4s" begin="0.77s" repeatCount="indefinite"/>
   </g><g opacity="0.9">
     <polygon points="696.4,394.4 703.4,398.09999999999997 696.4,401.79999999999995 689.4,398.09999999999997" fill="#243129" stroke="#2D3832" stroke-opacity="0.38" stroke-width=".42"/>
@@ -1888,12 +1888,12 @@
 
   </g><text x="95" y="176" class="month">JUL</text><text x="118.4" y="185.4" class="month">AUG</text><text x="176.89999999999998" y="208.9" class="month">SEP</text><text x="223.7" y="227.7" class="month">OCT</text><text x="270.5" y="246.5" class="month">NOV</text><text x="329" y="270" class="month">DEC</text><text x="375.79999999999995" y="288.8" class="month">JAN</text><text x="434.29999999999995" y="312.3" class="month">FEB</text><text x="481.09999999999997" y="331.1" class="month">MAR</text><text x="527.9" y="349.9" class="month">APR</text><text x="574.7" y="368.70000000000005" class="month">MAY</text><text x="633.1999999999999" y="392.20000000000005" class="month">JUN</text><text x="680" y="411" class="month">JUL</text><g><line x1="725.1999999999999" y1="353.2" x2="725.1999999999999" y2="336.2" class="pin"/>
       <rect x="668.1999999999999" y="313.2" width="114" height="23" rx="11.5" class="pill"/>
-      <text x="725.1999999999999" y="328.2" text-anchor="middle" class="peakText">47.3M · 07-16</text></g></g>
+      <text x="725.1999999999999" y="328.2" text-anchor="middle" class="peakText">58.0M · 07-16</text></g></g>
 
   <rect x="24" y="365" width="226" height="70" rx="12" class="panel"/>
-  <text x="44" y="392" class="stat">47.3M</text><text x="44" y="414" class="statLabel">PEAK DAY</text>
+  <text x="44" y="392" class="stat">58.0M</text><text x="44" y="414" class="statLabel">PEAK DAY</text>
   <line x1="145" y1="381" x2="145" y2="416" class="grid"/>
-  <text x="165" y="392" class="stat">91%</text><text x="165" y="414" class="statLabel">OF TOTAL</text>
+  <text x="165" y="392" class="stat">92%</text><text x="165" y="414" class="statLabel">OF TOTAL</text>
 
   <text x="686" y="438" class="month">NONE</text>
   <rect x="719" y="432" width="72" height="6" rx="3" fill="url(#greenLegend)"/>
@@ -1902,7 +1902,7 @@
 
   <rect x="24" y="456" width="792" height="190" rx="13" class="panel"/>
   <text x="44" y="483" class="section">MODEL LEDGER</text>
-  <text x="796" y="483" text-anchor="end" class="eyebrow">3 MODELS · TOP SHARE 47% · OTHER 0%</text>
+  <text x="796" y="483" text-anchor="end" class="eyebrow">3 MODELS · TOP SHARE 56% · OTHER 0%</text>
   <line x1="44" y1="493" x2="796" y2="493" class="grid"/>
   <text x="59" y="509" text-anchor="middle" class="statLabel">RANK</text>
   <text x="109" y="509" class="statLabel">MODEL / SOURCE</text>
@@ -1921,11 +1921,11 @@
   </g>
       <text x="109" y="530" class="model">gpt-5.6-sol</text>
       <text x="109" y="544" class="rowMeta">OBSERVED · 2 DEVICES</text>
-      <text x="376" y="532" text-anchor="end" class="number">24.6M</text>
-      <text x="475" y="532" text-anchor="end" class="number">4.9M</text>
+      <text x="376" y="532" text-anchor="end" class="number">35.3M</text>
+      <text x="475" y="532" text-anchor="end" class="number">7.1M</text>
       <rect x="509" y="525" width="176" height="7" rx="3.5" class="track"/>
-      <rect x="509" y="525" width="83" height="7" rx="3.5" fill="#5FE58A"><animate attributeName="fill-opacity" values=".68;1;.76" dur="3.6s" begin="0.00s" repeatCount="indefinite"/></rect>
-      <text x="790" y="532" text-anchor="end" class="share">47%</text>
+      <rect x="509" y="525" width="99" height="7" rx="3.5" fill="#5FE58A"><animate attributeName="fill-opacity" values=".68;1;.76" dur="3.6s" begin="0.00s" repeatCount="indefinite"/></rect>
+      <text x="790" y="532" text-anchor="end" class="share">56%</text>
       <line x1="44" y1="553" x2="796" y2="553" class="grid"/>
     </g><g>
       <rect x="44" y="553" width="30" height="22" rx="6" fill="#101512" stroke="#2D3832"/>
@@ -1941,8 +1941,8 @@
       <text x="376" y="568" text-anchor="end" class="number">23.9M</text>
       <text x="475" y="568" text-anchor="end" class="number">4.8M</text>
       <rect x="509" y="561" width="176" height="7" rx="3.5" class="track"/>
-      <rect x="509" y="561" width="81" height="7" rx="3.5" fill="#A6F4BC"><animate attributeName="fill-opacity" values=".68;1;.76" dur="3.6s" begin="0.45s" repeatCount="indefinite"/></rect>
-      <text x="790" y="568" text-anchor="end" class="share">46%</text>
+      <rect x="509" y="561" width="67" height="7" rx="3.5" fill="#A6F4BC"><animate attributeName="fill-opacity" values=".68;1;.76" dur="3.6s" begin="0.45s" repeatCount="indefinite"/></rect>
+      <text x="790" y="568" text-anchor="end" class="share">38%</text>
       <line x1="44" y1="589" x2="796" y2="589" class="grid"/>
     </g><g>
       <rect x="44" y="589" width="30" height="22" rx="6" fill="#101512" stroke="#2D3832"/>
@@ -1958,8 +1958,8 @@
       <text x="376" y="604" text-anchor="end" class="number">3.5M</text>
       <text x="475" y="604" text-anchor="end" class="number">698.6K</text>
       <rect x="509" y="597" width="176" height="7" rx="3.5" class="track"/>
-      <rect x="509" y="597" width="12" height="7" rx="3.5" fill="#A6F4BC"><animate attributeName="fill-opacity" values=".68;1;.76" dur="3.6s" begin="0.90s" repeatCount="indefinite"/></rect>
-      <text x="790" y="604" text-anchor="end" class="share">7%</text>
+      <rect x="509" y="597" width="10" height="7" rx="3.5" fill="#A6F4BC"><animate attributeName="fill-opacity" values=".68;1;.76" dur="3.6s" begin="0.90s" repeatCount="indefinite"/></rect>
+      <text x="790" y="604" text-anchor="end" class="share">6%</text>
 
     </g>
 
