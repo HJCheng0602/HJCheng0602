@@ -1,0 +1,10 @@
+{
+  "name": "hjcheng0602-profile",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "render": "node scripts/render-dashboard.mjs",
+    "collect": "node scripts/collect-codex.mjs",
+    "sync": "node scripts/sync.mjs"
+  }
+}
