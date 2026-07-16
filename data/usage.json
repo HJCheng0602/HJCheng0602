@@ -1,10 +1,15 @@
 {
-  "updatedAt": "2026-07-16T02:07:53.538Z",
+  "updatedAt": "2026-07-16T04:16:33.568Z",
   "devices": [
     {
       "name": "linux",
       "platform": "linux",
       "collectedAt": "2026-07-16T02:02:44.866Z"
+    },
+    {
+      "name": "mac_work01",
+      "platform": "darwin",
+      "collectedAt": "2026-07-16T04:07:52.084Z"
     }
   ],
   "models": [
@@ -14,11 +19,11 @@
     },
     {
       "name": "gpt-5.6-sol",
-      "tokens": 13399342
+      "tokens": 13421238
     },
     {
       "name": "gpt-5.5",
-      "tokens": 2539109
+      "tokens": 2936189
     }
   ],
   "days": [
@@ -35,8 +40,12 @@
       "tokens": 316249
     },
     {
+      "date": "2026-07-15",
+      "tokens": 16852
+    },
+    {
       "date": "2026-07-16",
-      "tokens": 35113033
+      "tokens": 35515157
     }
   ]
 }
