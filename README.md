@@ -20,6 +20,10 @@ Undergraduate at PKU, exploring the path from intelligent systems to ML infrastr
 - [SLAM3R OnlineCam](https://github.com/HJCheng0602/SLAM3R_onlinecam) — real-time dense reconstruction from an online camera stream.
 - [paperwise](https://github.com/HJCheng0602/paperwise) — deep reading for research papers with LLM reports, a vector KB, and a knowledge graph.
 
+## Dashboard sync
+
+Collect and merge local Codex usage across macOS, Windows, and WSL. See the [multi-device setup guide](./docs/MULTI_DEVICE_SETUP.md) for first-time setup, SSH authentication, daily updates, and troubleshooting.
+
 ---
 
 <p align="center"><i>Understand the system. Build the system.</i></p>
