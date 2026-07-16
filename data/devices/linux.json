@@ -1,7 +1,7 @@
 {
   "device": "linux",
   "platform": "linux",
-  "collectedAt": "2026-07-16T00:36:41.372Z",
+  "collectedAt": "2026-07-16T02:02:44.866Z",
   "models": [
     {
       "name": "gpt-5.5",
@@ -9,7 +9,11 @@
     },
     {
       "name": "gpt-5.6-terra",
-      "tokens": 15590044
+      "tokens": 23944873
+    },
+    {
+      "name": "gpt-5.6-sol",
+      "tokens": 13399342
     }
   ],
   "days": [
@@ -27,7 +31,7 @@
     },
     {
       "date": "2026-07-16",
-      "tokens": 13358862
+      "tokens": 35113033
     }
   ]
 }
