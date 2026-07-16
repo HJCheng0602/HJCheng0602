@@ -4,9 +4,9 @@ Undergraduate at PKU, exploring the path from intelligent systems to ML infrastr
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="./assets/ai-workbench-dark.svg?v=wsl-1">
-    <source media="(prefers-color-scheme: light)" srcset="./assets/ai-workbench-light.svg?v=wsl-1">
-    <img alt="HJ Cheng's AI workbench statistics" src="./assets/ai-workbench-dark.svg?v=wsl-1" width="840">
+    <source media="(prefers-color-scheme: dark)" srcset="./assets/ai-workbench-dark.svg?v=ridge-1">
+    <source media="(prefers-color-scheme: light)" srcset="./assets/ai-workbench-light.svg?v=ridge-1">
+    <img alt="HJ Cheng's AI workbench statistics" src="./assets/ai-workbench-dark.svg?v=ridge-1" width="840">
   </picture>
 </p>
 
