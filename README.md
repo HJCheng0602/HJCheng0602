@@ -4,9 +4,9 @@ Undergraduate at PKU, exploring the path from intelligent systems to ML infrastr
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="./assets/token-terrain-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="./assets/token-terrain-light.svg">
-    <img alt="HJ Cheng's animated AI coding token terrain" src="./assets/token-terrain-dark.svg" width="840">
+    <source media="(prefers-color-scheme: dark)" srcset="./assets/year-grid-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="./assets/year-grid-light.svg">
+    <img alt="HJ Cheng's green 365-day AI coding calendar" src="./assets/year-grid-dark.svg" width="840">
   </picture>
 </p>
 
