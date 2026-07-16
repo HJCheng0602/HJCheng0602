@@ -1,43 +1,35 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 
-const data = JSON.parse(readFileSync('data/usage.json', 'utf8'));
-const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;' }[c]));
-const compact = (n) => n >= 1e9 ? `${(n / 1e9).toFixed(2)}B` : n >= 1e6 ? `${(n / 1e6).toFixed(1)}M` : n >= 1e3 ? `${(n / 1e3).toFixed(1)}K` : String(n || 0);
-const total = data.models.reduce((n, x) => n + (x.tokens || 0), 0);
-const active = data.days.filter((x) => x.tokens > 0).length;
-const latest = data.updatedAt ? new Date(data.updatedAt).toLocaleDateString('en-CA') : 'SYNC PENDING';
-const palette = ['#758a64', '#c59563', '#71859b', '#aa766a'];
+const d = JSON.parse(readFileSync('data/usage.json', 'utf8'));
+const total = d.models.reduce((n, m) => n + (m.tokens || 0), 0);
+const compact = (n) => n >= 1e9 ? `${(n / 1e9).toFixed(1)}B` : n >= 1e6 ? `${(n / 1e6).toFixed(1)}M` : n >= 1e3 ? `${(n / 1e3).toFixed(1)}K` : `${n || 0}`;
+const safe = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]));
+const colors = [['#58A6FF','#388BFD','#1F6FEB'], ['#A5D6FF','#58A6FF','#388BFD'], ['#79C0FF','#1F6FEB','#0D419D']];
 
-function block(x, y, h, i) {
-  const w = 23, d = 12, top = `${x},${y-h} ${x+w},${y-h-8} ${x+w+d},${y-h} ${x+d},${y-h+8}`;
-  const left = `${x},${y-h} ${x+d},${y-h+8} ${x+d},${y+8} ${x},${y}`;
-  const right = `${x+d},${y-h+8} ${x+w+d},${y-h} ${x+w+d},${y} ${x+d},${y+8}`;
-  const c = palette[i % palette.length];
-  return `<g class="rise r${i % 5}"><polygon points="${left}" fill="#303731"/><polygon points="${right}" fill="#53624c"/><polygon points="${top}" fill="${c}"/><line x1="${x+3}" y1="${y-h+2}" x2="${x+20}" y2="${y-h-4}" stroke="#f1e9dd" stroke-opacity=".38"/></g>`;
+function cube(x, y, z, i, delay) {
+  const [top, right, left] = colors[i % colors.length], s = 10, h = z * 11;
+  return `<g class="cube c${delay % 8}" transform="translate(${x} ${y-h})"><polygon points="0,0 ${s},${s/2} 0,${s} -${s},${s/2}" fill="${top}"/><polygon points="${s},${s/2} ${s},${s/2+11} 0,${s+11} 0,${s}" fill="${right}"/><polygon points="0,${s} 0,${s+11} -${s},${s/2+11} -${s},${s/2}" fill="${left}"/></g>`;
 }
-function card(label, value, note, x, accent) {
-  return `<g><text x="${x}" y="145" class="meta">${label}</text><text x="${x}" y="177" class="metric" fill="${accent}">${esc(value)}</text><text x="${x}" y="198" class="sub">${esc(note)}</text></g>`;
+function terrain() {
+  const days = d.days.slice(-22), max = Math.max(1, ...days.map(x => x.tokens || 0));
+  if (!days.length) return `<text x="250" y="292" class="empty">YOUR FIRST SYNC WILL BUILD THIS TERRAIN</text>`;
+  return days.map((day, i) => {
+    const h = Math.max(1, Math.round(10 * (day.tokens || 0) / max)); const x = 190 + i * 19, y = 158 + i * 11;
+    return Array.from({length:h}, (_, z) => cube(x, y, z, i, i + z)).join('');
+  }).join('');
 }
-function render(dark) {
-  const bg = dark ? '#161816' : '#eeeae2', paper = dark ? '#1e211e' : '#faf8f2', ink = dark ? '#ede9df' : '#20231f', faint = dark ? '#a8aa9d' : '#61665d', rule = dark ? '#3a4038' : '#c5c2b8';
-  const days = data.days.slice(-18), max = Math.max(1, ...days.map((d) => d.tokens || 0));
-  const terrain = days.map((d, i) => block(72 + i * 38, 414 + (i % 2) * 6, Math.max(8, Math.round(128 * (d.tokens || 0) / max)), i)).join('');
-  const modelRows = data.models.slice(0, 5).map((m, i) => {
-    const ratio = total ? Math.max(.025, m.tokens / total) : 0;
-    return `<text x="607" y="${506 + i * 31}" class="model">${esc(m.name)}</text><rect x="750" y="${496 + i * 31}" width="126" height="5" rx="2.5" fill="${rule}"/><rect x="750" y="${496 + i * 31}" width="${126 * ratio}" height="5" rx="2.5" fill="${palette[i]}"><animate attributeName="opacity" values=".55;1;.55" dur="${2.8 + i * .35}s" repeatCount="indefinite"/></rect><text x="911" y="${506 + i * 31}" class="amount" text-anchor="end">${compact(m.tokens)}</text>`;
-  }).join('') || `<text x="607" y="525" class="sub">Waiting for your first local snapshot.</text>`;
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="960" height="690" viewBox="0 0 960 690"><defs><style>
-    .display{font:500 29px Georgia,'Times New Roman',serif;letter-spacing:-.6px;fill:${ink}} .eyebrow{font:600 11px Arial,sans-serif;letter-spacing:2px;fill:${faint}} .meta{font:600 10px Arial,sans-serif;letter-spacing:1.45px;fill:${faint}} .metric{font:500 30px Georgia,'Times New Roman',serif;letter-spacing:-.7px}.sub{font:13px Arial,sans-serif;fill:${faint}} .model{font:13px Arial,sans-serif;fill:${ink}} .amount{font:600 12px Arial,sans-serif;fill:${ink}} .rise{transform-box:fill-box;transform-origin:center bottom;animation:rise 1.4s ease-out both}.r1{animation-delay:.12s}.r2{animation-delay:.24s}.r3{animation-delay:.36s}.r4{animation-delay:.48s}@keyframes rise{0%{opacity:0;transform:translateY(25px) scaleY(.15)}55%{opacity:1}100%{opacity:1;transform:translateY(0) scaleY(1)}}
-  </style><linearGradient id="wash" x1="0" x2="1"><stop stop-color="#758a64" stop-opacity=".2"/><stop offset="1" stop-color="#c59563" stop-opacity="0"/></linearGradient></defs>
-  <rect width="960" height="690" rx="18" fill="${bg}"/><rect x="18" y="18" width="924" height="654" rx="12" fill="none" stroke="${rule}"/>
-  <text x="48" y="63" class="eyebrow">HJ CHENG / PERSONAL COMPUTE LEDGER</text><circle cx="883" cy="57" r="5" fill="#758a64"><animate attributeName="opacity" values=".35;1;.35" dur="2s" repeatCount="indefinite"/></circle><text x="900" y="62" class="eyebrow" text-anchor="end">${esc(latest)}</text>
-  <text x="48" y="108" class="display">AI work, measured without the noise.</text><line x1="48" y1="221" x2="912" y2="221" stroke="${rule}"/>
-  ${card('TOKENS OBSERVED', compact(total), 'all synced devices', 48, '#758a64')}${card('ACTIVE DAYS', `${active}d`, 'in the recorded window', 260, '#c59563')}${card('DEVICES', data.devices.length, 'Mac + Windows ready', 472, '#71859b')}${card('MODELS', data.models.length, 'distinct Codex models', 684, '#aa766a')}
-  <rect x="48" y="252" width="522" height="362" rx="9" fill="${paper}"/><text x="72" y="286" class="eyebrow">TOKEN TERRAIN / LAST 18 DAYS</text><text x="72" y="309" class="sub">each block is a local day; height follows total token volume</text><path d="M62 414 H550" stroke="${rule}"/><path d="M72 430 H548" stroke="${rule}" stroke-dasharray="3 9" opacity=".55"/>${terrain}<rect x="63" y="330" width="485" height="72" fill="url(#wash)" opacity=".55"><animate attributeName="y" values="330;398;330" dur="6s" repeatCount="indefinite"/></rect><line x1="63" y1="402" x2="548" y2="402" stroke="#c59563" stroke-opacity=".65"><animate attributeName="x1" values="63;490;63" dur="5s" repeatCount="indefinite"/></line><text x="72" y="578" class="eyebrow">LOCAL-ONLY LEDGER</text><text x="72" y="599" class="sub">No prompts, code, paths, or hostnames leave your machines.</text>
-  <rect x="590" y="252" width="322" height="362" rx="9" fill="${paper}"/><text x="607" y="286" class="eyebrow">MODEL MIX</text><text x="607" y="309" class="sub">share of observed Codex CLI tokens</text><line x1="607" y1="472" x2="894" y2="472" stroke="${rule}"/>${modelRows}
-  <text x="48" y="648" class="eyebrow">MAC + WINDOWS / CODEX CLI / LIVE SVG MOTION</text><text x="912" y="648" class="eyebrow" text-anchor="end">BUILD THE SYSTEM</text></svg>`;
+function rows() {
+  return d.models.slice(0, 5).map((m, i) => { const p = total ? Math.max(8, Math.round(170 * m.tokens / total)) : 0, y = 501 + i * 20; return `<g class="row r${i}"><text x="45" y="${y}" class="model">${safe(m.name)}</text><text x="385" y="${y}" class="num" text-anchor="end">${compact(m.tokens)}</text><rect x="420" y="${y-10}" width="170" height="7" rx="3.5" class="track"/><rect x="420" y="${y-10}" width="${p}" height="7" rx="3.5" class="bar b${i}"/><text x="796" y="${y}" class="num" text-anchor="end">${total ? `${Math.round(m.tokens / total * 100)}%` : '—'}</text></g>`; }).join('') || `<text x="45" y="506" class="empty">NO MODEL DATA YET — SYNC FROM MAC OR WINDOWS TO BEGIN</text>`;
 }
-mkdirSync('assets', { recursive: true });
-writeFileSync('assets/ai-workbench-dark.svg', render(true));
-writeFileSync('assets/ai-workbench-light.svg', render(false));
-console.log(`Rendered animated workbench: ${compact(total)} tokens across ${data.devices.length} device(s).`);
+function svg(dark) {
+  const ink = dark ? '#F0F6FC' : '#24292F', muted = dark ? '#8B949E' : '#57606A', panel = dark ? '#161B22' : '#F6F8FA', stroke = dark ? '#30363D' : '#D0D7DE';
+  const active = d.days.filter(x => x.tokens > 0).length, latest = d.updatedAt ? new Date(d.updatedAt).toLocaleDateString('en-CA') : 'SYNC PENDING';
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="840" height="608" viewBox="0 0 840 608" role="img" aria-label="AI coding statistics"><style>
+  .title{font:700 18px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:1.2px;fill:${ink}}.subtitle,.label{font:600 10px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.6px;fill:${muted}}.hero{font:700 31px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:-1px;fill:#58A6FF}.stat{font:700 18px ui-monospace,SFMono-Regular,Menlo,monospace;fill:${ink}}.model,.num{font:12px ui-monospace,SFMono-Regular,Menlo,monospace;fill:${ink}}.empty{font:11px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.4px;fill:${muted}}.panel{fill:${panel};stroke:${stroke}}.track{fill:${dark ? '#30363D' : '#D8DEE4'}}.bar{fill:#58A6FF;transform-origin:420px center;animation:grow .8s ease-out both}.cube{transform-box:fill-box;transform-origin:center bottom;animation:rise .62s ease-out both}.c1{animation-delay:.05s}.c2{animation-delay:.1s}.c3{animation-delay:.15s}.c4{animation-delay:.2s}.c5{animation-delay:.25s}.c6{animation-delay:.3s}.c7{animation-delay:.35s}.r0{animation:fade .4s .75s both}.r1{animation:fade .4s .83s both}.r2{animation:fade .4s .91s both}.r3{animation:fade .4s .99s both}.r4{animation:fade .4s 1.07s both}.b1{animation-delay:.08s}.b2{animation-delay:.16s}.b3{animation-delay:.24s}.b4{animation-delay:.32s}@keyframes rise{from{opacity:0;transform:scaleY(0)}to{opacity:1;transform:scaleY(1)}}@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}@keyframes fade{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}@media(prefers-reduced-motion:reduce){*{animation:none!important}}</style>
+  <text x="24" y="45" class="title">AI WORKBENCH</text><text x="24" y="65" class="subtitle">CODEX CLI · MAC + WINDOWS · @HJCheng0602</text><text x="816" y="49" class="hero" text-anchor="end">${compact(total)} tokens</text><text x="816" y="69" class="label" text-anchor="end">ALL-TIME TOTAL · ${latest}</text>
+  <g>${terrain()}</g><text x="128" y="421" class="label">OLDEST</text><text x="568" y="421" class="label">LATEST</text>
+  <g class="panel"><rect x="502" y="94" width="314" height="88" rx="10"/></g><text x="522" y="130" class="stat">${active}d</text><text x="522" y="151" class="label">ACTIVE DAYS</text><text x="625" y="130" class="stat">${d.devices.length}</text><text x="625" y="151" class="label">DEVICES</text><text x="729" y="130" class="stat">${d.models.length}</text><text x="729" y="151" class="label">MODELS</text>
+  <g class="panel"><rect x="24" y="439" width="792" height="142" rx="11"/></g><text x="45" y="470" class="title" style="font-size:13px">MODEL DISTRIBUTION</text><text x="385" y="470" class="label" text-anchor="end">TOKENS</text><text x="796" y="470" class="label" text-anchor="end">SHARE</text>${rows()}
+  <text x="24" y="602" class="subtitle">TRANSPARENT SVG · LOCAL-ONLY AGGREGATES · LIVE MOTION</text></svg>`;
+}
+mkdirSync('assets', {recursive:true}); writeFileSync('assets/ai-workbench-dark.svg', svg(true)); writeFileSync('assets/ai-workbench-light.svg', svg(false)); console.log(`Rendered transparent workbench: ${compact(total)} tokens.`);
