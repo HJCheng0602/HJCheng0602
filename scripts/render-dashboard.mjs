@@ -1,41 +1,227 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 
-const d = JSON.parse(readFileSync('data/usage.json', 'utf8'));
-const total = d.models.reduce((n, m) => n + (m.tokens || 0), 0);
-const compact = (n) => n >= 1e9 ? `${(n / 1e9).toFixed(1)}B` : n >= 1e6 ? `${(n / 1e6).toFixed(1)}M` : n >= 1e3 ? `${(n / 1e3).toFixed(1)}K` : `${n || 0}`;
-const safe = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]));
-const colors = [['#58A6FF','#388BFD','#1F6FEB'], ['#A5D6FF','#58A6FF','#388BFD'], ['#79C0FF','#1F6FEB','#0D419D']];
+const data = JSON.parse(readFileSync('data/usage.json', 'utf8'));
+const total = data.models.reduce((sum, model) => sum + (model.tokens || 0), 0);
+const compact = (value) => value >= 1e9 ? `${(value / 1e9).toFixed(1)}B` : value >= 1e6 ? `${(value / 1e6).toFixed(1)}M` : value >= 1e3 ? `${(value / 1e3).toFixed(1)}K` : `${value || 0}`;
+const safe = (value) => String(value).replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' }[char]));
+const isoDate = (value) => value.toISOString().slice(0, 10);
 
-function cube(x, y, z, i, delay) {
-  const [top, right, left] = colors[i % colors.length], s = 11, yy = y - z * 12;
-  return `<g class="cube c${delay % 8}"><polygon points="${x},${yy} ${x+s},${yy+s/2} ${x},${yy+s} ${x-s},${yy+s/2}" fill="${top}" stroke="#b6d9ff" stroke-opacity=".18" stroke-width=".45"/><polygon points="${x+s},${yy+s/2} ${x+s},${yy+s/2+12} ${x},${yy+s+12} ${x},${yy+s}" fill="${right}"/><polygon points="${x},${yy+s} ${x},${yy+s+12} ${x-s},${yy+s/2+12} ${x-s},${yy+s/2}" fill="${left}"/></g>`;
+function observedDays() {
+  if (!data.days.length) return [];
+  const values = new Map(data.days.map((day) => [day.date, day.tokens || 0]));
+  const start = new Date(`${data.days[0].date}T00:00:00Z`);
+  const end = new Date(`${data.days[data.days.length - 1].date}T00:00:00Z`);
+  const days = [];
+  for (const cursor = new Date(start); cursor <= end; cursor.setUTCDate(cursor.getUTCDate() + 1)) {
+    const date = isoDate(cursor);
+    days.push({ date, tokens: values.get(date) || 0 });
+  }
+  return days.slice(-18);
 }
-function terrain() {
-  const days = d.days.slice(-22), max = Math.max(1, ...days.map(x => x.tokens || 0));
-  if (!days.length) return `<text x="250" y="292" class="empty">YOUR FIRST SYNC WILL BUILD THIS TERRAIN</text>`;
-  const peak = Math.max(...days.map(x => x.tokens || 0)), peakIndex = days.findIndex(x => x.tokens === peak);
-  const ridge = days.map((day, i) => {
-    const h = Math.max(1, Math.round(10 * (day.tokens || 0) / max)), x = 185 + i * 108, y = 180 + i * 58;
-    const tower = Array.from({length:h}, (_, z) => cube(x, y, z, i, i + z)).join('');
-    const base = i % 2 ? cube(x - 11, y + 6, 0, 0, i + 3) : '';
-    const label = i === peakIndex ? `<g class="peak"><line x1="${x}" y1="${y-h*12-7}" x2="${x}" y2="${y-h*12-34}" class="pin"/><rect x="${x-50}" y="${y-h*12-55}" width="100" height="20" rx="10" class="pill"/><text x="${x}" y="${y-h*12-41}" text-anchor="middle" class="peakText">${compact(day.tokens)} · ${day.date.slice(5)}</text></g>` : '';
-    return tower + base + label;
+
+const days = observedDays();
+const activeDays = days.filter((day) => day.tokens > 0).length;
+const peak = days.reduce((best, day, index) => day.tokens > (best?.day.tokens || -1) ? { day, index } : best, null);
+const peakShare = total && peak ? Math.round(peak.day.tokens / total * 100) : 0;
+let longestStreak = 0;
+let currentStreak = 0;
+for (const day of days) {
+  currentStreak = day.tokens > 0 ? currentStreak + 1 : 0;
+  longestStreak = Math.max(longestStreak, currentStreak);
+}
+
+const themes = {
+  dark: {
+    ink: '#F0F3F6', muted: '#8B949E', faint: '#59636E', panel: '#161B22', panel2: '#11161D', stroke: '#30363D',
+    track: '#2B333D', grid: '#202832', blue: '#69AEFF', cyan: '#9BD4FF', cubeTop: ['#A9D8FF', '#7CC0FF', '#589EFF'],
+    cubeRight: ['#4D91D9', '#347AC8', '#2768B5'], cubeLeft: ['#3476BE', '#215A9E', '#19497F'], dormant: ['#27323E', '#1E2833', '#17212B']
+  },
+  light: {
+    ink: '#1F2328', muted: '#59636E', faint: '#8C959F', panel: '#F6F8FA', panel2: '#FFFFFF', stroke: '#D0D7DE',
+    track: '#D8DEE4', grid: '#E7ECF1', blue: '#0969DA', cyan: '#218BFF', cubeTop: ['#79C0FF', '#58A6FF', '#388BFD'],
+    cubeRight: ['#388BFD', '#1F6FEB', '#0969DA'], cubeLeft: ['#1F6FEB', '#0B5CAD', '#084B8A'], dormant: ['#E9EEF3', '#DDE4EA', '#D3DCE5']
+  }
+};
+
+function cube(theme, x, y, level, active, variant, delay) {
+  const size = 10;
+  const rise = 11;
+  const yy = y - level * 10;
+  const top = active ? theme.cubeTop[variant % 3] : theme.dormant[0];
+  const right = active ? theme.cubeRight[variant % 3] : theme.dormant[1];
+  const left = active ? theme.cubeLeft[variant % 3] : theme.dormant[2];
+  const edge = active ? theme.cyan : theme.stroke;
+  return `<g opacity="${active ? 1 : .82}">
+    <polygon points="${x},${yy} ${x + size},${yy + 5} ${x},${yy + 10} ${x - size},${yy + 5}" fill="${top}" stroke="${edge}" stroke-opacity="${active ? .22 : .35}" stroke-width=".55"/>
+    <polygon points="${x + size},${yy + 5} ${x + size},${yy + 5 + rise} ${x},${yy + 10 + rise} ${x},${yy + 10}" fill="${right}"/>
+    <polygon points="${x},${yy + 10} ${x},${yy + 10 + rise} ${x - size},${yy + 5 + rise} ${x - size},${yy + 5}" fill="${left}"/>
+    ${active ? `<animate attributeName="opacity" values=".72;1;.86" keyTimes="0;.45;1" dur="2.8s" begin="${delay.toFixed(2)}s" repeatCount="indefinite"/>` : ''}
+  </g>`;
+}
+
+function modelMark(theme, x, y, color) {
+  return `<g transform="translate(${x} ${y})" fill="none" stroke="${color}" stroke-width="1.45" stroke-linecap="round" opacity=".95">
+    <path d="M0-6.6c3.5 0 6.2 2.3 6.2 5.4 0 1.5-.7 2.8-1.8 3.8"/>
+    <path d="M5.7 3.3C4 6.3.7 7.5-2 6c-1.3-.8-2.1-2-2.4-3.4"/>
+    <path d="M-5.7 3.3C-7.4.3-6.8-3.2-4.1-4.8c1.3-.8 2.8-.8 4.2-.3"/>
+    <path d="M-3.8-1.8L0-4l3.8 2.2v4.4L0 4.8l-3.8-2.2z"/>
+  </g>`;
+}
+
+function modelPills(theme) {
+  let x = 27;
+  return data.models.slice(0, 3).map((model, index) => {
+    const label = safe(model.name);
+    const width = Math.max(106, 43 + label.length * 7.1);
+    const result = `<g><rect x="${x}" y="78" width="${width}" height="24" rx="12" fill="${theme.panel}" stroke="${theme.stroke}"/>
+      ${modelMark(theme, x + 16, 90, index ? theme.cyan : theme.blue)}
+      <text x="${x + 30}" y="94" class="pillText">${label}</text></g>`;
+    x += width + 8;
+    return result;
   }).join('');
-  const labels = days.map((day, i) => `<text x="${167 + i * 108}" y="421" class="axis">${day.date.slice(5)}</text>`).join('');
-  return ridge + labels;
 }
-function rows() {
-  return d.models.slice(0, 5).map((m, i) => { const p = total ? Math.max(8, Math.round(195 * m.tokens / total)) : 0, y = 511 + i * 23, hue = i ? '#79C0FF' : '#58A6FF'; return `<g class="row r${i}"><circle cx="47" cy="${y-5}" r="8" fill="${hue}" opacity=".22"/><path d="M43 ${y-5}h8M47 ${y-9}v8" stroke="${hue}" stroke-width="1.5" stroke-linecap="round"/><text x="63" y="${y}" class="model">${safe(m.name)}</text><text x="409" y="${y}" class="num" text-anchor="end">${compact(m.tokens)}</text><rect x="438" y="${y-10}" width="195" height="7" rx="3.5" class="track"/><rect x="438" y="${y-10}" width="${p}" height="7" rx="3.5" class="bar b${i}"/><text x="796" y="${y}" class="share" text-anchor="end">${total ? `${Math.round(m.tokens / total * 100)}%` : '—'}</text></g>`; }).join('') || `<text x="45" y="511" class="empty">NO MODEL DATA YET — SYNC FROM MAC OR WINDOWS TO BEGIN</text>`;
+
+function terrain(theme) {
+  if (!days.length) return `<text x="420" y="270" text-anchor="middle" class="empty">YOUR FIRST LOCAL SYNC WILL BUILD THIS TERRAIN</text>`;
+  const max = Math.max(1, ...days.map((day) => day.tokens));
+  const lanes = [.55, .82, 1, .72, .46];
+  const step = days.length > 1 ? Math.min(43, 430 / (days.length - 1)) : 43;
+  const startX = 195;
+  const startY = 196;
+  const fragments = [];
+
+  // Dormant tiles form an honest, continuous calendar runway.
+  for (let index = 0; index < days.length; index++) {
+    for (let lane = 0; lane < lanes.length; lane++) {
+      const x = startX + index * step + lane * 18;
+      const y = startY + index * 18 - lane * 9;
+      fragments.push(cube(theme, x, y, 0, false, 0, 0));
+    }
+  }
+
+  // Active days grow into a five-lane isometric ridge using square-root scaling.
+  for (let index = 0; index < days.length; index++) {
+    const day = days[index];
+    if (!day.tokens) continue;
+    const height = Math.max(1, Math.round(Math.sqrt(day.tokens / max) * 9));
+    for (let lane = 0; lane < lanes.length; lane++) {
+      const laneHeight = Math.max(1, Math.round(height * lanes[lane]));
+      const x = startX + index * step + lane * 18;
+      const y = startY + index * 18 - lane * 9;
+      for (let level = 1; level <= laneHeight; level++) {
+        fragments.push(cube(theme, x, y, level, true, index + lane, .18 + index * .035 + level * .035 + lane * .018));
+      }
+    }
+  }
+
+  const axisIndexes = [...new Set([0, Math.floor((days.length - 1) / 2), days.length - 1])];
+  const labels = axisIndexes.map((index) => {
+    const x = startX + index * step - 9;
+    const y = startY + index * 18 + 42;
+    return `<text x="${x}" y="${y}" class="axis">${days[index].date.slice(5)}</text>`;
+  }).join('');
+
+  let peakLabel = '';
+  if (peak) {
+    const height = Math.max(1, Math.round(Math.sqrt(peak.day.tokens / max) * 9));
+    const x = startX + peak.index * step + 36;
+    const y = startY + peak.index * 18 - 18 - height * 10;
+    const labelY = Math.max(180, y - 52);
+    peakLabel = `<g><line x1="${x}" y1="${y + 3}" x2="${x}" y2="${labelY + 25}" class="pin"/>
+      <rect x="${x - 60}" y="${labelY}" width="120" height="25" rx="12.5" class="pill"/>
+      <text x="${x}" y="${labelY + 16}" class="peakText" text-anchor="middle">${compact(peak.day.tokens)} · ${peak.day.date.slice(5)}</text></g>`;
+  }
+
+  return fragments.join('') + labels + peakLabel;
 }
-function svg(dark) {
-  const ink = dark ? '#F0F6FC' : '#24292F', muted = dark ? '#8B949E' : '#57606A', panel = dark ? '#161B22' : '#F6F8FA', stroke = dark ? '#30363D' : '#D0D7DE';
-  const active = d.days.filter(x => x.tokens > 0).length, latest = d.updatedAt ? new Date(d.updatedAt).toLocaleDateString('en-CA') : 'SYNC PENDING';
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="840" height="608" viewBox="0 0 840 608" role="img" aria-label="AI coding statistics"><style>
-  .title{font:700 18px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;letter-spacing:.2px;fill:${ink}}.subtitle,.label{font:600 10px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;letter-spacing:.7px;fill:${muted}}.hero{font:750 31px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;letter-spacing:-1.2px;fill:#58A6FF}.stat{font:700 19px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;fill:${ink}}.model{font:600 13px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;fill:${ink}}.num{font:12px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;fill:${muted}}.share{font:700 12px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;fill:${ink}}.axis{font:10px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;fill:${muted}}.peakText{font:600 10px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;fill:${ink}}.empty{font:11px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;letter-spacing:.15px;fill:${muted}}.panel{fill:${panel};stroke:${stroke}}.pill{fill:${panel};stroke:${stroke}}.pin{stroke:#79C0FF;stroke-width:1.2;stroke-opacity:.8}.track{fill:${dark ? '#30363D' : '#D8DEE4'}}.bar{fill:#58A6FF;transform-origin:420px center;animation:grow .8s ease-out both}.cube{animation:appear .55s ease-out both}.peak{animation:fade .45s 1.1s both}.c1{animation-delay:.05s}.c2{animation-delay:.1s}.c3{animation-delay:.15s}.c4{animation-delay:.2s}.c5{animation-delay:.25s}.c6{animation-delay:.3s}.c7{animation-delay:.35s}.r0{animation:fade .4s .75s both}.r1{animation:fade .4s .83s both}.r2{animation:fade .4s .91s both}.r3{animation:fade .4s .99s both}.r4{animation:fade .4s 1.07s both}.b1{animation-delay:.08s}.b2{animation-delay:.16s}.b3{animation-delay:.24s}.b4{animation-delay:.32s}@keyframes appear{from{opacity:0}to{opacity:1}}@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}@keyframes fade{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}@media(prefers-reduced-motion:reduce){*{animation:none!important}}</style>
-  <text x="24" y="45" class="title">AI WORKBENCH</text><text x="24" y="65" class="subtitle">CODEX CLI · MAC + WINDOWS · @HJCheng0602</text><text x="816" y="49" class="hero" text-anchor="end">${compact(total)} tokens</text><text x="816" y="69" class="label" text-anchor="end">ALL-TIME TOTAL · ${latest}</text>
-  <g>${terrain()}</g>
-  <g class="panel"><rect x="502" y="94" width="314" height="88" rx="10"/></g><text x="522" y="130" class="stat">${active}d</text><text x="522" y="151" class="label">ACTIVE DAYS</text><text x="625" y="130" class="stat">${d.devices.length}</text><text x="625" y="151" class="label">DEVICES</text><text x="729" y="130" class="stat">${d.models.length}</text><text x="729" y="151" class="label">MODELS</text>
-  <g class="panel"><rect x="24" y="439" width="792" height="142" rx="11"/></g><text x="45" y="470" class="title" style="font-size:13px">MODEL DISTRIBUTION</text><text x="409" y="470" class="label" text-anchor="end">TOKENS</text><text x="796" y="470" class="label" text-anchor="end">SHARE</text>${rows()}
-  <text x="24" y="602" class="subtitle">TRANSPARENT SVG · LOCAL-ONLY AGGREGATES · LIVE MOTION</text></svg>`;
+
+function modelRows(theme) {
+  if (!data.models.length) return `<text x="46" y="514" class="empty">NO MODEL DATA YET — SYNC CODEX CLI TO BEGIN</text>`;
+  return data.models.slice(0, 4).map((model, index) => {
+    const share = total ? model.tokens / total : 0;
+    const width = Math.max(3, Math.round(214 * share));
+    const y = 506 + index * 27;
+    const color = index ? theme.cyan : theme.blue;
+    return `<g>
+      ${modelMark(theme, 48, y - 4, color)}
+      <text x="66" y="${y}" class="model">${safe(model.name)}</text>
+      <text x="404" y="${y}" class="number" text-anchor="end">${compact(model.tokens)}</text>
+      <rect x="435" y="${y - 9}" width="214" height="7" rx="3.5" class="track"/>
+      <rect x="435" y="${y - 9}" width="${width}" height="7" rx="3.5" fill="${color}"><animate attributeName="fill-opacity" values=".72;1;.72" dur="3.2s" begin="${(index * .35).toFixed(2)}s" repeatCount="indefinite"/></rect>
+      <text x="786" y="${y}" class="share" text-anchor="end">${Math.round(share * 100)}%</text>
+    </g>`;
+  }).join('');
 }
-mkdirSync('assets', {recursive:true}); writeFileSync('assets/ai-workbench-dark.svg', svg(true)); writeFileSync('assets/ai-workbench-light.svg', svg(false)); console.log(`Rendered transparent workbench: ${compact(total)} tokens.`);
+
+function render(mode) {
+  const theme = themes[mode];
+  const latest = data.updatedAt ? data.updatedAt.slice(0, 10) : 'SYNC PENDING';
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="840" height="608" viewBox="0 0 840 608" role="img" aria-label="HJ Cheng AI coding token terrain">
+  <style>
+    text{font-family:'Cascadia Code','JetBrains Mono','SFMono-Regular',Consolas,monospace}
+    .eyebrow{font-size:10px;font-weight:700;letter-spacing:2.1px;fill:${theme.muted}}
+    .title{font-size:19px;font-weight:750;letter-spacing:1.7px;fill:${theme.ink}}
+    .hero{font-size:36px;font-weight:760;letter-spacing:-2px;fill:${theme.blue}}
+    .heroUnit{font-size:15px;font-weight:700;letter-spacing:-.25px;fill:${theme.blue}}
+    .muted{font-size:10px;font-weight:600;letter-spacing:.7px;fill:${theme.muted}}
+    .pillText{font-size:10px;font-weight:650;fill:${theme.ink}}
+    .stat{font-size:21px;font-weight:750;fill:${theme.ink}}
+    .statLabel{font-size:9px;font-weight:650;letter-spacing:.8px;fill:${theme.muted}}
+    .axis{font-size:9px;font-weight:550;fill:${theme.muted}}
+    .peakText{font-size:10px;font-weight:700;fill:${theme.ink}}
+    .section{font-size:12px;font-weight:750;letter-spacing:.8px;fill:${theme.ink}}
+    .model{font-size:12px;font-weight:700;fill:${theme.ink}}
+    .number{font-size:11px;font-weight:550;fill:${theme.muted}}
+    .share{font-size:12px;font-weight:750;fill:${theme.ink}}
+    .empty{font-size:10px;font-weight:600;letter-spacing:.5px;fill:${theme.muted}}
+    .panel{fill:${theme.panel};stroke:${theme.stroke};stroke-width:1}
+    .pill{fill:${theme.panel};stroke:${theme.stroke};stroke-width:1}
+    .track{fill:${theme.track}}
+    .pin{stroke:${theme.cyan};stroke-width:1.2;stroke-opacity:.75}
+    .grid{stroke:${theme.grid};stroke-width:1}
+    @media(prefers-reduced-motion:reduce){animate{display:none}}
+  </style>
+
+  <text x="24" y="30" class="title">AI CODING TERRAIN</text>
+  <text x="24" y="51" class="eyebrow">CODEX CLI · WSL · @HJCHENG0602</text>
+  <text x="816" y="39" class="hero" text-anchor="end">${compact(total)}<tspan class="heroUnit"> TOKENS</tspan></text>
+  <text x="816" y="59" class="muted" text-anchor="end">OBSERVED TOTAL · ${latest}</text>
+
+  ${modelPills(theme)}
+  <text x="24" y="125" class="eyebrow">DAILY TOKEN RIDGE / ${days.length || 0} DAYS</text>
+  <text x="24" y="143" class="muted">HEIGHT = TOKEN VOLUME</text>
+
+  <rect x="584" y="82" width="232" height="87" rx="13" class="panel"/>
+  <text x="604" y="116" class="stat">${activeDays}d</text><text x="604" y="139" class="statLabel">ACTIVE</text>
+  <text x="675" y="116" class="stat">${longestStreak}d</text><text x="675" y="139" class="statLabel">STREAK</text>
+  <text x="752" y="116" class="stat">${data.devices.length}</text><text x="752" y="139" class="statLabel">DEVICE</text>
+
+  <g>${terrain(theme)}</g>
+
+  <rect x="24" y="338" width="222" height="72" rx="12" class="panel"/>
+  <text x="44" y="365" class="stat">${peak ? compact(peak.day.tokens) : '—'}</text><text x="44" y="388" class="statLabel">PEAK DAY</text>
+  <line x1="142" y1="356" x2="142" y2="391" class="grid"/>
+  <text x="162" y="365" class="stat">${peakShare}%</text><text x="162" y="388" class="statLabel">OF TOTAL</text>
+
+  <text x="690" y="400" class="axis">LOW</text>
+  <rect x="718" y="394" width="74" height="6" rx="3" fill="url(#legend)"/>
+  <text x="800" y="400" class="axis">HIGH</text>
+  <defs><linearGradient id="legend"><stop stop-color="${theme.cubeLeft[2]}"/><stop offset="1" stop-color="${theme.cubeTop[0]}"/></linearGradient></defs>
+
+  <rect x="24" y="431" width="792" height="150" rx="13" class="panel"/>
+  <text x="45" y="461" class="section">MODEL LEDGER</text>
+  <text x="404" y="461" class="statLabel" text-anchor="end">TOKENS</text>
+  <text x="435" y="461" class="statLabel">OBSERVED SHARE</text>
+  <text x="786" y="461" class="statLabel" text-anchor="end">SHARE</text>
+  <line x1="45" y1="475" x2="795" y2="475" class="grid"/>
+  ${modelRows(theme)}
+
+  <text x="24" y="603" class="eyebrow">LOCAL-ONLY AGGREGATES · TRANSPARENT SVG · LIVE MOTION</text>
+  <text x="816" y="603" class="eyebrow" text-anchor="end">BUILD THE SYSTEM</text>
+  </svg>`;
+}
+
+mkdirSync('assets', { recursive: true });
+writeFileSync('assets/ai-workbench-dark.svg', render('dark').replace(/[ \t]+$/gm, ''));
+writeFileSync('assets/ai-workbench-light.svg', render('light').replace(/[ \t]+$/gm, ''));
+console.log(`Rendered token terrain: ${compact(total)} tokens across ${days.length} observed days.`);
