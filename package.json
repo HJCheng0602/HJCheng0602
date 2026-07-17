@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "render": "node scripts/render-dashboard.mjs",
+    "render": "node scripts/render-dashboard.mjs && node scripts/render-focus.mjs",
+    "render:focus": "node scripts/render-focus.mjs",
     "merge": "node scripts/merge-snapshots.mjs",
     "collect": "node scripts/collect-codex.mjs",
     "collect:qoder": "node scripts/collect-qoder.mjs",

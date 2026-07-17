@@ -6,13 +6,19 @@ Undergraduate at PKU focused on GPU kernels, CUDA architecture, and AI systems r
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="./assets/year-grid-dark.svg">
     <source media="(prefers-color-scheme: light)" srcset="./assets/year-grid-light.svg">
-    <img alt="HJ Cheng's green six-month AI coding and token economy dashboard" src="./assets/year-grid-dark.svg" width="840">
+    <img alt="HJ Cheng's blue six-month AI coding and token economy dashboard" src="./assets/year-grid-dark.svg" width="840">
   </picture>
 </p>
 
 ## Focus
 
-`GPU Computing` · `CUDA Kernel Optimization` · `GPU Architecture` · `AI Systems & LLM Inference` · `Performance Engineering` · `MLSys Research` · `Computer Vision & 3D Reconstruction`
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./assets/focus-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="./assets/focus-light.svg">
+    <img alt="JinCheng Han's technical focus across GPU kernels, AI systems, and MLSys research" src="./assets/focus-dark.svg" width="840">
+  </picture>
+</p>
 
 ## Selected work
 

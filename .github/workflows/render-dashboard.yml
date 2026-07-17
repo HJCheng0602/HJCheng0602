@@ -2,7 +2,7 @@ name: Render AI workbench
 
 on:
   push:
-    paths: [data/devices/**, scripts/merge-snapshots.mjs, scripts/render-dashboard.mjs]
+    paths: [data/devices/**, scripts/merge-snapshots.mjs, scripts/render-dashboard.mjs, scripts/render-focus.mjs]
   workflow_dispatch:
 
 permissions:
@@ -17,7 +17,7 @@ jobs:
         with: { node-version: 20 }
       - name: Merge device snapshots
         run: node scripts/merge-snapshots.mjs
-      - run: node scripts/render-dashboard.mjs
+      - run: npm run render
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore: render AI workbench"

@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="326" viewBox="0 0 840 326" role="img" aria-label="JinCheng Han technical focus across GPU kernels, AI systems, and MLSys research">
+  <style>
+    text{font-family:ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace;text-rendering:geometricPrecision}
+    .title{font-size:20px;font-weight:700;fill:#17243A}
+    .eyebrow{font-size:10px;font-weight:700;fill:#526A87}
+    .section{font-size:11px;font-weight:700;fill:#17243A}
+    .sectionMeta{font-size:8px;font-weight:700;fill:#7B90AA}
+    .chipText{font-size:8px;font-weight:700;fill:#17243A}
+    .nodeLabel{font-size:9px;font-weight:700;fill:#17243A}
+    .nodeDetail{font-size:7.5px;font-weight:700;fill:#526A87}
+    .footer{font-size:8px;font-weight:700;fill:#526A87}
+    .panel{fill:#F4F8FE;stroke:#BDCCE1;stroke-width:1}
+    .panelHighlight{fill:none;stroke:#0969DA;stroke-opacity:.25;stroke-width:1}
+    .chipPanel{fill:#FFFFFF;stroke:#BDCCE1;stroke-width:1}
+    .grid{stroke:#D8E3F1;stroke-width:1}
+    .track{fill:#D4E0EF}
+    .focusIn{animation:fadeUp 560ms cubic-bezier(.22,1,.36,1) both}
+    .chip{animation:fadeUp 480ms cubic-bezier(.22,1,.36,1) both}
+    .focusNode{animation:fadeIn 520ms ease-out both}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    @media(prefers-reduced-motion:reduce){*{animation:none!important}}
+  </style>
+
+  <g class="focusIn"><text x="24" y="32" class="title">TECHNICAL FOCUS</text><text x="24" y="53" class="eyebrow">GPU KERNELS | AI SYSTEMS | MLSYS RESEARCH</text><text x="816" y="32" text-anchor="end" class="eyebrow">BUILD - PROFILE - VALIDATE</text></g>
+
+  <g class="focusIn" style="animation-delay:.12s"><rect x="24" y="76" width="248" height="202" rx="8" class="panel"/><rect x="25" y="77" width="246" height="200" rx="7" class="panelHighlight"/>
+    <text x="44" y="105" class="section">KERNEL ENGINEERING</text><text x="44" y="120" class="sectionMeta">CUDA C++ TO PTX / SASS</text>
+    <line x1="44" y1="135" x2="252" y2="135" class="grid"/>
+    <path d="M49 181h48v-12h48v-12h48v-12h42" fill="none" stroke="#0969DA" stroke-width="2" stroke-linejoin="round"/>
+    <rect x="49" y="182" width="48" height="8" rx="2" fill="#3687E8"/><rect x="97" y="170" width="48" height="8" rx="2" fill="#0969DA"/><rect x="145" y="158" width="48" height="8" rx="2" fill="#087EA4"/><rect x="193" y="146" width="42" height="8" rx="2" fill="#A8C9F5"/>
+    <text x="49" y="207" class="sectionMeta">TILE - LOAD - SCHEDULE - EXECUTE</text>
+    <g class="chip"><rect x="44" y="229" width="58" height="21" rx="5" class="chipPanel"/><rect x="52" y="237" width="4" height="4" rx="2" fill="#0969DA"/><text x="62" y="243" class="chipText">GEMM</text></g><g class="chip"><rect x="108" y="229" width="89" height="21" rx="5" class="chipPanel"/><rect x="116" y="237" width="4" height="4" rx="2" fill="#087EA4"/><text x="126" y="243" class="chipText">FLASHATTN</text></g><g class="chip"><rect x="203" y="229" width="49" height="21" rx="5" class="chipPanel"/><rect x="211" y="237" width="4" height="4" rx="2" fill="#0969DA"/><text x="221" y="243" class="chipText">TOPK</text></g>
+  </g>
+
+  <g class="focusIn" style="animation-delay:.22s"><rect x="296" y="76" width="248" height="202" rx="8" class="panel"/><rect x="297" y="77" width="246" height="200" rx="7" class="panelHighlight"/>
+    <text x="316" y="105" class="section">GPU ARCHITECTURE</text><text x="316" y="120" class="sectionMeta">HOPPER / BLACKWELL</text>
+    <line x1="316" y1="135" x2="524" y2="135" class="grid"/>
+    <line x1="332" y1="157" x2="332" y2="239" class="grid"/>
+    <g class="focusNode"><circle cx="332" cy="161" r="4" fill="#0969DA"/><circle cx="332" cy="161" r="8" fill="none" stroke="#0969DA" stroke-opacity=".35" stroke-width="1"/><text x="347" y="160" class="nodeLabel">MEMORY PATH</text><text x="347" y="172" class="nodeDetail">TMA  |  DSM  |  TMEM</text></g>
+    <g class="focusNode"><circle cx="332" cy="195" r="4" fill="#087EA4"/><circle cx="332" cy="195" r="8" fill="none" stroke="#087EA4" stroke-opacity=".35" stroke-width="1"/><text x="347" y="194" class="nodeLabel">EXECUTION</text><text x="347" y="206" class="nodeDetail">WARPS  |  CLUSTERS  |  UMMA</text></g>
+    <g class="focusNode"><circle cx="332" cy="229" r="4" fill="#0969DA"/><circle cx="332" cy="229" r="8" fill="none" stroke="#0969DA" stroke-opacity=".35" stroke-width="1"/><text x="347" y="228" class="nodeLabel">PERFORMANCE</text><text x="347" y="240" class="nodeDetail">OCCUPANCY  |  CARVEOUT</text></g>
+    <g class="chip"><rect x="316" y="247" width="94" height="21" rx="5" class="chipPanel"/><rect x="324" y="255" width="4" height="4" rx="2" fill="#0969DA"/><text x="334" y="261" class="chipText">CUTLASS</text></g><g class="chip"><rect x="416" y="247" width="69" height="21" rx="5" class="chipPanel"/><rect x="424" y="255" width="4" height="4" rx="2" fill="#087EA4"/><text x="434" y="261" class="chipText">CUTE</text></g>
+  </g>
+
+  <g class="focusIn" style="animation-delay:.32s"><rect x="568" y="76" width="248" height="202" rx="8" class="panel"/><rect x="569" y="77" width="246" height="200" rx="7" class="panelHighlight"/>
+    <text x="588" y="105" class="section">SYSTEMS RESEARCH</text><text x="588" y="120" class="sectionMeta">MEASURED, END-TO-END WORK</text>
+    <line x1="588" y1="135" x2="796" y2="135" class="grid"/>
+    <g class="chip"><rect x="588" y="151" width="105" height="21" rx="5" class="chipPanel"/><rect x="596" y="159" width="4" height="4" rx="2" fill="#0969DA"/><text x="606" y="165" class="chipText">LLM INFERENCE</text></g><g class="chip"><rect x="699" y="151" width="83" height="21" rx="5" class="chipPanel"/><rect x="707" y="159" width="4" height="4" rx="2" fill="#087EA4"/><text x="717" y="165" class="chipText">MLSYS</text></g>
+    <g class="focusNode"><circle cx="604" cy="195" r="4" fill="#0969DA"/><circle cx="604" cy="195" r="8" fill="none" stroke="#0969DA" stroke-opacity=".35" stroke-width="1"/><text x="619" y="194" class="nodeLabel">PROFILE</text><text x="619" y="206" class="nodeDetail">NSIGHT COMPUTE  +  NSYS</text></g>
+    <g class="focusNode"><circle cx="604" cy="228" r="4" fill="#087EA4"/><circle cx="604" cy="228" r="8" fill="none" stroke="#087EA4" stroke-opacity=".35" stroke-width="1"/><text x="619" y="227" class="nodeLabel">RESEARCH</text><text x="619" y="239" class="nodeDetail">SYSTEMS  +  VISUAL COMPUTING</text></g>
+    <text x="588" y="260" class="sectionMeta">SLAM3R - DENSE RECONSTRUCTION</text>
+  </g>
+
+  <line x1="24" y1="300" x2="816" y2="300" class="grid"/>
+  <text x="24" y="317" class="footer">SOURCE-DRIVEN STUDY | HARDWARE-AWARE DESIGN | REPRODUCIBLE MEASUREMENT</text><text x="816" y="317" text-anchor="end" class="footer">JINCHENG HAN</text>
+</svg>
