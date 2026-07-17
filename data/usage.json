@@ -3,18 +3,18 @@
   "windowDays": 183,
   "windowStart": "2026-01-16",
   "windowEnd": "2026-07-17",
-  "updatedAt": "2026-07-17T06:37:59.263Z",
+  "updatedAt": "2026-07-17T08:58:44.141Z",
   "devices": [
     {
       "name": "mac_work01",
       "platform": "darwin",
-      "collectedAt": "2026-07-17T05:37:45.767Z",
-      "tokens": 187422289,
-      "inputTokens": 186643151,
-      "cachedInputTokens": 181033472,
-      "outputTokens": 779138,
-      "reasoningOutputTokens": 357888,
-      "detailedTokens": 187422289,
+      "collectedAt": "2026-07-17T08:58:27.513Z",
+      "tokens": 234156417,
+      "inputTokens": 233209801,
+      "cachedInputTokens": 226113280,
+      "outputTokens": 946616,
+      "reasoningOutputTokens": 438321,
+      "detailedTokens": 234156417,
       "models": [
         {
           "name": "gpt-5.5",
@@ -26,32 +26,32 @@
         },
         {
           "name": "gpt-5.6-sol",
-          "tokens": 165108243,
-          "inputTokens": 164423634,
-          "cachedInputTokens": 159727104,
-          "outputTokens": 684609,
-          "reasoningOutputTokens": 313117
+          "tokens": 204986116,
+          "inputTokens": 204165347,
+          "cachedInputTokens": 198300416,
+          "outputTokens": 820769,
+          "reasoningOutputTokens": 378397
         },
         {
           "name": "gpt-5.6-terra",
-          "tokens": 21360341,
-          "inputTokens": 21279985,
-          "cachedInputTokens": 20498688,
-          "outputTokens": 80356,
-          "reasoningOutputTokens": 39300
+          "tokens": 28216596,
+          "inputTokens": 28104922,
+          "cachedInputTokens": 27005184,
+          "outputTokens": 111674,
+          "reasoningOutputTokens": 54453
         }
       ]
     },
     {
       "name": "mac_work01-qoder",
       "platform": "darwin",
-      "collectedAt": "2026-07-17T06:21:51.840Z",
-      "tokens": 129894874,
-      "inputTokens": 128888112,
-      "cachedInputTokens": 114840346,
-      "outputTokens": 1006762,
+      "collectedAt": "2026-07-17T08:58:27.920Z",
+      "tokens": 130120217,
+      "inputTokens": 129108919,
+      "cachedInputTokens": 115016730,
+      "outputTokens": 1011298,
       "reasoningOutputTokens": 0,
-      "detailedTokens": 129894874,
+      "detailedTokens": 130120217,
       "models": [
         {
           "name": "Qwen3.7-Max",
@@ -75,6 +75,14 @@
           "inputTokens": 830893,
           "cachedInputTokens": 553178,
           "outputTokens": 15960,
+          "reasoningOutputTokens": 0
+        },
+        {
+          "name": "Kimi-K3",
+          "tokens": 252547,
+          "inputTokens": 247836,
+          "cachedInputTokens": 180480,
+          "outputTokens": 4711,
           "reasoningOutputTokens": 0
         },
         {
@@ -107,14 +115,6 @@
           "inputTokens": 29994,
           "cachedInputTokens": 4480,
           "outputTokens": 33,
-          "reasoningOutputTokens": 0
-        },
-        {
-          "name": "Kimi-K3",
-          "tokens": 27204,
-          "inputTokens": 27029,
-          "cachedInputTokens": 4096,
-          "outputTokens": 175,
           "reasoningOutputTokens": 0
         },
         {
@@ -168,12 +168,12 @@
   "models": [
     {
       "name": "gpt-5.6-sol",
-      "tokens": 185636252,
-      "inputTokens": 184853472,
-      "cachedInputTokens": 178935552,
-      "outputTokens": 782780,
-      "reasoningOutputTokens": 350119,
-      "detailedTokens": 185636252
+      "tokens": 225514125,
+      "inputTokens": 224595185,
+      "cachedInputTokens": 217508864,
+      "outputTokens": 918940,
+      "reasoningOutputTokens": 415399,
+      "detailedTokens": 225514125
     },
     {
       "name": "Qwen3.7-Max",
@@ -195,12 +195,12 @@
     },
     {
       "name": "gpt-5.6-terra",
-      "tokens": 45305214,
-      "inputTokens": 45160291,
-      "cachedInputTokens": 43785216,
-      "outputTokens": 144923,
-      "reasoningOutputTokens": 56862,
-      "detailedTokens": 45305214
+      "tokens": 52161469,
+      "inputTokens": 51985228,
+      "cachedInputTokens": 50291712,
+      "outputTokens": 176241,
+      "reasoningOutputTokens": 72015,
+      "detailedTokens": 52161469
     },
     {
       "name": "gpt-5.5",
@@ -219,6 +219,15 @@
       "outputTokens": 15960,
       "reasoningOutputTokens": 0,
       "detailedTokens": 846853
+    },
+    {
+      "name": "Kimi-K3",
+      "tokens": 252547,
+      "inputTokens": 247836,
+      "cachedInputTokens": 180480,
+      "outputTokens": 4711,
+      "reasoningOutputTokens": 0,
+      "detailedTokens": 252547
     },
     {
       "name": "Qwen Plus",
@@ -255,15 +264,6 @@
       "outputTokens": 33,
       "reasoningOutputTokens": 0,
       "detailedTokens": 30027
-    },
-    {
-      "name": "Kimi-K3",
-      "tokens": 27204,
-      "inputTokens": 27029,
-      "cachedInputTokens": 4096,
-      "outputTokens": 175,
-      "reasoningOutputTokens": 0,
-      "detailedTokens": 27204
     },
     {
       "name": "Kimi-K2.7-Code",
@@ -430,11 +430,11 @@
     },
     {
       "date": "2026-07-17",
-      "tokens": 72356574,
-      "inputTokens": 72082399,
-      "cachedInputTokens": 69285414,
-      "outputTokens": 274175,
-      "reasoningOutputTokens": 120172
+      "tokens": 119316045,
+      "inputTokens": 118869856,
+      "cachedInputTokens": 114541606,
+      "outputTokens": 446189,
+      "reasoningOutputTokens": 200605
     }
   ]
 }
