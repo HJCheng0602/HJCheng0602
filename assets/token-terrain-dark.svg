@@ -43,7 +43,7 @@
   </defs>
 
   <g class="intro"><text x="24" y="32" class="title">VIBE CODING STATS</text><text x="24" y="54" class="eyebrow">AI WORKBENCH | CODEX + QODER | @HJCHENG0602</text></g>
-  <g class="intro" style="animation-delay:.08s"><text x="816" y="43" class="hero" text-anchor="end">411.3M<tspan class="heroUnit"> TOKENS</tspan></text><text x="816" y="62" class="muted" text-anchor="end">ROLLING 6 MONTHS | 2026-07-17</text></g>
+  <g class="intro" style="animation-delay:.08s"><text x="816" y="43" class="hero" text-anchor="end">413.6M<tspan class="heroUnit"> TOKENS</tspan></text><text x="816" y="62" class="muted" text-anchor="end">ROLLING 6 MONTHS | 2026-07-17</text></g>
 
   <g class="intro tag" style="animation-delay:0.20s"><rect x="24" y="68" width="119" height="23" rx="11.5" class="pill"/>
       <g transform="translate(40 79.5)" fill="none" stroke="#58A6FF" stroke-width="1.25" stroke-linecap="round" opacity=".95">
@@ -736,9 +736,9 @@
     <polygon points="498.6,257.45 498.6,268.45 491.6,272.15 491.6,261.15" fill="#2c69bd"/>
     <polygon points="491.6,261.15 491.6,272.15 484.6,268.45 484.6,257.45" fill="#20549f"/>
   </g><g class="cube liveCube" style="animation-delay:1.30s">
-    <polygon points="514.8,240.55 521.8,244.25 514.8,247.95000000000002 507.79999999999995,244.25" fill="#afd4f9" stroke="#7EE7F5" stroke-opacity="0.28" stroke-width=".42"/>
-    <polygon points="521.8,244.25 521.8,269.25 514.8,272.95 514.8,247.95000000000002" fill="#4795f4"/>
-    <polygon points="514.8,247.95000000000002 514.8,272.95 507.79999999999995,269.25 507.79999999999995,244.25" fill="#3178ce"/>
+    <polygon points="514.8,240.55 521.8,244.25 514.8,247.95000000000002 507.79999999999995,244.25" fill="#b0d5f9" stroke="#7EE7F5" stroke-opacity="0.28" stroke-width=".42"/>
+    <polygon points="521.8,244.25 521.8,269.25 514.8,272.95 514.8,247.95000000000002" fill="#4796f4"/>
+    <polygon points="514.8,247.95000000000002 514.8,272.95 507.79999999999995,269.25 507.79999999999995,244.25" fill="#3278cf"/>
   </g><g class="cube" style="animation-delay:1.14s">
     <polygon points="414.6,263.1 421.6,266.8 414.6,270.5 407.6,266.8" fill="#33465E" stroke="#3B4F6A" stroke-opacity="0.38" stroke-width=".42"/>
     <polygon points="421.6,266.8 421.6,269.8 414.6,273.5 414.6,270.5" fill="#24364D"/>
@@ -811,7 +811,7 @@
     <text x="752" y="171" class="stat">3</text><text x="752" y="188" class="statLabel">DEVICES</text>
     <line x1="602" y1="201" x2="797" y2="201" class="grid"/>
     <text x="602" y="230" class="stat">94%</text><text x="602" y="247" class="statLabel">CACHE HIT</text>
-    <text x="797" y="230" text-anchor="end" class="stat">$248</text><text x="797" y="247" text-anchor="end" class="statLabel">EST. API COST</text>
+    <text x="797" y="230" text-anchor="end" class="stat">$249</text><text x="797" y="247" text-anchor="end" class="statLabel">EST. API COST</text>
     <rect x="602" y="261" width="195" height="8" rx="4" class="track"/><rect x="602" y="261" width="195" height="8" rx="4" fill="#58A6FF" class="meterFill"/>
     <text x="602" y="281" class="statLabel">API PRICE COVERAGE</text><text x="797" y="281" text-anchor="end" class="statLabel">100%</text></g>
 
@@ -834,11 +834,11 @@
     <path d="M-3.7-1.7L0-3.9l3.7 2.2v4.3L0 4.7l-3.7-2.1z"/>
   </g>
       <text x="68" y="435" class="model">gpt-5.6-sol</text>
-      <text x="68" y="446" class="rowMeta">55% SHARE · REASON 415.4K</text>
+      <text x="68" y="446" class="rowMeta">55% SHARE · REASON 417.3K</text>
       <g class="deviceSplit"><rect x="204" y="421" width="146" height="28" rx="5" class="splitPanel"/><rect x="213" y="426" width="128" height="3" rx="1.5" class="track"/><rect x="213" y="426" width="116" height="3" rx="1.5" fill="#58A6FF"/><rect x="329" y="426" width="12" height="3" rx="1.5" fill="#7EE7F5"/><text x="213" y="436" class="splitLabel">mac_work01</text><text x="341" y="436" text-anchor="end" class="splitLabel">91%</text><text x="213" y="445" class="splitLabel">linux</text><text x="341" y="445" text-anchor="end" class="splitLabel">9%</text></g>
-      <text x="470" y="440" text-anchor="end" class="numberStrong">225.5M</text>
+      <text x="470" y="440" text-anchor="end" class="numberStrong">227.1M</text>
       <text x="610" y="440" text-anchor="end" class="numberStrong">97%</text>
-      <text x="796" y="435" text-anchor="end" class="numberStrong">$172</text>
+      <text x="796" y="435" text-anchor="end" class="numberStrong">$173</text>
     </g><g class="mrow" style="animation-delay:1.38s">
       <g transform="translate(50 465)" fill="none" stroke="#58A6FF" stroke-width="1.25" stroke-linecap="round" opacity=".95">
     <path d="M0-6.4c3.4 0 6 2.2 6 5.2 0 1.5-.6 2.8-1.7 3.7"/>
@@ -898,12 +898,12 @@
     <path d="M-5.6 3.2C-7.3.3-6.7-3.1-4-4.7c1.3-.7 2.7-.8 4.1-.3"/>
     <path d="M-3.7-1.7L0-3.9l3.7 2.2v4.3L0 4.7l-3.7-2.1z"/>
   </g>
-      <text x="68" y="605" class="model">Qwen Max</text>
+      <text x="68" y="605" class="model">Kimi-K3</text>
       <text x="68" y="616" class="rowMeta">0% SHARE · REASON 0</text>
       <g class="deviceSplit"><rect x="204" y="591" width="146" height="28" rx="5" class="splitPanel"/><rect x="213" y="596" width="128" height="3" rx="1.5" class="track"/><rect x="213" y="596" width="128" height="3" rx="1.5" fill="#58A6FF"/><text x="213" y="609" class="splitLabel">mac_work01-qoder</text><text x="341" y="609" text-anchor="end" class="splitLabel">100%</text></g>
-      <text x="470" y="610" text-anchor="end" class="numberStrong">846.9K</text>
-      <text x="610" y="610" text-anchor="end" class="numberStrong">67%</text>
-      <text x="796" y="605" text-anchor="end" class="numberStrong">$0.72</text>
+      <text x="470" y="610" text-anchor="end" class="numberStrong">997.3K</text>
+      <text x="610" y="610" text-anchor="end" class="numberStrong">83%</text>
+      <text x="796" y="605" text-anchor="end" class="numberStrong">$1.30</text>
     </g><g class="mrow" style="animation-delay:1.88s">
       <g transform="translate(50 635)" fill="none" stroke="#58A6FF" stroke-width="1.25" stroke-linecap="round" opacity=".95">
     <path d="M0-6.4c3.4 0 6 2.2 6 5.2 0 1.5-.6 2.8-1.7 3.7"/>
@@ -911,12 +911,12 @@
     <path d="M-5.6 3.2C-7.3.3-6.7-3.1-4-4.7c1.3-.7 2.7-.8 4.1-.3"/>
     <path d="M-3.7-1.7L0-3.9l3.7 2.2v4.3L0 4.7l-3.7-2.1z"/>
   </g>
-      <text x="68" y="639" class="model">Kimi-K3</text>
+      <text x="68" y="639" class="model">Qwen Max</text>
       <text x="68" y="650" class="rowMeta">0% SHARE · REASON 0</text>
       <g class="deviceSplit"><rect x="204" y="625" width="146" height="28" rx="5" class="splitPanel"/><rect x="213" y="630" width="128" height="3" rx="1.5" class="track"/><rect x="213" y="630" width="128" height="3" rx="1.5" fill="#58A6FF"/><text x="213" y="643" class="splitLabel">mac_work01-qoder</text><text x="341" y="643" text-anchor="end" class="splitLabel">100%</text></g>
-      <text x="470" y="644" text-anchor="end" class="numberStrong">252.5K</text>
-      <text x="610" y="644" text-anchor="end" class="numberStrong">73%</text>
-      <text x="796" y="639" text-anchor="end" class="numberStrong">$0.33</text>
+      <text x="470" y="644" text-anchor="end" class="numberStrong">846.9K</text>
+      <text x="610" y="644" text-anchor="end" class="numberStrong">67%</text>
+      <text x="796" y="639" text-anchor="end" class="numberStrong">$0.72</text>
     </g>
   <line x1="44" y1="666" x2="796" y2="666" class="grid"/>
   <text x="44" y="683" class="rowMeta">TEXT TOKEN API ESTIMATE | EXCLUDES TOOLS, REGIONAL, AND LONG-CONTEXT SURCHARGES | PUBLIC API RATES 2026-07-17</text></g>
