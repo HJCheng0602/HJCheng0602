@@ -1,6 +1,10 @@
-# Hi, I'm JinCheng Han 👋
-
-Undergraduate at PKU focused on GPU kernels, CUDA architecture, and AI systems research.
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./assets/profile-header-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="./assets/profile-header-light.svg">
+    <img alt="JinCheng Han's GitHub profile header, Peking University undergraduate in Intelligent Science and Technology" src="./assets/profile-header-dark.svg" width="840">
+  </picture>
+</p>
 
 <p align="center">
   <picture>

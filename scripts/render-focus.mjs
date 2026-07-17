@@ -16,8 +16,7 @@ function chip(x, y, width, label, theme, tone = 'accent') {
 
 function node(x, y, label, detail, theme, tone = 'accent') {
   const color = tone === 'accent2' ? theme.accent2 : theme.accent;
-  const delay = tone === 'accent2' ? '.7s' : '0s';
-  return `<g class="focusNode"><circle cx="${x}" cy="${y}" r="12" fill="none" stroke="${color}" stroke-width="1" class="breathRing" style="animation-delay:${delay}"/><circle cx="${x}" cy="${y}" r="4" fill="${color}"/><circle cx="${x}" cy="${y}" r="8" fill="none" stroke="${color}" stroke-opacity=".35" stroke-width="1"/><text x="${x + 15}" y="${y - 1}" class="nodeLabel">${label}</text><text x="${x + 15}" y="${y + 11}" class="nodeDetail">${detail}</text></g>`;
+  return `<g class="focusNode"><circle cx="${x}" cy="${y}" r="12" fill="none" stroke="${color}" stroke-width="1" class="breathRing"/><circle cx="${x}" cy="${y}" r="4" fill="${color}"/><circle cx="${x}" cy="${y}" r="8" fill="none" stroke="${color}" stroke-opacity=".35" stroke-width="1"/><text x="${x + 15}" y="${y - 1}" class="nodeLabel">${label}</text><text x="${x + 15}" y="${y + 11}" class="nodeDetail">${detail}</text></g>`;
 }
 
 function render(mode) {
@@ -55,7 +54,7 @@ function render(mode) {
     <text x="44" y="105" class="section">KERNEL ENGINEERING</text><text x="44" y="120" class="sectionMeta">CUDA C++ TO PTX / SASS</text>
     <line x1="44" y1="135" x2="252" y2="135" class="grid"/>
     <path d="M49 181h48v-12h48v-12h48v-12h42" fill="none" stroke="${theme.accent}" stroke-width="2" stroke-linejoin="round"/>
-    <rect x="49" y="182" width="48" height="8" rx="2" fill="${theme.low}" class="signal"/><rect x="97" y="170" width="48" height="8" rx="2" fill="${theme.accent}" class="signal" style="animation-delay:.16s"/><rect x="145" y="158" width="48" height="8" rx="2" fill="${theme.accent2}" class="signal" style="animation-delay:.32s"/><rect x="193" y="146" width="42" height="8" rx="2" fill="${theme.high}" class="signal" style="animation-delay:.48s"/>
+    <rect x="49" y="182" width="48" height="8" rx="2" fill="${theme.low}" class="signal"/><rect x="97" y="170" width="48" height="8" rx="2" fill="${theme.accent}" class="signal"/><rect x="145" y="158" width="48" height="8" rx="2" fill="${theme.accent2}" class="signal"/><rect x="193" y="146" width="42" height="8" rx="2" fill="${theme.high}" class="signal"/>
     <text x="49" y="207" class="sectionMeta">TILE - LOAD - SCHEDULE - EXECUTE</text>
     ${chip(44, 229, 58, 'GEMM', theme)}${chip(108, 229, 89, 'FLASHATTN', theme, 'accent2')}${chip(203, 229, 49, 'TOPK', theme)}
   </g>

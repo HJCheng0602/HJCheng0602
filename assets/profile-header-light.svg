@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="116" viewBox="0 0 840 116" role="img" aria-label="JinCheng Han's GitHub profile header, Peking University undergraduate in Intelligent Science and Technology">
+  <style>
+    text{font-family:ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace;text-rendering:geometricPrecision}
+    .title{font-size:24px;font-weight:700;fill:#17243A}
+    .degree{font-size:9px;font-weight:700;fill:#526A87}
+    .panelLabel{font-size:8px;font-weight:700;fill:#7B90AA}
+    .panelValue{font-size:10px;font-weight:700;fill:#17243A}
+    .railText{font-size:8px;font-weight:700;fill:#526A87}
+    .panel{fill:#F4F8FE;stroke:#BDCCE1;stroke-width:1}
+    .panelHighlight{fill:none;stroke:#0969DA;stroke-opacity:.25;stroke-width:1;animation:panelBreathe 4.8s ease-in-out 1.35s infinite}
+    .grid{stroke:#D8E3F1;stroke-width:1}
+    .intro,.panelIn{animation:fadeUp 560ms cubic-bezier(.22,1,.36,1) both}
+    .breathRing{transform-box:fill-box;transform-origin:center;animation:nodeBreathe 4s ease-in-out 1.35s infinite}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes panelBreathe{0%,100%{stroke-opacity:.18}50%{stroke-opacity:.72}}
+    @keyframes nodeBreathe{0%,100%{opacity:.12;transform:scale(.72)}50%{opacity:.7;transform:scale(1.2)}}
+    @media(prefers-reduced-motion:reduce){*{animation:none!important}}
+  </style>
+
+  <g class="intro"><text x="24" y="37" class="title">JINCHENG HAN'S GITHUB</text><text x="24" y="58" class="degree">PEKING UNIVERSITY | B.S. CANDIDATE, INTELLIGENT SCIENCE &amp; TECHNOLOGY</text></g>
+  <g class="panelIn" style="animation-delay:.38s"><rect x="576" y="17" width="240" height="47" rx="8" class="panel"/><rect x="577" y="18" width="238" height="45" rx="7" class="panelHighlight"/><text x="596" y="37" class="panelLabel">UNDERGRADUATE RESEARCH</text><text x="596" y="53" class="panelValue">GPU SYSTEMS + MLSYS</text></g>
+  <g class="panelIn" style="animation-delay:.54s"><line x1="24" y1="88" x2="816" y2="88" class="grid"/><g><circle cx="42" cy="88" r="10" fill="none" stroke="#0969DA" stroke-width="1" class="breathRing"/><circle cx="42" cy="88" r="3" fill="#0969DA"/><text x="54" y="91" class="railText">GPU KERNELS</text></g><g><circle cx="222" cy="88" r="10" fill="none" stroke="#087EA4" stroke-width="1" class="breathRing"/><circle cx="222" cy="88" r="3" fill="#087EA4"/><text x="234" y="91" class="railText">CUDA ARCHITECTURE</text></g><g><circle cx="466" cy="88" r="10" fill="none" stroke="#0969DA" stroke-width="1" class="breathRing"/><circle cx="466" cy="88" r="3" fill="#0969DA"/><text x="478" y="91" class="railText">AI SYSTEMS</text></g><g><circle cx="638" cy="88" r="10" fill="none" stroke="#087EA4" stroke-width="1" class="breathRing"/><circle cx="638" cy="88" r="3" fill="#087EA4"/><text x="650" y="91" class="railText">VISUAL COMPUTING</text></g></g>
+  <text x="24" y="109" class="panelLabel">HARDWARE-AWARE SYSTEMS RESEARCH</text><text x="816" y="109" text-anchor="end" class="panelLabel">JINCHENG HAN</text>
+</svg>

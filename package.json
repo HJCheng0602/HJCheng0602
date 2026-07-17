@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "render": "node scripts/render-dashboard.mjs && node scripts/render-focus.mjs && node scripts/render-selected-work.mjs",
+    "render": "node scripts/render-profile-header.mjs && node scripts/render-dashboard.mjs && node scripts/render-focus.mjs && node scripts/render-selected-work.mjs",
+    "render:header": "node scripts/render-profile-header.mjs",
     "render:focus": "node scripts/render-focus.mjs",
     "render:work": "node scripts/render-selected-work.mjs",
     "merge": "node scripts/merge-snapshots.mjs",
