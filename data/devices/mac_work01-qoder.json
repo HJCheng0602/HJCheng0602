@@ -5,7 +5,7 @@
   "windowEnd": "2026-07-17",
   "device": "mac_work01-qoder",
   "platform": "darwin",
-  "collectedAt": "2026-07-17T09:22:45.712Z",
+  "collectedAt": "2026-07-17T09:26:12.119Z",
   "models": [
     {
       "name": "Qwen3.7-Max",
@@ -13,7 +13,8 @@
       "inputTokens": 73282282,
       "cachedInputTokens": 61917703,
       "outputTokens": 681215,
-      "reasoningOutputTokens": 0
+      "reasoningOutputTokens": 0,
+      "sessionCount": 27
     },
     {
       "name": "GLM-5.2",
@@ -21,15 +22,17 @@
       "inputTokens": 54478955,
       "cachedInputTokens": 52266432,
       "outputTokens": 305317,
-      "reasoningOutputTokens": 0
+      "reasoningOutputTokens": 0,
+      "sessionCount": 6
     },
     {
       "name": "Kimi-K3",
-      "tokens": 997252,
-      "inputTokens": 959496,
-      "cachedInputTokens": 794624,
-      "outputTokens": 37756,
-      "reasoningOutputTokens": 0
+      "tokens": 1315036,
+      "inputTokens": 1267703,
+      "cachedInputTokens": 1087744,
+      "outputTokens": 47333,
+      "reasoningOutputTokens": 0,
+      "sessionCount": 2
     },
     {
       "name": "Qwen Max",
@@ -37,7 +40,8 @@
       "inputTokens": 830893,
       "cachedInputTokens": 553178,
       "outputTokens": 15960,
-      "reasoningOutputTokens": 0
+      "reasoningOutputTokens": 0,
+      "sessionCount": 4
     },
     {
       "name": "Qwen Plus",
@@ -45,7 +49,8 @@
       "inputTokens": 147294,
       "cachedInputTokens": 71175,
       "outputTokens": 3902,
-      "reasoningOutputTokens": 0
+      "reasoningOutputTokens": 0,
+      "sessionCount": 2
     },
     {
       "name": "DeepSeek-V4-Fast",
@@ -53,7 +58,8 @@
       "inputTokens": 32624,
       "cachedInputTokens": 4480,
       "outputTokens": 89,
-      "reasoningOutputTokens": 0
+      "reasoningOutputTokens": 0,
+      "sessionCount": 1
     },
     {
       "name": "MiniMax-M3",
@@ -61,7 +67,8 @@
       "inputTokens": 32197,
       "cachedInputTokens": 114,
       "outputTokens": 34,
-      "reasoningOutputTokens": 0
+      "reasoningOutputTokens": 0,
+      "sessionCount": 1
     },
     {
       "name": "DeepSeek-V4-Pro",
@@ -69,7 +76,8 @@
       "inputTokens": 29994,
       "cachedInputTokens": 4480,
       "outputTokens": 33,
-      "reasoningOutputTokens": 0
+      "reasoningOutputTokens": 0,
+      "sessionCount": 1
     },
     {
       "name": "Kimi-K2.7-Code",
@@ -77,7 +85,8 @@
       "inputTokens": 26844,
       "cachedInputTokens": 18688,
       "outputTokens": 37,
-      "reasoningOutputTokens": 0
+      "reasoningOutputTokens": 0,
+      "sessionCount": 1
     }
   ],
   "days": [
@@ -219,10 +228,10 @@
     },
     {
       "date": "2026-07-17",
-      "tokens": 5202839,
-      "inputTokens": 5149310,
-      "cachedInputTokens": 4742438,
-      "outputTokens": 53529,
+      "tokens": 5520623,
+      "inputTokens": 5457517,
+      "cachedInputTokens": 5035558,
+      "outputTokens": 63106,
       "reasoningOutputTokens": 0
     }
   ]

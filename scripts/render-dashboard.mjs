@@ -192,10 +192,13 @@ function modelRows(theme, startY) {
     const detailed = hasFullDetail(model);
     const rate = detailed && model.inputTokens ? `${Math.round(cacheRate(model) * 100)}%` : 'SYNC';
     const cost = compactUsd(model.aggregate ? model.estimatedCostUsd : estimateModelCostUsd(model));
+    const sessionLabel = model.sessionCountComplete || model.sessionCount
+      ? `${compact(model.sessionCount)}${model.sessionCountComplete ? '' : '+'} SESSIONS`
+      : 'SESSION SYNC PENDING';
     return `<g class="mrow" style="animation-delay:${(1.28 + index * .1).toFixed(2)}s">
       ${modelMark(50, y - 4, theme.accent)}
       <text x="68" y="${y}" class="model">${safe(model.name)}</text>
-      <text x="68" y="${y + 11}" class="rowMeta">${Math.round(total ? model.tokens / total * 100 : 0)}% SHARE · ${model.aggregate ? 'OVERFLOW GROUP' : detailed ? `REASON ${compact(model.reasoningOutputTokens)}` : 'RESYNC FOR DETAILS'}</text>
+      <text x="68" y="${y + 11}" class="rowMeta">${Math.round(total ? model.tokens / total * 100 : 0)}% SHARE · ${sessionLabel}</text>
       ${modelDeviceSplit(theme, model, y)}
       <text x="470" y="${y + 5}" text-anchor="end" class="numberStrong">${compact(model.tokens)}</text>
       <text x="610" y="${y + 5}" text-anchor="end" class="numberStrong">${rate}</text>

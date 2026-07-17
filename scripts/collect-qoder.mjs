@@ -35,7 +35,7 @@ if (!existsSync(database)) {
 }
 
 const query = `
-  SELECT token_info, model_info, gmt_create
+  SELECT token_info, model_info, gmt_create, session_id
   FROM chat_message
   WHERE token_info IS NOT NULL AND token_info <> ''
     AND model_info IS NOT NULL AND model_info <> '';
@@ -43,6 +43,7 @@ const query = `
 const raw = execFileSync('sqlite3', ['-readonly', '-json', database, query], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
 const usage = new Map();
 const days = new Map();
+const modelSessions = new Map();
 let messages = 0;
 
 for (const row of JSON.parse(raw || '[]')) {
@@ -58,8 +59,11 @@ for (const row of JSON.parse(raw || '[]')) {
     if (!tokens || !date || date < windowStart || date > windowEnd) continue;
     const key = modelInfo.model_key || 'unknown';
     const model = MODEL_MAP[key] || `Qoder · ${key}`;
+    const sessionId = typeof row.session_id === 'string' ? row.session_id : '';
     const metrics = { tokens, inputTokens, cachedInputTokens, outputTokens, reasoningOutputTokens: 0 };
     if (!usage.has(model)) usage.set(model, emptyMetrics());
+    if (!modelSessions.has(model)) modelSessions.set(model, new Set());
+    if (sessionId) modelSessions.get(model).add(sessionId);
     if (!days.has(date)) days.set(date, emptyMetrics());
     addMetrics(usage.get(model), metrics);
     addMetrics(days.get(date), metrics);
@@ -75,7 +79,7 @@ const output = {
   device,
   platform: platform(),
   collectedAt: new Date().toISOString(),
-  models: [...usage].map(([name, metrics]) => ({ name, ...metrics })).sort((a, b) => b.tokens - a.tokens),
+  models: [...usage].map(([name, metrics]) => ({ name, ...metrics, sessionCount: modelSessions.get(name)?.size || 0 })).sort((a, b) => b.tokens - a.tokens),
   days: [...days].map(([date, metrics]) => ({ date, ...metrics })).sort((a, b) => a.date.localeCompare(b.date))
 };
 

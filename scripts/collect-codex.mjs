@@ -8,7 +8,7 @@ const windowEnd = new Date().toISOString().slice(0, 10);
 const windowStartDate = new Date(`${windowEnd}T00:00:00Z`);
 windowStartDate.setUTCDate(windowStartDate.getUTCDate() - (windowDays - 1));
 const windowStart = windowStartDate.toISOString().slice(0, 10);
-const usage = new Map(); const days = new Map();
+const usage = new Map(); const days = new Map(); const modelSessions = new Map();
 const metricKeys = ['input_tokens', 'cached_input_tokens', 'output_tokens', 'reasoning_output_tokens', 'total_tokens'];
 const emptyMetrics = () => Object.fromEntries(metricKeys.map((key) => [key, 0]));
 const addMetrics = (target, delta) => {
@@ -32,6 +32,8 @@ for (const file of walk(root).filter((f) => f.endsWith('.jsonl'))) {
     const day = event.timestamp?.slice(0, 10);
     if (!day || day < windowStart || day > windowEnd) continue;
     if (!usage.has(model)) usage.set(model, emptyMetrics());
+    if (!modelSessions.has(model)) modelSessions.set(model, new Set());
+    modelSessions.get(model).add(file);
     addMetrics(usage.get(model), delta);
     if (day) {
       if (!days.has(day)) days.set(day, emptyMetrics());
@@ -56,7 +58,7 @@ const output = {
   device,
   platform: platform(),
   collectedAt: new Date().toISOString(),
-  models: [...usage].map(([name, metrics]) => ({ name, ...serializeMetrics(metrics) })),
+  models: [...usage].map(([name, metrics]) => ({ name, ...serializeMetrics(metrics), sessionCount: modelSessions.get(name)?.size || 0 })),
   days: [...days].map(([date, metrics]) => ({ date, ...serializeMetrics(metrics) }))
 };
 mkdirSync('data/devices', { recursive:true }); writeFileSync(`data/devices/${device}.json`, `${JSON.stringify(output,null,2)}\n`);
