@@ -5,7 +5,7 @@
   "windowEnd": "2026-07-17",
   "device": "mac_work01-qoder",
   "platform": "darwin",
-  "collectedAt": "2026-07-17T06:21:51.840Z",
+  "collectedAt": "2026-07-17T08:58:27.920Z",
   "models": [
     {
       "name": "Qwen3.7-Max",
@@ -29,6 +29,14 @@
       "inputTokens": 830893,
       "cachedInputTokens": 553178,
       "outputTokens": 15960,
+      "reasoningOutputTokens": 0
+    },
+    {
+      "name": "Kimi-K3",
+      "tokens": 252547,
+      "inputTokens": 247836,
+      "cachedInputTokens": 180480,
+      "outputTokens": 4711,
       "reasoningOutputTokens": 0
     },
     {
@@ -61,14 +69,6 @@
       "inputTokens": 29994,
       "cachedInputTokens": 4480,
       "outputTokens": 33,
-      "reasoningOutputTokens": 0
-    },
-    {
-      "name": "Kimi-K3",
-      "tokens": 27204,
-      "inputTokens": 27029,
-      "cachedInputTokens": 4096,
-      "outputTokens": 175,
       "reasoningOutputTokens": 0
     },
     {
@@ -219,10 +219,10 @@
     },
     {
       "date": "2026-07-17",
-      "tokens": 4232791,
-      "inputTokens": 4216843,
-      "cachedInputTokens": 3951910,
-      "outputTokens": 15948,
+      "tokens": 4458134,
+      "inputTokens": 4437650,
+      "cachedInputTokens": 4128294,
+      "outputTokens": 20484,
       "reasoningOutputTokens": 0
     }
   ]
