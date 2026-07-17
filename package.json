@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "render": "node scripts/render-dashboard.mjs",
+    "merge": "node scripts/merge-snapshots.mjs",
     "collect": "node scripts/collect-codex.mjs",
     "sync": "node scripts/sync.mjs"
   }

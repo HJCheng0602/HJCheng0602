@@ -1,20 +1,112 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 
 const data = JSON.parse(readFileSync('data/usage.json', 'utf8'));
+const WINDOW_DAYS = 183;
+const RATE_CARD_DATE = '2026-07-17';
+const creditRates = {
+  'gpt-5.6-sol': { input: 125, cached: 12.5, output: 750 },
+  'gpt-5.6-terra': { input: 62.5, cached: 6.25, output: 375 },
+  'gpt-5.6-luna': { input: 25, cached: 2.5, output: 150 },
+  'gpt-5.5': { input: 125, cached: 12.5, output: 750 },
+  'gpt-5.4': { input: 62.5, cached: 6.25, output: 375 },
+  'gpt-5.4-mini': { input: 18.75, cached: 1.875, output: 113 }
+};
+
 const total = data.models.reduce((sum, model) => sum + (model.tokens || 0), 0);
-const compact = (value) => value >= 1e9 ? `${(value / 1e9).toFixed(1)}B` : value >= 1e6 ? `${(value / 1e6).toFixed(1)}M` : value >= 1e3 ? `${(value / 1e3).toFixed(1)}K` : `${value || 0}`;
+const compact = (value) => value >= 1e9 ? `${(value / 1e9).toFixed(1)}B` : value >= 1e6 ? `${(value / 1e6).toFixed(1)}M` : value >= 1e3 ? `${(value / 1e3).toFixed(1)}K` : `${Math.round(value || 0)}`;
+const compactCredits = (value) => value == null ? '—' : value >= 1000 ? `${(value / 1000).toFixed(1)}K CR` : `${value.toFixed(value >= 100 ? 0 : 1)} CR`;
 const safe = (value) => String(value).replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' }[char]));
 const isoDate = (value) => value.toISOString().slice(0, 10);
+const cacheRate = (item) => item?.inputTokens ? item.cachedInputTokens / item.inputTokens : 0;
+const hasFullDetail = (item) => Boolean(item?.tokens) && (item.detailedTokens || 0) >= item.tokens * .999;
+const estimateModelCredits = (model) => {
+  const rates = creditRates[model.name];
+  if (!rates || !hasFullDetail(model)) return null;
+  const cached = model.cachedInputTokens || 0;
+  const uncached = Math.max(0, (model.inputTokens || 0) - cached);
+  return (uncached * rates.input + cached * rates.cached + (model.outputTokens || 0) * rates.output) / 1e6;
+};
+const estimateDetailedCredits = (model) => {
+  const rates = creditRates[model.name];
+  if (!rates || !(model.detailedTokens || 0)) return 0;
+  const cached = model.cachedInputTokens || 0;
+  const uncached = Math.max(0, (model.inputTokens || 0) - cached);
+  return (uncached * rates.input + cached * rates.cached + (model.outputTokens || 0) * rates.output) / 1e6;
+};
+const estimateDeviceCredits = (device) => {
+  if (!hasFullDetail(device) || !device.models?.length) return null;
+  let sum = 0;
+  for (const model of device.models) {
+    const value = estimateModelCredits({ ...model, detailedTokens: model.tokens });
+    if (value == null) return null;
+    sum += value;
+  }
+  return sum;
+};
 
-function rollingYear() {
+function displayModels() {
+  if (data.models.length <= 4) return data.models;
+  const visible = data.models.slice(0, 3);
+  const remainder = data.models.slice(3);
+  const aggregate = {
+    name: `OTHER · ${remainder.length} MODELS`,
+    tokens: 0,
+    inputTokens: 0,
+    cachedInputTokens: 0,
+    outputTokens: 0,
+    reasoningOutputTokens: 0,
+    detailedTokens: 0,
+    aggregate: true
+  };
+  let credits = 0;
+  let creditsKnown = true;
+  for (const model of remainder) {
+    for (const key of ['tokens', 'inputTokens', 'cachedInputTokens', 'outputTokens', 'reasoningOutputTokens', 'detailedTokens']) aggregate[key] += model[key] || 0;
+    const value = estimateModelCredits(model);
+    if (value == null) creditsKnown = false;
+    else credits += value;
+  }
+  aggregate.estimatedCredits = creditsKnown ? credits : null;
+  return [...visible, aggregate];
+}
+
+function displayDevices() {
+  if (data.devices.length <= 3) return data.devices;
+  const visible = data.devices.slice(0, 2);
+  const remainder = data.devices.slice(2);
+  const models = new Map();
+  const aggregate = {
+    name: `OTHER · ${remainder.length} DEVICES`,
+    platform: 'mixed',
+    collectedAt: remainder.map((device) => device.collectedAt || '').sort().at(-1),
+    tokens: 0,
+    inputTokens: 0,
+    cachedInputTokens: 0,
+    outputTokens: 0,
+    reasoningOutputTokens: 0,
+    detailedTokens: 0,
+    aggregate: true
+  };
+  for (const device of remainder) {
+    for (const key of ['tokens', 'inputTokens', 'cachedInputTokens', 'outputTokens', 'reasoningOutputTokens', 'detailedTokens']) aggregate[key] += device[key] || 0;
+    for (const model of device.models || []) {
+      if (!models.has(model.name)) models.set(model.name, { name: model.name, tokens: 0, inputTokens: 0, cachedInputTokens: 0, outputTokens: 0, reasoningOutputTokens: 0 });
+      for (const key of ['tokens', 'inputTokens', 'cachedInputTokens', 'outputTokens', 'reasoningOutputTokens']) models.get(model.name)[key] += model[key] || 0;
+    }
+  }
+  aggregate.models = [...models.values()];
+  return [...visible, aggregate];
+}
+
+function rollingWindow() {
   const values = new Map(data.days.map((day) => [day.date, day.tokens || 0]));
   const latestUsage = data.days.at(-1)?.date || '1970-01-01';
   const latestSync = data.updatedAt?.slice(0, 10) || latestUsage;
-  const endKey = latestUsage > latestSync ? latestUsage : latestSync;
+  const endKey = data.windowEnd || (latestUsage > latestSync ? latestUsage : latestSync);
   const end = new Date(`${endKey}T00:00:00Z`);
   const start = new Date(end);
-  start.setUTCDate(start.getUTCDate() - 364);
-  return Array.from({ length: 365 }, (_, index) => {
+  start.setUTCDate(start.getUTCDate() - (WINDOW_DAYS - 1));
+  return Array.from({ length: WINDOW_DAYS }, (_, index) => {
     const date = new Date(start);
     date.setUTCDate(date.getUTCDate() + index);
     const key = isoDate(date);
@@ -22,10 +114,9 @@ function rollingYear() {
   });
 }
 
-const days = rollingYear();
+const days = rollingWindow();
 const activeDays = days.filter((day) => day.tokens > 0).length;
 const peak = days.reduce((best, day) => day.tokens > (best?.tokens || -1) ? day : best, null);
-const peakShare = total && peak ? Math.round(peak.tokens / total * 100) : 0;
 let longestStreak = 0;
 let currentStreak = 0;
 for (const day of days) {
@@ -33,15 +124,21 @@ for (const day of days) {
   longestStreak = Math.max(longestStreak, currentStreak);
 }
 
+const detailedTokens = data.models.reduce((sum, model) => sum + (model.detailedTokens || 0), 0);
+const detailedInput = data.models.reduce((sum, model) => sum + (model.inputTokens || 0), 0);
+const detailedCached = data.models.reduce((sum, model) => sum + (model.cachedInputTokens || 0), 0);
+const totalCredits = data.models.reduce((sum, model) => sum + estimateDetailedCredits(model), 0);
+const detailCoverage = total ? detailedTokens / total : 0;
+
 const themes = {
   dark: {
-    ink: '#F0F4F2', muted: '#8E9B95', faint: '#5E6B65', panel: '#151B18', panel2: '#101512', stroke: '#2D3832', grid: '#232D28', track: '#2B3530',
-    accent: '#5FE58A', accent2: '#A6F4BC', dormantTop: '#243129', dormantRight: '#1A261F', dormantLeft: '#142019',
-    lowTop: '#286442', highTop: '#B7F7C8', lowRight: '#1B4A31', highRight: '#45C974', lowLeft: '#153A28', highLeft: '#2B9B58'
+    ink: '#F0F5F1', muted: '#8B9A91', faint: '#5D6D63', panel: '#141B17', panel2: '#0F1512', stroke: '#2C3931', grid: '#223028', track: '#2A3730',
+    accent: '#5FE58A', accent2: '#A9F5BD', dormantTop: '#243229', dormantRight: '#19251E', dormantLeft: '#132019',
+    lowTop: '#286442', highTop: '#B8F7C9', lowRight: '#1B4A31', highRight: '#45C974', lowLeft: '#153A28', highLeft: '#2B9B58'
   },
   light: {
-    ink: '#202722', muted: '#5F6D65', faint: '#8B9891', panel: '#F4F8F5', panel2: '#FFFFFF', stroke: '#CDD9D1', grid: '#DDE7E0', track: '#D8E2DB',
-    accent: '#1A9B4A', accent2: '#35B85F', dormantTop: '#E3ECE6', dormantRight: '#D5E2D9', dormantLeft: '#CBDACF',
+    ink: '#202822', muted: '#5D6D63', faint: '#89978F', panel: '#F3F8F4', panel2: '#FFFFFF', stroke: '#CCDAD0', grid: '#DCE7DF', track: '#D7E2DA',
+    accent: '#169847', accent2: '#36B961', dormantTop: '#E3ECE6', dormantRight: '#D5E2D9', dormantLeft: '#CBDACF',
     lowTop: '#BDE8C8', highTop: '#29A854', lowRight: '#8FD5A3', highRight: '#16833D', lowLeft: '#73BF8C', highLeft: '#106B34'
   }
 };
@@ -53,7 +150,7 @@ function mix(from, to, amount) {
 }
 
 function modelMark(x, y, color) {
-  return `<g transform="translate(${x} ${y})" fill="none" stroke="${color}" stroke-width="1.35" stroke-linecap="round" opacity=".95">
+  return `<g transform="translate(${x} ${y})" fill="none" stroke="${color}" stroke-width="1.25" stroke-linecap="round" opacity=".95">
     <path d="M0-6.4c3.4 0 6 2.2 6 5.2 0 1.5-.6 2.8-1.7 3.7"/>
     <path d="M5.6 3.2C3.9 6.1.7 7.2-2 5.8c-1.3-.7-2.1-1.9-2.3-3.3"/>
     <path d="M-5.6 3.2C-7.3.3-6.7-3.1-4-4.7c1.3-.7 2.7-.8 4.1-.3"/>
@@ -64,8 +161,8 @@ function modelMark(x, y, color) {
 function coords(day) {
   const firstWeekday = days[0].weekday;
   const week = Math.floor((firstWeekday + day.index) / 7);
-  const x = 88 + week * 11.7 + day.weekday * 7.2;
-  const y = 153 + week * 4.7 - day.weekday * 3.8;
+  const x = 67 + week * 15.8 + day.weekday * 7.4;
+  const y = 166 + week * 4.55 - day.weekday * 3.75;
   return { x, y, week };
 }
 
@@ -73,7 +170,7 @@ function dayCube(theme, day, maxTokens) {
   const { x, y, week } = coords(day);
   const ratio = day.tokens ? day.tokens / maxTokens : 0;
   const intensity = Math.sqrt(ratio);
-  const height = day.tokens ? 7 + Math.round(intensity * 20) : 3;
+  const height = day.tokens ? 7 + Math.round(intensity * 21) : 3;
   const width = 7;
   const depth = 3.7;
   const topY = y - height;
@@ -102,57 +199,74 @@ function calendar(theme) {
     if (month === previousMonth) continue;
     previousMonth = month;
     const { week } = coords(day);
-    labels.push(`<text x="${95 + week * 11.7}" y="${176 + week * 4.7}" class="month">${monthNames[month]}</text>`);
+    labels.push(`<text x="${72 + week * 15.8}" y="${190 + week * 4.55}" class="month">${monthNames[month]}</text>`);
   }
-
   let callout = '';
   if (peak?.tokens) {
     const { x, y } = coords(peak);
-    const intensity = Math.sqrt(peak.tokens / maxTokens);
-    const height = 7 + Math.round(intensity * 20);
-    const topY = y - height;
-    const labelY = topY - 42;
-    callout = `<g><line x1="${x}" y1="${topY - 2}" x2="${x}" y2="${labelY + 23}" class="pin"/>
-      <rect x="${x - 57}" y="${labelY}" width="114" height="23" rx="11.5" class="pill"/>
+    const height = 7 + Math.round(Math.sqrt(peak.tokens / maxTokens) * 21);
+    const labelY = y - height - 38;
+    callout = `<g><line x1="${x}" y1="${y - height - 2}" x2="${x}" y2="${labelY + 22}" class="pin"/>
+      <rect x="${x - 53}" y="${labelY}" width="106" height="22" rx="11" class="pill"/>
       <text x="${x}" y="${labelY + 15}" text-anchor="middle" class="peakText">${compact(peak.tokens)} · ${peak.date.slice(5)}</text></g>`;
   }
   return cells + labels.join('') + callout;
 }
 
 function modelPills(theme) {
-  let x = 26;
+  let x = 24;
   return data.models.slice(0, 3).map((model, index) => {
     const label = safe(model.name);
     const width = Math.max(105, 42 + label.length * 7);
-    const result = `<g><rect x="${x}" y="70" width="${width}" height="23" rx="11.5" class="pill"/>
-      ${modelMark(x + 16, 81.5, index ? theme.accent2 : theme.accent)}
-      <text x="${x + 30}" y="85" class="pillText">${label}</text></g>`;
+    const result = `<g><rect x="${x}" y="68" width="${width}" height="23" rx="11.5" class="pill"/>
+      ${modelMark(x + 16, 79.5, index ? theme.accent2 : theme.accent)}
+      <text x="${x + 30}" y="83" class="pillText">${label}</text></g>`;
     x += width + 8;
     return result;
   }).join('');
 }
 
-function modelRows(theme) {
-  if (!data.models.length) return `<text x="45" y="541" class="empty">NO MODEL DATA — SYNC CODEX CLI TO BEGIN</text>`;
-  return data.models.slice(0, 4).map((model, index) => {
-    const share = total ? model.tokens / total : 0;
-    const barWidth = Math.max(3, Math.round(176 * share));
-    const average = activeDays ? model.tokens / activeDays : 0;
-    const y = 535 + index * 36;
-    const color = index ? theme.accent2 : theme.accent;
-    const rank = String(index + 1).padStart(2, '0');
+function deviceRows(theme) {
+  return displayDevices().map((device, index) => {
+    const y = 423 + index * 29;
+    const detailed = hasFullDetail(device);
+    const rate = detailed && device.inputTokens ? `${Math.round(cacheRate(device) * 100)}%` : 'SYNC';
+    const credits = compactCredits(estimateDeviceCredits(device));
+    const share = total ? device.tokens / total : 0;
+    const platform = device.platform === 'darwin' ? 'MAC' : device.platform === 'win32' ? 'WIN' : device.platform === 'mixed' ? 'MIXED' : 'LINUX';
     return `<g>
-      <rect x="44" y="${y - 18}" width="30" height="22" rx="6" fill="${theme.panel2}" stroke="${theme.stroke}"/>
-      <text x="59" y="${y - 3}" text-anchor="middle" class="rank">${rank}</text>
-      ${modelMark(92, y - 7, color)}
-      <text x="109" y="${y - 5}" class="model">${safe(model.name)}</text>
-      <text x="109" y="${y + 9}" class="rowMeta">OBSERVED · ${data.devices.length} DEVICE${data.devices.length === 1 ? '' : 'S'}</text>
-      <text x="376" y="${y - 3}" text-anchor="end" class="number">${compact(model.tokens)}</text>
-      <text x="475" y="${y - 3}" text-anchor="end" class="number">${compact(average)}</text>
-      <rect x="509" y="${y - 10}" width="176" height="7" rx="3.5" class="track"/>
-      <rect x="509" y="${y - 10}" width="${barWidth}" height="7" rx="3.5" fill="${color}"><animate attributeName="fill-opacity" values=".68;1;.76" dur="3.6s" begin="${(index * .45).toFixed(2)}s" repeatCount="indefinite"/></rect>
-      <text x="790" y="${y - 3}" text-anchor="end" class="share">${Math.round(share * 100)}%</text>
-      ${index < Math.min(data.models.length, 4) - 1 ? `<line x1="44" y1="${y + 18}" x2="796" y2="${y + 18}" class="grid"/>` : ''}
+      <circle cx="48" cy="${y - 4}" r="4" fill="${index ? theme.accent2 : theme.accent}"/>
+      <text x="60" y="${y}" class="device">${safe(device.name)}</text>
+      <text x="60" y="${y + 11}" class="rowMeta">${platform} · ${device.aggregate ? 'OVERFLOW GROUP' : detailed ? 'DETAIL READY' : 'RESYNC FOR DETAILS'}</text>
+      <text x="326" y="${y}" text-anchor="end" class="numberStrong">${compact(device.tokens)}</text>
+      <rect x="350" y="${y - 8}" width="102" height="6" rx="3" class="track"/>
+      <rect x="350" y="${y - 8}" width="${Math.max(3, Math.round(102 * share))}" height="6" rx="3" fill="${index ? theme.accent2 : theme.accent}"/>
+      <text x="480" y="${y}" text-anchor="end" class="numberStrong">${Math.round(share * 100)}%</text>
+      <text x="590" y="${y}" text-anchor="end" class="numberStrong">${rate}</text>
+      <text x="704" y="${y}" text-anchor="end" class="numberStrong">${credits}</text>
+      <text x="796" y="${y}" text-anchor="end" class="number">${device.collectedAt?.slice(5, 10) || '—'}</text>
+    </g>`;
+  }).join('');
+}
+
+function modelRows(theme) {
+  if (!data.models.length) return `<text x="44" y="596" class="empty">NO MODEL DATA — SYNC CODEX CLI TO BEGIN</text>`;
+  return displayModels().map((model, index) => {
+    const y = 580 + index * 31;
+    const detailed = hasFullDetail(model);
+    const rate = detailed && model.inputTokens ? `${Math.round(cacheRate(model) * 100)}%` : 'SYNC';
+    const credits = compactCredits(model.aggregate ? model.estimatedCredits : estimateModelCredits(model));
+    const color = index ? theme.accent2 : theme.accent;
+    return `<g>
+      ${modelMark(50, y - 4, color)}
+      <text x="66" y="${y}" class="model">${safe(model.name)}</text>
+      <text x="66" y="${y + 11}" class="rowMeta">${Math.round(total ? model.tokens / total * 100 : 0)}% SHARE · ${model.aggregate ? 'OVERFLOW GROUP' : `REASON ${detailed ? compact(model.reasoningOutputTokens) : '—'}`}</text>
+      <text x="316" y="${y}" text-anchor="end" class="numberStrong">${compact(model.tokens)}</text>
+      <text x="414" y="${y}" text-anchor="end" class="number">${detailed ? compact(model.inputTokens) : '—'}</text>
+      <text x="508" y="${y}" text-anchor="end" class="number">${detailed ? compact(model.cachedInputTokens) : '—'}</text>
+      <text x="596" y="${y}" text-anchor="end" class="number">${detailed ? compact(model.outputTokens) : '—'}</text>
+      <text x="682" y="${y}" text-anchor="end" class="numberStrong">${rate}</text>
+      <text x="796" y="${y}" text-anchor="end" class="numberStrong">${credits}</text>
     </g>`;
   }).join('');
 }
@@ -160,29 +274,29 @@ function modelRows(theme) {
 function render(mode) {
   const theme = themes[mode];
   const latest = data.updatedAt ? data.updatedAt.slice(0, 10) : 'SYNC PENDING';
-  const topShare = total && data.models[0] ? Math.round(data.models[0].tokens / total * 100) : 0;
-  const coverage = (activeDays / 365 * 100).toFixed(1);
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="840" height="680" viewBox="0 0 840 680" role="img" aria-label="HJ Cheng 365 day AI coding calendar">
+  const coverageLabel = `${Math.round(detailCoverage * 100)}%`;
+  const cacheLabel = detailedInput ? `${Math.round(detailedCached / detailedInput * 100)}%` : '—';
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="840" height="750" viewBox="0 0 840 750" role="img" aria-label="HJ Cheng six month AI coding and token economy dashboard">
   <style>
     text{font-family:'Cascadia Code','JetBrains Mono','SFMono-Regular',Consolas,monospace}
     .title{font-size:20px;font-weight:760;letter-spacing:2.2px;fill:${theme.ink}}
-    .eyebrow{font-size:9px;font-weight:700;letter-spacing:1.7px;fill:${theme.muted}}
+    .eyebrow{font-size:9px;font-weight:700;letter-spacing:1.55px;fill:${theme.muted}}
     .hero{font-size:36px;font-weight:780;letter-spacing:-2px;fill:${theme.accent}}
     .heroUnit{font-size:14px;font-weight:720;letter-spacing:-.25px;fill:${theme.accent}}
-    .muted{font-size:9px;font-weight:600;letter-spacing:.6px;fill:${theme.muted}}
+    .muted{font-size:9px;font-weight:600;letter-spacing:.55px;fill:${theme.muted}}
     .pillText{font-size:9.5px;font-weight:700;fill:${theme.ink}}
-    .stat{font-size:20px;font-weight:770;fill:${theme.ink}}
-    .statLabel{font-size:8px;font-weight:700;letter-spacing:.85px;fill:${theme.muted}}
+    .stat{font-size:19px;font-weight:770;fill:${theme.ink}}
+    .statLabel{font-size:7.5px;font-weight:700;letter-spacing:.8px;fill:${theme.muted}}
     .month{font-size:8px;font-weight:650;letter-spacing:.5px;fill:${theme.muted}}
     .peakText{font-size:9px;font-weight:750;fill:${theme.ink}}
     .section{font-size:12px;font-weight:780;letter-spacing:1px;fill:${theme.ink}}
-    .model{font-size:11px;font-weight:750;fill:${theme.ink}}
-    .rowMeta{font-size:7.5px;font-weight:650;letter-spacing:.6px;fill:${theme.faint}}
-    .number{font-size:10px;font-weight:650;fill:${theme.muted}}
-    .share{font-size:11px;font-weight:780;fill:${theme.ink}}
-    .rank{font-size:9px;font-weight:780;fill:${theme.accent}}
+    .device,.model{font-size:10.5px;font-weight:750;fill:${theme.ink}}
+    .rowMeta{font-size:7px;font-weight:650;letter-spacing:.45px;fill:${theme.faint}}
+    .number{font-size:9.5px;font-weight:650;fill:${theme.muted}}
+    .numberStrong{font-size:10px;font-weight:760;fill:${theme.ink}}
     .empty{font-size:10px;font-weight:650;letter-spacing:.5px;fill:${theme.muted}}
     .panel{fill:${theme.panel};stroke:${theme.stroke};stroke-width:1}
+    .panel2{fill:${theme.panel2};stroke:${theme.stroke};stroke-width:1}
     .pill{fill:${theme.panel};stroke:${theme.stroke};stroke-width:1}
     .track{fill:${theme.track}}
     .pin{stroke:${theme.accent2};stroke-width:1.2;stroke-opacity:.78}
@@ -191,51 +305,63 @@ function render(mode) {
   </style>
 
   <text x="24" y="31" class="title">VIBE CODING STATS</text>
-  <text x="24" y="51" class="eyebrow">CODEX CLI · LOCAL LEDGER · @HJCHENG0602</text>
+  <text x="24" y="51" class="eyebrow">CODEX CLI · MULTI-DEVICE LEDGER · @HJCHENG0602</text>
   <text x="816" y="40" class="hero" text-anchor="end">${compact(total)}<tspan class="heroUnit"> TOKENS</tspan></text>
-  <text x="816" y="58" class="muted" text-anchor="end">OBSERVED TOTAL · ${latest}</text>
+  <text x="816" y="58" class="muted" text-anchor="end">ROLLING 6 MONTHS · ${latest}</text>
 
   ${modelPills(theme)}
-  <text x="24" y="113" class="eyebrow">365 DAY TOKEN CALENDAR · ONE CUBE PER DAY</text>
-  <text x="24" y="129" class="muted">HEIGHT + GREEN INTENSITY = DAILY TOKEN SHARE</text>
-
-  <rect x="598" y="82" width="218" height="80" rx="13" class="panel"/>
-  <text x="617" y="114" class="stat">${activeDays}d</text><text x="617" y="136" class="statLabel">ACTIVE</text>
-  <text x="685" y="114" class="stat">${longestStreak}d</text><text x="685" y="136" class="statLabel">STREAK</text>
-  <text x="757" y="114" class="stat">${data.devices.length}</text><text x="757" y="136" class="statLabel">DEVICE</text>
-
+  <text x="24" y="116" class="eyebrow">ROLLING 6 MONTHS · ONE CUBE PER DAY</text>
+  <text x="24" y="132" class="muted">HEIGHT + GREEN INTENSITY = DAILY TOKEN VOLUME</text>
   <g>${calendar(theme)}</g>
 
-  <rect x="24" y="365" width="226" height="70" rx="12" class="panel"/>
-  <text x="44" y="392" class="stat">${peak?.tokens ? compact(peak.tokens) : '—'}</text><text x="44" y="414" class="statLabel">PEAK DAY</text>
-  <line x1="145" y1="381" x2="145" y2="416" class="grid"/>
-  <text x="165" y="392" class="stat">${peakShare}%</text><text x="165" y="414" class="statLabel">OF TOTAL</text>
+  <rect x="602" y="83" width="214" height="207" rx="13" class="panel"/>
+  <text x="621" y="108" class="section">TOKEN ECONOMY</text>
+  <text x="797" y="108" text-anchor="end" class="statLabel">DETAIL ${coverageLabel}</text>
+  <line x1="621" y1="120" x2="797" y2="120" class="grid"/>
+  <text x="621" y="150" class="stat">${activeDays}d</text><text x="621" y="168" class="statLabel">ACTIVE / 6MO</text>
+  <text x="692" y="150" class="stat">${longestStreak}d</text><text x="692" y="168" class="statLabel">STREAK</text>
+  <text x="768" y="150" class="stat">${data.devices.length}</text><text x="768" y="168" class="statLabel">DEVICES</text>
+  <line x1="621" y1="183" x2="797" y2="183" class="grid"/>
+  <text x="621" y="209" class="stat">${cacheLabel}</text><text x="621" y="227" class="statLabel">CACHE HIT</text>
+  <text x="797" y="209" text-anchor="end" class="stat">${compactCredits(totalCredits)}</text><text x="797" y="227" text-anchor="end" class="statLabel">EST. COST</text>
+  <rect x="621" y="246" width="176" height="6" rx="3" class="track"/>
+  <rect x="621" y="246" width="${Math.round(176 * detailCoverage)}" height="6" rx="3" fill="${theme.accent}"/>
+  <text x="621" y="272" class="statLabel">PRICED DETAIL COVERAGE</text><text x="797" y="272" text-anchor="end" class="statLabel">${coverageLabel}</text>
 
-  <text x="686" y="438" class="month">NONE</text>
-  <rect x="719" y="432" width="72" height="6" rx="3" fill="url(#greenLegend)"/>
-  <text x="798" y="438" class="month">PEAK</text>
+  <text x="501" y="326" class="month">NONE</text>
+  <rect x="534" y="320" width="72" height="6" rx="3" fill="url(#greenLegend)"/>
+  <text x="613" y="326" class="month">PEAK</text>
   <defs><linearGradient id="greenLegend"><stop stop-color="${theme.dormantTop}"/><stop offset=".28" stop-color="${theme.lowTop}"/><stop offset="1" stop-color="${theme.highTop}"/></linearGradient></defs>
 
-  <rect x="24" y="456" width="792" height="190" rx="13" class="panel"/>
-  <text x="44" y="483" class="section">MODEL LEDGER</text>
-  <text x="796" y="483" text-anchor="end" class="eyebrow">${data.models.length} MODELS · TOP SHARE ${topShare}% · OTHER ${Math.max(0, 100 - data.models.slice(0, 4).reduce((sum, model) => sum + Math.round(total ? model.tokens / total * 100 : 0), 0))}%</text>
-  <line x1="44" y1="493" x2="796" y2="493" class="grid"/>
-  <text x="59" y="509" text-anchor="middle" class="statLabel">RANK</text>
-  <text x="109" y="509" class="statLabel">MODEL / SOURCE</text>
-  <text x="376" y="509" text-anchor="end" class="statLabel">TOKENS</text>
-  <text x="475" y="509" text-anchor="end" class="statLabel">PER ACTIVE DAY</text>
-  <text x="509" y="509" class="statLabel">RELATIVE VOLUME</text>
-  <text x="790" y="509" text-anchor="end" class="statLabel">SHARE</text>
+  <rect x="24" y="350" width="792" height="145" rx="13" class="panel"/>
+  <text x="44" y="377" class="section">DEVICE LEDGER</text>
+  <text x="796" y="377" text-anchor="end" class="eyebrow">${data.devices.length > 3 ? `TOP 2 + ${data.devices.length - 2} IN OTHER` : `${data.devices.length} DEVICES`} · CACHE · COST</text>
+  <line x1="44" y1="389" x2="796" y2="389" class="grid"/>
+  <text x="60" y="405" class="statLabel">DEVICE / SOURCE</text>
+  <text x="326" y="405" text-anchor="end" class="statLabel">TOKENS</text>
+  <text x="480" y="405" text-anchor="end" class="statLabel">SHARE</text>
+  <text x="590" y="405" text-anchor="end" class="statLabel">CACHE HIT</text>
+  <text x="704" y="405" text-anchor="end" class="statLabel">EST. CREDITS</text>
+  <text x="796" y="405" text-anchor="end" class="statLabel">SYNC</text>
+  ${deviceRows(theme)}
+
+  <rect x="24" y="509" width="792" height="202" rx="13" class="panel"/>
+  <text x="44" y="536" class="section">MODEL ECONOMY</text>
+  <text x="796" y="536" text-anchor="end" class="eyebrow">${data.models.length > 4 ? `TOP 3 + ${data.models.length - 3} IN OTHER` : `${data.models.length} MODELS`} · INPUT · CACHE · OUTPUT</text>
+  <line x1="44" y1="548" x2="796" y2="548" class="grid"/>
+  <text x="66" y="564" class="statLabel">MODEL / SHARE</text>
+  <text x="316" y="564" text-anchor="end" class="statLabel">TOKENS</text>
+  <text x="414" y="564" text-anchor="end" class="statLabel">INPUT*</text>
+  <text x="508" y="564" text-anchor="end" class="statLabel">CACHED</text>
+  <text x="596" y="564" text-anchor="end" class="statLabel">OUTPUT</text>
+  <text x="682" y="564" text-anchor="end" class="statLabel">CACHE</text>
+  <text x="796" y="564" text-anchor="end" class="statLabel">EST. CREDITS</text>
   ${modelRows(theme)}
+  <line x1="44" y1="688" x2="796" y2="688" class="grid"/>
+  <text x="44" y="703" class="rowMeta">* CACHED IS A SUBSET OF INPUT · REASONING IS INCLUDED IN OUTPUT · CREDITS USE CODEX RATE CARD ${RATE_CARD_DATE}</text>
 
-  <line x1="44" y1="609" x2="796" y2="609" class="grid"/>
-  <text x="44" y="629" class="statLabel">COVERAGE <tspan fill="${theme.ink}">${coverage}%</tspan></text>
-  <text x="225" y="629" class="statLabel">PEAK <tspan fill="${theme.ink}">${peak?.date.slice(5) || '—'}</tspan></text>
-  <text x="401" y="629" class="statLabel">SYNCED <tspan fill="${theme.ink}">${latest}</tspan></text>
-  <text x="796" y="629" text-anchor="end" class="statLabel">SOURCE <tspan fill="${theme.ink}">LOCAL CODEX LEDGER</tspan></text>
-
-  <text x="24" y="672" class="eyebrow">365 DAYS · LOCAL-ONLY AGGREGATES · TRANSPARENT SVG · LIVE MOTION</text>
-  <text x="816" y="672" class="eyebrow" text-anchor="end">BUILD THE SYSTEM</text>
+  <text x="24" y="739" class="eyebrow">6 MONTHS · LOCAL-ONLY AGGREGATES · TRANSPARENT SVG · LIVE MOTION</text>
+  <text x="816" y="739" class="eyebrow" text-anchor="end">BUILD THE SYSTEM</text>
   </svg>`;
 }
 
@@ -246,4 +372,4 @@ writeFileSync('assets/token-terrain-dark.svg', darkSvg);
 writeFileSync('assets/token-terrain-light.svg', lightSvg);
 writeFileSync('assets/year-grid-dark.svg', darkSvg);
 writeFileSync('assets/year-grid-light.svg', lightSvg);
-console.log(`Rendered 365-day token calendar: ${compact(total)} tokens, ${activeDays} active days.`);
+console.log(`Rendered 6-month token dashboard: ${compact(total)} tokens, ${activeDays} active days, ${Math.round(detailCoverage * 100)}% detailed.`);

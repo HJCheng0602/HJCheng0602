@@ -1,37 +1,77 @@
 {
+  "schemaVersion": 2,
+  "windowDays": 183,
+  "windowStart": "2026-01-16",
+  "windowEnd": "2026-07-17",
   "device": "linux",
   "platform": "linux",
-  "collectedAt": "2026-07-16T02:02:44.866Z",
+  "collectedAt": "2026-07-17T01:00:52.805Z",
   "models": [
     {
       "name": "gpt-5.5",
-      "tokens": 2539109
+      "tokens": 2539109,
+      "inputTokens": 2525019,
+      "cachedInputTokens": 2140544,
+      "outputTokens": 14090,
+      "reasoningOutputTokens": 4007
     },
     {
       "name": "gpt-5.6-terra",
-      "tokens": 23944873
+      "tokens": 23944873,
+      "inputTokens": 23880306,
+      "cachedInputTokens": 23286528,
+      "outputTokens": 64567,
+      "reasoningOutputTokens": 17562
     },
     {
       "name": "gpt-5.6-sol",
-      "tokens": 13399342
+      "tokens": 20528009,
+      "inputTokens": 20429838,
+      "cachedInputTokens": 19208448,
+      "outputTokens": 98171,
+      "reasoningOutputTokens": 37002
     }
   ],
   "days": [
     {
       "date": "2026-07-06",
-      "tokens": 2539109
+      "tokens": 2539109,
+      "inputTokens": 2525019,
+      "cachedInputTokens": 2140544,
+      "outputTokens": 14090,
+      "reasoningOutputTokens": 4007
     },
     {
       "date": "2026-07-13",
-      "tokens": 1914933
+      "tokens": 1914933,
+      "inputTokens": 1906275,
+      "cachedInputTokens": 1720320,
+      "outputTokens": 8658,
+      "reasoningOutputTokens": 2069
     },
     {
       "date": "2026-07-14",
-      "tokens": 316249
+      "tokens": 316249,
+      "inputTokens": 313497,
+      "cachedInputTokens": 249088,
+      "outputTokens": 2752,
+      "reasoningOutputTokens": 888
     },
     {
       "date": "2026-07-16",
-      "tokens": 35113033
+      "tokens": 40055483,
+      "inputTokens": 39926438,
+      "cachedInputTokens": 38513920,
+      "outputTokens": 129045,
+      "reasoningOutputTokens": 44324
+    },
+    {
+      "date": "2026-07-17",
+      "tokens": 2186217,
+      "inputTokens": 2163934,
+      "cachedInputTokens": 2011648,
+      "outputTokens": 22283,
+      "reasoningOutputTokens": 7283
     }
   ]
 }

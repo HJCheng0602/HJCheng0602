@@ -1,51 +1,146 @@
 {
-  "updatedAt": "2026-07-16T14:16:15.542Z",
+  "schemaVersion": 2,
+  "windowDays": 183,
+  "windowStart": "2026-01-16",
+  "windowEnd": "2026-07-17",
+  "updatedAt": "2026-07-17T01:01:03.494Z",
   "devices": [
-    {
-      "name": "linux",
-      "platform": "linux",
-      "collectedAt": "2026-07-16T02:02:44.866Z"
-    },
     {
       "name": "mac_work01",
       "platform": "darwin",
-      "collectedAt": "2026-07-16T14:15:56.905Z"
+      "collectedAt": "2026-07-16T14:15:56.905Z",
+      "tokens": 92691024,
+      "inputTokens": 0,
+      "cachedInputTokens": 0,
+      "outputTokens": 0,
+      "reasoningOutputTokens": 0,
+      "detailedTokens": 0,
+      "models": [
+        {
+          "name": "gpt-5.5",
+          "tokens": 953705
+        },
+        {
+          "name": "gpt-5.6-sol",
+          "tokens": 91737319
+        }
+      ]
+    },
+    {
+      "name": "linux",
+      "platform": "linux",
+      "collectedAt": "2026-07-17T01:00:52.805Z",
+      "tokens": 47011991,
+      "inputTokens": 46835163,
+      "cachedInputTokens": 44635520,
+      "outputTokens": 176828,
+      "reasoningOutputTokens": 58571,
+      "detailedTokens": 47011991,
+      "models": [
+        {
+          "name": "gpt-5.5",
+          "tokens": 2539109,
+          "inputTokens": 2525019,
+          "cachedInputTokens": 2140544,
+          "outputTokens": 14090,
+          "reasoningOutputTokens": 4007
+        },
+        {
+          "name": "gpt-5.6-terra",
+          "tokens": 23944873,
+          "inputTokens": 23880306,
+          "cachedInputTokens": 23286528,
+          "outputTokens": 64567,
+          "reasoningOutputTokens": 17562
+        },
+        {
+          "name": "gpt-5.6-sol",
+          "tokens": 20528009,
+          "inputTokens": 20429838,
+          "cachedInputTokens": 19208448,
+          "outputTokens": 98171,
+          "reasoningOutputTokens": 37002
+        }
+      ]
     }
   ],
   "models": [
     {
       "name": "gpt-5.6-sol",
-      "tokens": 105136661
+      "tokens": 112265328,
+      "inputTokens": 20429838,
+      "cachedInputTokens": 19208448,
+      "outputTokens": 98171,
+      "reasoningOutputTokens": 37002,
+      "detailedTokens": 20528009
     },
     {
       "name": "gpt-5.6-terra",
-      "tokens": 23944873
+      "tokens": 23944873,
+      "inputTokens": 23880306,
+      "cachedInputTokens": 23286528,
+      "outputTokens": 64567,
+      "reasoningOutputTokens": 17562,
+      "detailedTokens": 23944873
     },
     {
       "name": "gpt-5.5",
-      "tokens": 3492814
+      "tokens": 3492814,
+      "inputTokens": 2525019,
+      "cachedInputTokens": 2140544,
+      "outputTokens": 14090,
+      "reasoningOutputTokens": 4007,
+      "detailedTokens": 2539109
     }
   ],
   "days": [
     {
       "date": "2026-07-06",
-      "tokens": 2539109
+      "tokens": 2539109,
+      "inputTokens": 2525019,
+      "cachedInputTokens": 2140544,
+      "outputTokens": 14090,
+      "reasoningOutputTokens": 4007
     },
     {
       "date": "2026-07-13",
-      "tokens": 1914933
+      "tokens": 1914933,
+      "inputTokens": 1906275,
+      "cachedInputTokens": 1720320,
+      "outputTokens": 8658,
+      "reasoningOutputTokens": 2069
     },
     {
       "date": "2026-07-14",
-      "tokens": 316249
+      "tokens": 316249,
+      "inputTokens": 313497,
+      "cachedInputTokens": 249088,
+      "outputTokens": 2752,
+      "reasoningOutputTokens": 888
     },
     {
       "date": "2026-07-15",
-      "tokens": 16852
+      "tokens": 16852,
+      "inputTokens": 0,
+      "cachedInputTokens": 0,
+      "outputTokens": 0,
+      "reasoningOutputTokens": 0
     },
     {
       "date": "2026-07-16",
-      "tokens": 127787205
+      "tokens": 132729655,
+      "inputTokens": 39926438,
+      "cachedInputTokens": 38513920,
+      "outputTokens": 129045,
+      "reasoningOutputTokens": 44324
+    },
+    {
+      "date": "2026-07-17",
+      "tokens": 2186217,
+      "inputTokens": 2163934,
+      "cachedInputTokens": 2011648,
+      "outputTokens": 22283,
+      "reasoningOutputTokens": 7283
     }
   ]
 }

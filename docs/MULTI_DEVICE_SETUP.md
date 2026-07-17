@@ -1,6 +1,6 @@
 # 多设备同步指南
 
-这套同步工具会读取每台机器本地的 Codex 会话记录，把聚合后的 token 数据提交到本仓库，再由 GitHub Actions 合并所有设备并重新生成主页图表。
+这套同步工具会读取每台机器本地的 Codex 会话记录，把过去 183 天内的聚合 token 数据提交到本仓库，再由 GitHub Actions 合并所有设备并重新生成主页图表。
 
 ```text
 ~/.codex/sessions
@@ -158,7 +158,7 @@ npm run collect
 终端应显示扫描位置和发现的模型数量，例如：
 
 ```text
-Collected 3 model(s) from /Users/you/.codex/sessions.
+Collected 3 model(s) from /Users/you/.codex/sessions for 2026-01-16..2026-07-17.
 ```
 
 然后检查设备文件是否生成：
@@ -168,7 +168,18 @@ ls data/devices
 git status --short
 ```
 
-如果显示 `0 model(s)`，先确认本机运行过 Codex，并检查 `~/.codex/sessions` 是否存在。采集器不会上传提示词、代码、文件路径或机器 hostname，只会提交按日期和模型聚合后的 token 数量。
+如果显示 `0 model(s)`，先确认本机在过去 183 天内运行过 Codex，并检查 `~/.codex/sessions` 是否存在。采集器不会上传提示词、代码、文件路径或机器 hostname，只会提交按日期和模型聚合后的 token 数量。
+
+## 图表统计口径
+
+- 顶部 token 总量、每日积木、设备贡献和模型明细全部使用滚动 183 天窗口；窗口每天随同步向前移动。
+- 缓存率为 `cached input tokens / input tokens`。缓存 token 是输入 token 的子集，不应再次加到 token 总量中。
+- reasoning token 已包含在 output token 中，只作为补充明细展示。
+- 成本使用 [Codex 官方 rate card](https://learn.chatgpt.com/docs/pricing) 估算为 credits，不代表美元 API 账单。
+- 模型超过四种时，前三名逐行展示，其余模型合并到 `OTHER · N MODELS`，所有 token、缓存和可计算的 credits 仍会计入。
+- 设备超过三台时，前两台逐行展示，其余设备合并到 `OTHER · N DEVICES`。
+
+旧版设备快照只有 token 总量，没有输入、缓存和输出明细。图表会显示 `RESYNC FOR DETAILS`，而不是把缺失数据当成 0；在对应设备拉取新版采集器并重新运行 `npm run sync` 后即可补齐完整历史窗口。
 
 ## API 模式能否统计
 
