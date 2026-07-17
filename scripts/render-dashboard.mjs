@@ -1,7 +1,7 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 
 const data = JSON.parse(readFileSync('data/usage.json', 'utf8'));
-const pricing = JSON.parse(readFileSync('data/openai-api-pricing.json', 'utf8'));
+const pricing = JSON.parse(readFileSync('data/api-pricing.json', 'utf8'));
 const WINDOW_DAYS = 183;
 const RATE_CARD_DATE = pricing.asOf;
 const apiRates = pricing.models;
@@ -28,7 +28,7 @@ const estimateDetailedCostUsd = (model) => {
   return (uncached * rates.input + cached * rates.cachedInput + (model.outputTokens || 0) * rates.output) / 1e6;
 };
 function displayModels() {
-  return data.models;
+  return data.models.slice(0, 7);
 }
 
 const visibleModels = displayModels();
@@ -172,29 +172,30 @@ function modelDeviceSplit(theme, model, y) {
     : entries;
   const x = 204;
   const width = 146;
-  if (!listed.length || !totalTokens) return `<g class="deviceSplit"><rect x="${x}" y="${y - 17}" width="${width}" height="34" rx="6" class="splitPanel"/><text x="${x + 9}" y="${y + 5}" class="splitLabel">NO DEVICE DATA</text></g>`;
+  if (!listed.length || !totalTokens) return `<g class="deviceSplit"><rect x="${x}" y="${y - 14}" width="${width}" height="28" rx="5" class="splitPanel"/><text x="${x + 9}" y="${y + 4}" class="splitLabel">NO DEVICE DATA</text></g>`;
   let offset = 0;
   const segments = listed.map((entry, index) => {
     const segmentWidth = index === listed.length - 1 ? 128 - offset : Math.round(128 * entry.tokens / totalTokens);
-    const result = `<rect x="${x + 9 + offset}" y="${y - 11}" width="${Math.max(1, segmentWidth)}" height="4" rx="2" fill="${index ? theme.accent2 : theme.accent}"/>`;
+    const result = `<rect x="${x + 9 + offset}" y="${y - 9}" width="${Math.max(1, segmentWidth)}" height="3" rx="1.5" fill="${index ? theme.accent2 : theme.accent}"/>`;
     offset += segmentWidth;
     return result;
   }).join('');
   const line = (entry, lineY) => `<text x="${x + 9}" y="${lineY}" class="splitLabel">${safe(entry.name)}</text><text x="${x + 137}" y="${lineY}" text-anchor="end" class="splitLabel">${Math.round(entry.tokens / totalTokens * 100)}%</text>`;
-  return `<g class="deviceSplit"><rect x="${x}" y="${y - 17}" width="${width}" height="34" rx="6" class="splitPanel"/><rect x="${x + 9}" y="${y - 11}" width="128" height="4" rx="2" class="track"/>${segments}${line(listed[0], y + 3)}${listed[1] ? line(listed[1], y + 14) : ''}</g>`;
+  const labels = listed.length === 1 ? line(listed[0], y + 4) : `${line(listed[0], y + 1)}${line(listed[1], y + 10)}`;
+  return `<g class="deviceSplit"><rect x="${x}" y="${y - 14}" width="${width}" height="28" rx="5" class="splitPanel"/><rect x="${x + 9}" y="${y - 9}" width="128" height="3" rx="1.5" class="track"/>${segments}${labels}</g>`;
 }
 
 function modelRows(theme, startY) {
   if (!visibleModels.length) return `<text x="44" y="${startY}" class="empty">NO MODEL DATA — SYNC CODEX CLI TO BEGIN</text>`;
   return visibleModels.map((model, index) => {
-    const y = startY + index * 42;
+    const y = startY + index * 34;
     const detailed = hasFullDetail(model);
     const rate = detailed && model.inputTokens ? `${Math.round(cacheRate(model) * 100)}%` : 'SYNC';
     const cost = compactUsd(model.aggregate ? model.estimatedCostUsd : estimateModelCostUsd(model));
     return `<g class="mrow" style="animation-delay:${(1.28 + index * .1).toFixed(2)}s">
       ${modelMark(50, y - 4, theme.accent)}
       <text x="68" y="${y}" class="model">${safe(model.name)}</text>
-      <text x="68" y="${y + 14}" class="rowMeta">${Math.round(total ? model.tokens / total * 100 : 0)}% SHARE · ${model.aggregate ? 'OVERFLOW GROUP' : detailed ? `REASON ${compact(model.reasoningOutputTokens)}` : 'RESYNC FOR DETAILS'}</text>
+      <text x="68" y="${y + 11}" class="rowMeta">${Math.round(total ? model.tokens / total * 100 : 0)}% SHARE · ${model.aggregate ? 'OVERFLOW GROUP' : detailed ? `REASON ${compact(model.reasoningOutputTokens)}` : 'RESYNC FOR DETAILS'}</text>
       ${modelDeviceSplit(theme, model, y)}
       <text x="470" y="${y + 5}" text-anchor="end" class="numberStrong">${compact(model.tokens)}</text>
       <text x="610" y="${y + 5}" text-anchor="end" class="numberStrong">${rate}</text>
@@ -209,8 +210,8 @@ function render(mode) {
   const coverageLabel = `${Math.round(pricingCoverage * 100)}%`;
   const cacheLabel = detailedInput ? `${Math.round(detailedCached / detailedInput * 100)}%` : '—';
   const tableTop = 348;
-  const modelStartY = 438;
-  const modelLastBottom = modelStartY + Math.max(visibleModels.length - 1, 0) * 42 + 17;
+  const modelStartY = 435;
+  const modelLastBottom = modelStartY + Math.max(visibleModels.length - 1, 0) * 34 + 15;
   const tableRuleY = modelLastBottom + 12;
   const tableNoteY = tableRuleY + 17;
   const tableBottom = tableNoteY + 17;
@@ -230,10 +231,10 @@ function render(mode) {
     .month{font-size:9px;font-weight:700;fill:${theme.muted}}
     .peakText{font-size:10px;font-weight:700;fill:${theme.ink}}
     .section{font-size:13px;font-weight:700;fill:${theme.ink}}
-    .model{font-size:13px;font-weight:700;fill:${theme.ink}}
-    .rowMeta{font-size:8.5px;font-weight:600;fill:${theme.faint}}
-    .splitLabel{font-size:8px;font-weight:700;fill:${theme.muted}}
-    .numberStrong{font-size:14px;font-weight:700;fill:${theme.ink}}
+    .model{font-size:12px;font-weight:700;fill:${theme.ink}}
+    .rowMeta{font-size:8px;font-weight:600;fill:${theme.faint}}
+    .splitLabel{font-size:7.5px;font-weight:700;fill:${theme.muted}}
+    .numberStrong{font-size:13px;font-weight:700;fill:${theme.ink}}
     .empty{font-size:11px;font-weight:600;fill:${theme.muted}}
     .panel{fill:${theme.panel};stroke:${theme.stroke};stroke-width:1}
     .panelHighlight{fill:none;stroke:url(#panelGlow);stroke-width:1}
@@ -291,7 +292,7 @@ function render(mode) {
   <text x="796" y="409" text-anchor="end" class="statLabel">EST. USD</text>
   ${modelRows(theme, modelStartY)}
   <line x1="44" y1="${tableRuleY}" x2="796" y2="${tableRuleY}" class="grid"/>
-  <text x="44" y="${tableNoteY}" class="rowMeta">TEXT TOKEN API ESTIMATE | EXCLUDES TOOLS, REGIONAL, AND LONG-CONTEXT SURCHARGES | OPENAI RATES ${RATE_CARD_DATE}</text></g>
+  <text x="44" y="${tableNoteY}" class="rowMeta">TEXT TOKEN API ESTIMATE | EXCLUDES TOOLS, REGIONAL, AND LONG-CONTEXT SURCHARGES | PUBLIC API RATES ${RATE_CARD_DATE}</text></g>
 
   <text x="24" y="${footerY}" class="eyebrow">6 MONTHS | LOCAL-ONLY AGGREGATES | LIVE SVG</text>
   <text x="816" y="${footerY}" class="eyebrow" text-anchor="end">BUILD THE SYSTEM</text>
