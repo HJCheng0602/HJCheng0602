@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 2,
+  "windowDays": 183,
+  "windowStart": "2026-01-16",
+  "windowEnd": "2026-07-17",
+  "device": "mac",
+  "platform": "darwin",
+  "collectedAt": "2026-07-17T13:18:16.479Z",
+  "models": [
+    {
+      "name": "gpt-5.5",
+      "tokens": 953705,
+      "inputTokens": 939532,
+      "cachedInputTokens": 807680,
+      "outputTokens": 14173,
+      "reasoningOutputTokens": 5471,
+      "turnCount": 7
+    },
+    {
+      "name": "gpt-5.6-sol",
+      "tokens": 219043300,
+      "inputTokens": 218180863,
+      "cachedInputTokens": 211624192,
+      "outputTokens": 862437,
+      "reasoningOutputTokens": 398452,
+      "turnCount": 114
+    },
+    {
+      "name": "gpt-5.6-terra",
+      "tokens": 53870388,
+      "inputTokens": 53676223,
+      "cachedInputTokens": 52045312,
+      "outputTokens": 194165,
+      "reasoningOutputTokens": 91098,
+      "turnCount": 24
+    }
+  ],
+  "days": [
+    {
+      "date": "2026-07-15",
+      "tokens": 16852,
+      "inputTokens": 16838,
+      "cachedInputTokens": 10624,
+      "outputTokens": 14,
+      "reasoningOutputTokens": 0
+    },
+    {
+      "date": "2026-07-16",
+      "tokens": 121467871,
+      "inputTokens": 120924691,
+      "cachedInputTokens": 117700992,
+      "outputTokens": 543180,
+      "reasoningOutputTokens": 244999
+    },
+    {
+      "date": "2026-07-17",
+      "tokens": 152382670,
+      "inputTokens": 151855089,
+      "cachedInputTokens": 146765568,
+      "outputTokens": 527581,
+      "reasoningOutputTokens": 250022
+    }
+  ]
+}
