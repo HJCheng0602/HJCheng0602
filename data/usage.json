@@ -3,26 +3,42 @@
   "windowDays": 183,
   "windowStart": "2026-01-16",
   "windowEnd": "2026-07-17",
-  "updatedAt": "2026-07-17T01:13:41.019Z",
+  "updatedAt": "2026-07-17T03:09:09.597Z",
   "devices": [
     {
       "name": "mac_work01",
       "platform": "darwin",
-      "collectedAt": "2026-07-16T14:15:56.905Z",
-      "tokens": 92691024,
-      "inputTokens": 0,
-      "cachedInputTokens": 0,
-      "outputTokens": 0,
-      "reasoningOutputTokens": 0,
-      "detailedTokens": 0,
+      "collectedAt": "2026-07-17T03:08:46.419Z",
+      "tokens": 122834781,
+      "inputTokens": 122287979,
+      "cachedInputTokens": 118752512,
+      "outputTokens": 546802,
+      "reasoningOutputTokens": 246276,
+      "detailedTokens": 122834781,
       "models": [
         {
           "name": "gpt-5.5",
-          "tokens": 953705
+          "tokens": 953705,
+          "inputTokens": 939532,
+          "cachedInputTokens": 807680,
+          "outputTokens": 14173,
+          "reasoningOutputTokens": 5471
         },
         {
           "name": "gpt-5.6-sol",
-          "tokens": 91737319
+          "tokens": 121682351,
+          "inputTokens": 121151347,
+          "cachedInputTokens": 117774336,
+          "outputTokens": 531004,
+          "reasoningOutputTokens": 240111
+        },
+        {
+          "name": "gpt-5.6-terra",
+          "tokens": 198725,
+          "inputTokens": 197100,
+          "cachedInputTokens": 170496,
+          "outputTokens": 1625,
+          "reasoningOutputTokens": 694
         }
       ]
     },
@@ -67,30 +83,30 @@
   "models": [
     {
       "name": "gpt-5.6-sol",
-      "tokens": 112265328,
-      "inputTokens": 20429838,
-      "cachedInputTokens": 19208448,
-      "outputTokens": 98171,
-      "reasoningOutputTokens": 37002,
-      "detailedTokens": 20528009
+      "tokens": 142210360,
+      "inputTokens": 141581185,
+      "cachedInputTokens": 136982784,
+      "outputTokens": 629175,
+      "reasoningOutputTokens": 277113,
+      "detailedTokens": 142210360
     },
     {
       "name": "gpt-5.6-terra",
-      "tokens": 23944873,
-      "inputTokens": 23880306,
-      "cachedInputTokens": 23286528,
-      "outputTokens": 64567,
-      "reasoningOutputTokens": 17562,
-      "detailedTokens": 23944873
+      "tokens": 24143598,
+      "inputTokens": 24077406,
+      "cachedInputTokens": 23457024,
+      "outputTokens": 66192,
+      "reasoningOutputTokens": 18256,
+      "detailedTokens": 24143598
     },
     {
       "name": "gpt-5.5",
       "tokens": 3492814,
-      "inputTokens": 2525019,
-      "cachedInputTokens": 2140544,
-      "outputTokens": 14090,
-      "reasoningOutputTokens": 4007,
-      "detailedTokens": 2539109
+      "inputTokens": 3464551,
+      "cachedInputTokens": 2948224,
+      "outputTokens": 28263,
+      "reasoningOutputTokens": 9478,
+      "detailedTokens": 3492814
     }
   ],
   "days": [
@@ -121,26 +137,26 @@
     {
       "date": "2026-07-15",
       "tokens": 16852,
-      "inputTokens": 0,
-      "cachedInputTokens": 0,
-      "outputTokens": 0,
+      "inputTokens": 16838,
+      "cachedInputTokens": 10624,
+      "outputTokens": 14,
       "reasoningOutputTokens": 0
     },
     {
       "date": "2026-07-16",
-      "tokens": 132729655,
-      "inputTokens": 39926438,
-      "cachedInputTokens": 38513920,
-      "outputTokens": 129045,
-      "reasoningOutputTokens": 44324
+      "tokens": 161523354,
+      "inputTokens": 160851129,
+      "cachedInputTokens": 156214912,
+      "outputTokens": 672225,
+      "reasoningOutputTokens": 289323
     },
     {
       "date": "2026-07-17",
-      "tokens": 2186217,
-      "inputTokens": 2163934,
-      "cachedInputTokens": 2011648,
-      "outputTokens": 22283,
-      "reasoningOutputTokens": 7283
+      "tokens": 3536275,
+      "inputTokens": 3510384,
+      "cachedInputTokens": 3052544,
+      "outputTokens": 25891,
+      "reasoningOutputTokens": 8560
     }
   ]
 }
