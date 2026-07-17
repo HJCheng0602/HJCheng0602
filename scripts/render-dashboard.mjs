@@ -1,37 +1,31 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 
 const data = JSON.parse(readFileSync('data/usage.json', 'utf8'));
+const pricing = JSON.parse(readFileSync('data/openai-api-pricing.json', 'utf8'));
 const WINDOW_DAYS = 183;
-const RATE_CARD_DATE = '2026-07-17';
-const creditRates = {
-  'gpt-5.6-sol': { input: 125, cached: 12.5, output: 750 },
-  'gpt-5.6-terra': { input: 62.5, cached: 6.25, output: 375 },
-  'gpt-5.6-luna': { input: 25, cached: 2.5, output: 150 },
-  'gpt-5.5': { input: 125, cached: 12.5, output: 750 },
-  'gpt-5.4': { input: 62.5, cached: 6.25, output: 375 },
-  'gpt-5.4-mini': { input: 18.75, cached: 1.875, output: 113 }
-};
+const RATE_CARD_DATE = pricing.asOf;
+const apiRates = pricing.models;
 
 const total = data.models.reduce((sum, model) => sum + (model.tokens || 0), 0);
 const compact = (value) => value >= 1e9 ? `${(value / 1e9).toFixed(1)}B` : value >= 1e6 ? `${(value / 1e6).toFixed(1)}M` : value >= 1e3 ? `${(value / 1e3).toFixed(1)}K` : `${Math.round(value || 0)}`;
-const compactCredits = (value) => value == null ? '—' : value >= 1000 ? `${(value / 1000).toFixed(1)}K CR` : `${value.toFixed(value >= 100 ? 0 : 1)} CR`;
+const compactUsd = (value) => value == null ? 'N/A' : value >= 1000 ? `$${(value / 1000).toFixed(1)}K` : value >= 100 ? `$${Math.round(value)}` : value >= 10 ? `$${value.toFixed(1)}` : `$${value.toFixed(2)}`;
 const safe = (value) => String(value).replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' }[char]));
 const isoDate = (value) => value.toISOString().slice(0, 10);
 const cacheRate = (item) => item?.inputTokens ? item.cachedInputTokens / item.inputTokens : 0;
 const hasFullDetail = (item) => Boolean(item?.tokens) && (item.detailedTokens || 0) >= item.tokens * .999;
-const estimateModelCredits = (model) => {
-  const rates = creditRates[model.name];
+const estimateModelCostUsd = (model) => {
+  const rates = apiRates[model.name];
   if (!rates || !hasFullDetail(model)) return null;
   const cached = model.cachedInputTokens || 0;
   const uncached = Math.max(0, (model.inputTokens || 0) - cached);
-  return (uncached * rates.input + cached * rates.cached + (model.outputTokens || 0) * rates.output) / 1e6;
+  return (uncached * rates.input + cached * rates.cachedInput + (model.outputTokens || 0) * rates.output) / 1e6;
 };
-const estimateDetailedCredits = (model) => {
-  const rates = creditRates[model.name];
+const estimateDetailedCostUsd = (model) => {
+  const rates = apiRates[model.name];
   if (!rates || !(model.detailedTokens || 0)) return 0;
   const cached = model.cachedInputTokens || 0;
   const uncached = Math.max(0, (model.inputTokens || 0) - cached);
-  return (uncached * rates.input + cached * rates.cached + (model.outputTokens || 0) * rates.output) / 1e6;
+  return (uncached * rates.input + cached * rates.cachedInput + (model.outputTokens || 0) * rates.output) / 1e6;
 };
 function displayModels() {
   if (data.models.length <= 4) return data.models;
@@ -48,15 +42,15 @@ function displayModels() {
     sourceNames: remainder.map((model) => model.name),
     aggregate: true
   };
-  let credits = 0;
-  let creditsKnown = true;
+  let costUsd = 0;
+  let costKnown = true;
   for (const model of remainder) {
     for (const key of ['tokens', 'inputTokens', 'cachedInputTokens', 'outputTokens', 'reasoningOutputTokens', 'detailedTokens']) aggregate[key] += model[key] || 0;
-    const value = estimateModelCredits(model);
-    if (value == null) creditsKnown = false;
-    else credits += value;
+    const value = estimateModelCostUsd(model);
+    if (value == null) costKnown = false;
+    else costUsd += value;
   }
-  aggregate.estimatedCredits = creditsKnown ? credits : null;
+  aggregate.estimatedCostUsd = costKnown ? costUsd : null;
   return [...visible, aggregate];
 }
 
@@ -88,11 +82,11 @@ for (const day of days) {
   longestStreak = Math.max(longestStreak, currentStreak);
 }
 
-const detailedTokens = data.models.reduce((sum, model) => sum + (model.detailedTokens || 0), 0);
 const detailedInput = data.models.reduce((sum, model) => sum + (model.inputTokens || 0), 0);
 const detailedCached = data.models.reduce((sum, model) => sum + (model.cachedInputTokens || 0), 0);
-const totalCredits = data.models.reduce((sum, model) => sum + estimateDetailedCredits(model), 0);
-const detailCoverage = total ? detailedTokens / total : 0;
+const pricedDetailedTokens = data.models.reduce((sum, model) => sum + (apiRates[model.name] ? model.detailedTokens || 0 : 0), 0);
+const totalCostUsd = data.models.reduce((sum, model) => sum + estimateDetailedCostUsd(model), 0);
+const pricingCoverage = total ? pricedDetailedTokens / total : 0;
 
 const themes = {
   dark: {
@@ -219,7 +213,7 @@ function modelRows(theme, startY) {
     const y = startY + index * 42;
     const detailed = hasFullDetail(model);
     const rate = detailed && model.inputTokens ? `${Math.round(cacheRate(model) * 100)}%` : 'SYNC';
-    const credits = compactCredits(model.aggregate ? model.estimatedCredits : estimateModelCredits(model));
+    const cost = compactUsd(model.aggregate ? model.estimatedCostUsd : estimateModelCostUsd(model));
     return `<g class="mrow" style="animation-delay:${(1.28 + index * .1).toFixed(2)}s">
       ${modelMark(50, y - 4, theme.accent)}
       <text x="68" y="${y}" class="model">${safe(model.name)}</text>
@@ -227,7 +221,7 @@ function modelRows(theme, startY) {
       ${modelDeviceSplit(theme, model, y)}
       <text x="470" y="${y + 5}" text-anchor="end" class="numberStrong">${compact(model.tokens)}</text>
       <text x="610" y="${y + 5}" text-anchor="end" class="numberStrong">${rate}</text>
-      <text x="796" y="${y}" text-anchor="end" class="numberStrong">${credits}</text>
+      <text x="796" y="${y}" text-anchor="end" class="numberStrong">${cost}</text>
     </g>`;
   }).join('');
 }
@@ -235,7 +229,7 @@ function modelRows(theme, startY) {
 function render(mode) {
   const theme = themes[mode];
   const latest = data.updatedAt ? data.updatedAt.slice(0, 10) : 'SYNC PENDING';
-  const coverageLabel = `${Math.round(detailCoverage * 100)}%`;
+  const coverageLabel = `${Math.round(pricingCoverage * 100)}%`;
   const cacheLabel = detailedInput ? `${Math.round(detailedCached / detailedInput * 100)}%` : '—';
   const tableTop = 348;
   const modelStartY = 438;
@@ -296,16 +290,16 @@ function render(mode) {
   <g class="terrainIn"><text x="24" y="116" class="eyebrow">6-MONTH WINDOW | ONE CUBE PER DAY</text><text x="24" y="133" class="muted">HEIGHT AND COLOR SHOW DAILY TOKEN VOLUME</text><g>${calendar(theme)}</g></g>
 
   <g class="panelIn" style="animation-delay:.38s"><rect x="580" y="98" width="236" height="192" rx="12" class="panel"/><rect x="581" y="99" width="234" height="190" rx="11" class="panelHighlight"/>
-    <text x="602" y="126" class="section">TOKEN ECONOMY</text><text x="797" y="126" text-anchor="end" class="statLabel">DETAIL ${coverageLabel}</text>
+    <text x="602" y="126" class="section">TOKEN ECONOMY</text><text x="797" y="126" text-anchor="end" class="statLabel">PRICED ${coverageLabel}</text>
     <line x1="602" y1="141" x2="797" y2="141" class="grid"/>
     <text x="602" y="171" class="stat">${activeDays}d</text><text x="602" y="188" class="statLabel">ACTIVE DAYS</text>
     <text x="676" y="171" class="stat">${longestStreak}d</text><text x="676" y="188" class="statLabel">STREAK</text>
     <text x="752" y="171" class="stat">${data.devices.length}</text><text x="752" y="188" class="statLabel">DEVICES</text>
     <line x1="602" y1="201" x2="797" y2="201" class="grid"/>
     <text x="602" y="230" class="stat">${cacheLabel}</text><text x="602" y="247" class="statLabel">CACHE HIT</text>
-    <text x="797" y="230" text-anchor="end" class="stat">${compactCredits(totalCredits)}</text><text x="797" y="247" text-anchor="end" class="statLabel">EST. COST</text>
-    <rect x="602" y="261" width="195" height="8" rx="4" class="track"/><rect x="602" y="261" width="${Math.round(195 * detailCoverage)}" height="8" rx="4" fill="${theme.accent}" class="meterFill"/>
-    <text x="602" y="281" class="statLabel">PRICED DETAIL COVERAGE</text><text x="797" y="281" text-anchor="end" class="statLabel">${coverageLabel}</text></g>
+    <text x="797" y="230" text-anchor="end" class="stat">${compactUsd(totalCostUsd)}</text><text x="797" y="247" text-anchor="end" class="statLabel">EST. API COST</text>
+    <rect x="602" y="261" width="195" height="8" rx="4" class="track"/><rect x="602" y="261" width="${Math.round(195 * pricingCoverage)}" height="8" rx="4" fill="${theme.accent}" class="meterFill"/>
+    <text x="602" y="281" class="statLabel">API PRICE COVERAGE</text><text x="797" y="281" text-anchor="end" class="statLabel">${coverageLabel}</text></g>
 
   <text x="494" y="326" class="month">LOW</text><rect x="528" y="320" width="76" height="7" rx="3.5" fill="url(#greenLegend)"/><text x="612" y="326" class="month">PEAK</text>
 
@@ -317,10 +311,10 @@ function render(mode) {
   <text x="204" y="409" class="statLabel">DEVICE SPLIT</text>
   <text x="470" y="409" text-anchor="end" class="statLabel">TOKENS</text>
   <text x="610" y="409" text-anchor="end" class="statLabel">CACHE HIT</text>
-  <text x="796" y="409" text-anchor="end" class="statLabel">EST. COST</text>
+  <text x="796" y="409" text-anchor="end" class="statLabel">EST. USD</text>
   ${modelRows(theme, modelStartY)}
   <line x1="44" y1="${tableRuleY}" x2="796" y2="${tableRuleY}" class="grid"/>
-  <text x="44" y="${tableNoteY}" class="rowMeta">DEVICE SPLIT SHOWS EACH MODEL'S TOKEN SHARE BY DEVICE | EST. COST USES CODEX RATE CARD ${RATE_CARD_DATE}</text></g>
+  <text x="44" y="${tableNoteY}" class="rowMeta">TEXT TOKEN API ESTIMATE | EXCLUDES TOOLS, REGIONAL, AND LONG-CONTEXT SURCHARGES | OPENAI RATES ${RATE_CARD_DATE}</text></g>
 
   <text x="24" y="${footerY}" class="eyebrow">6 MONTHS | LOCAL-ONLY AGGREGATES | LIVE SVG</text>
   <text x="816" y="${footerY}" class="eyebrow" text-anchor="end">BUILD THE SYSTEM</text>
@@ -334,4 +328,4 @@ writeFileSync('assets/token-terrain-dark.svg', darkSvg);
 writeFileSync('assets/token-terrain-light.svg', lightSvg);
 writeFileSync('assets/year-grid-dark.svg', darkSvg);
 writeFileSync('assets/year-grid-light.svg', lightSvg);
-console.log(`Rendered 6-month token dashboard: ${compact(total)} tokens, ${activeDays} active days, ${Math.round(detailCoverage * 100)}% detailed.`);
+console.log(`Rendered 6-month token dashboard: ${compact(total)} tokens, ${activeDays} active days, ${Math.round(pricingCoverage * 100)}% API-priced.`);
