@@ -1,6 +1,6 @@
 import { execFileSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
-if (!existsSync('.git')) throw new Error('Clone your profile repository first, then run npm run sync.');
+if (!existsSync('.git')) throw new Error('Clone your profile repository first, then run ./sync.sh or node scripts/sync.mjs.');
 execFileSync('git', ['pull', '--rebase'], { stdio:'inherit' });
 execFileSync(process.execPath, ['scripts/collect-codex.mjs'], { stdio:'inherit' });
 execFileSync(process.execPath, ['scripts/collect-qoder.mjs'], { stdio:'inherit' });

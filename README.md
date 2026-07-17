@@ -32,6 +32,8 @@
 
 ## Dashboard sync
 
+On macOS or Linux, run `./sync.sh` whenever you want to publish the latest local usage. It uses your system Node.js when available and otherwise uses the Node.js runtime bundled with Codex Desktop.
+
 Collect and merge local Codex usage across macOS, Windows, and WSL. See the [multi-device setup guide](./docs/MULTI_DEVICE_SETUP.md) for first-time setup, SSH authentication, daily updates, and troubleshooting.
 
 ---
