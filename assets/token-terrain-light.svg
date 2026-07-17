@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="840" height="750" viewBox="0 0 840 750" role="img" aria-label="HJ Cheng six month AI coding and token economy dashboard">
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="640" viewBox="0 0 840 640" role="img" aria-label="HJ Cheng six month AI coding and token economy dashboard">
   <style>
     text{font-family:'Cascadia Code','JetBrains Mono','SFMono-Regular',Consolas,monospace}
     .title{font-size:20px;font-weight:760;letter-spacing:2.2px;fill:#202822}
@@ -14,11 +14,13 @@
     .section{font-size:12px;font-weight:780;letter-spacing:1px;fill:#202822}
     .device,.model{font-size:10.5px;font-weight:750;fill:#202822}
     .rowMeta{font-size:7px;font-weight:650;letter-spacing:.45px;fill:#89978F}
+    .splitLabel{font-size:5.7px;font-weight:700;letter-spacing:.1px;fill:#5D6D63}
     .number{font-size:9.5px;font-weight:650;fill:#5D6D63}
     .numberStrong{font-size:10px;font-weight:760;fill:#202822}
     .empty{font-size:10px;font-weight:650;letter-spacing:.5px;fill:#5D6D63}
     .panel{fill:#F3F8F4;stroke:#CCDAD0;stroke-width:1}
     .panel2{fill:#FFFFFF;stroke:#CCDAD0;stroke-width:1}
+    .splitPanel{fill:#FFFFFF;stroke:#CCDAD0;stroke-width:1}
     .pill{fill:#F3F8F4;stroke:#CCDAD0;stroke-width:1}
     .track{fill:#D7E2DA}
     .pin{stroke:#36B961;stroke-width:1.2;stroke-opacity:.78}
@@ -993,14 +995,17 @@
   <text x="613" y="326" class="month">PEAK</text>
   <defs><linearGradient id="greenLegend"><stop stop-color="#E3ECE6"/><stop offset=".28" stop-color="#BDE8C8"/><stop offset="1" stop-color="#29A854"/></linearGradient></defs>
 
-  <rect x="24" y="350" width="792" height="330" rx="13" class="panel"/>
-  <text x="44" y="377" class="section">USAGE DISTRIBUTION</text>
-  <text x="796" y="377" text-anchor="end" class="eyebrow">3 MODELS · 2 DEVICES · CACHE · COST</text>
+  <rect x="24" y="350" width="792" height="230" rx="13" class="panel"/>
+  <text x="44" y="377" class="section">MODEL ECONOMY</text>
+  <text x="796" y="377" text-anchor="end" class="eyebrow">3 MODELS · DEVICE SPLIT · INPUT · CACHE · OUTPUT</text>
   <line x1="44" y1="389" x2="796" y2="389" class="grid"/>
-  <text x="60" y="405" class="statLabel">MODEL DISTRIBUTION</text>
+  <text x="66" y="405" class="statLabel">MODEL / SHARE</text>
+  <text x="194" y="405" class="statLabel">DEVICE SPLIT</text>
   <text x="350" y="405" text-anchor="end" class="statLabel">TOKENS</text>
-  <text x="506" y="405" text-anchor="end" class="statLabel">SHARE</text>
-  <text x="620" y="405" text-anchor="end" class="statLabel">CACHE HIT</text>
+  <text x="440" y="405" text-anchor="end" class="statLabel">INPUT*</text>
+  <text x="530" y="405" text-anchor="end" class="statLabel">CACHED</text>
+  <text x="610" y="405" text-anchor="end" class="statLabel">OUTPUT</text>
+  <text x="690" y="405" text-anchor="end" class="statLabel">CACHE</text>
   <text x="796" y="405" text-anchor="end" class="statLabel">EST. CREDITS</text>
   <g>
       <g transform="translate(50 426)" fill="none" stroke="#169847" stroke-width="1.25" stroke-linecap="round" opacity=".95">
@@ -1010,12 +1015,13 @@
     <path d="M-3.7-1.7L0-3.9l3.7 2.2v4.3L0 4.7l-3.7-2.1z"/>
   </g>
       <text x="66" y="430" class="model">gpt-5.6-sol</text>
-      <text x="66" y="441" class="rowMeta">MODEL · DETAIL READY</text>
+      <text x="66" y="441" class="rowMeta">84% SHARE · REASON 277.1K</text>
+      <g><rect x="194" y="418" width="120" height="24" rx="4" class="splitPanel"/><rect x="200" y="422" width="108" height="3" rx="1.5" class="track"/><rect x="200" y="422" width="92" height="3" rx="1.5" fill="#169847"/><rect x="292" y="422" width="16" height="3" rx="1.5" fill="#36B961"/><text x="201" y="431" class="splitLabel">mac_work01</text><text x="307" y="431" text-anchor="end" class="splitLabel">86%</text><text x="201" y="439" class="splitLabel">linux</text><text x="307" y="439" text-anchor="end" class="splitLabel">14%</text></g>
       <text x="350" y="430" text-anchor="end" class="numberStrong">142.2M</text>
-      <rect x="374" y="422" width="102" height="6" rx="3" class="track"/>
-      <rect x="374" y="422" width="85" height="6" rx="3" fill="#169847"/>
-      <text x="506" y="430" text-anchor="end" class="numberStrong">84%</text>
-      <text x="620" y="430" text-anchor="end" class="numberStrong">97%</text>
+      <text x="440" y="430" text-anchor="end" class="number">141.6M</text>
+      <text x="530" y="430" text-anchor="end" class="number">137.0M</text>
+      <text x="610" y="430" text-anchor="end" class="number">629.2K</text>
+      <text x="690" y="430" text-anchor="end" class="numberStrong">97%</text>
       <text x="796" y="430" text-anchor="end" class="numberStrong">2.8K CR</text>
     </g><g>
       <g transform="translate(50 455)" fill="none" stroke="#169847" stroke-width="1.25" stroke-linecap="round" opacity=".95">
@@ -1025,12 +1031,13 @@
     <path d="M-3.7-1.7L0-3.9l3.7 2.2v4.3L0 4.7l-3.7-2.1z"/>
   </g>
       <text x="66" y="459" class="model">gpt-5.6-terra</text>
-      <text x="66" y="470" class="rowMeta">MODEL · DETAIL READY</text>
+      <text x="66" y="470" class="rowMeta">14% SHARE · REASON 18.3K</text>
+      <g><rect x="194" y="447" width="120" height="24" rx="4" class="splitPanel"/><rect x="200" y="451" width="108" height="3" rx="1.5" class="track"/><rect x="200" y="451" width="107" height="3" rx="1.5" fill="#169847"/><rect x="307" y="451" width="1" height="3" rx="1.5" fill="#36B961"/><text x="201" y="460" class="splitLabel">linux</text><text x="307" y="460" text-anchor="end" class="splitLabel">99%</text><text x="201" y="468" class="splitLabel">mac_work01</text><text x="307" y="468" text-anchor="end" class="splitLabel">1%</text></g>
       <text x="350" y="459" text-anchor="end" class="numberStrong">24.1M</text>
-      <rect x="374" y="451" width="102" height="6" rx="3" class="track"/>
-      <rect x="374" y="451" width="14" height="6" rx="3" fill="#169847"/>
-      <text x="506" y="459" text-anchor="end" class="numberStrong">14%</text>
-      <text x="620" y="459" text-anchor="end" class="numberStrong">97%</text>
+      <text x="440" y="459" text-anchor="end" class="number">24.1M</text>
+      <text x="530" y="459" text-anchor="end" class="number">23.5M</text>
+      <text x="610" y="459" text-anchor="end" class="number">66.2K</text>
+      <text x="690" y="459" text-anchor="end" class="numberStrong">97%</text>
       <text x="796" y="459" text-anchor="end" class="numberStrong">210 CR</text>
     </g><g>
       <g transform="translate(50 484)" fill="none" stroke="#169847" stroke-width="1.25" stroke-linecap="round" opacity=".95">
@@ -1040,40 +1047,18 @@
     <path d="M-3.7-1.7L0-3.9l3.7 2.2v4.3L0 4.7l-3.7-2.1z"/>
   </g>
       <text x="66" y="488" class="model">gpt-5.5</text>
-      <text x="66" y="499" class="rowMeta">MODEL · DETAIL READY</text>
+      <text x="66" y="499" class="rowMeta">2% SHARE · REASON 9.5K</text>
+      <g><rect x="194" y="476" width="120" height="24" rx="4" class="splitPanel"/><rect x="200" y="480" width="108" height="3" rx="1.5" class="track"/><rect x="200" y="480" width="79" height="3" rx="1.5" fill="#169847"/><rect x="279" y="480" width="29" height="3" rx="1.5" fill="#36B961"/><text x="201" y="489" class="splitLabel">linux</text><text x="307" y="489" text-anchor="end" class="splitLabel">73%</text><text x="201" y="497" class="splitLabel">mac_work01</text><text x="307" y="497" text-anchor="end" class="splitLabel">27%</text></g>
       <text x="350" y="488" text-anchor="end" class="numberStrong">3.5M</text>
-      <rect x="374" y="480" width="102" height="6" rx="3" class="track"/>
-      <rect x="374" y="480" width="3" height="6" rx="3" fill="#169847"/>
-      <text x="506" y="488" text-anchor="end" class="numberStrong">2%</text>
-      <text x="620" y="488" text-anchor="end" class="numberStrong">85%</text>
+      <text x="440" y="488" text-anchor="end" class="number">3.5M</text>
+      <text x="530" y="488" text-anchor="end" class="number">2.9M</text>
+      <text x="610" y="488" text-anchor="end" class="number">28.3K</text>
+      <text x="690" y="488" text-anchor="end" class="numberStrong">85%</text>
       <text x="796" y="488" text-anchor="end" class="numberStrong">123 CR</text>
     </g>
-  <line x1="44" y1="511" x2="796" y2="511" class="grid"/>
-  <text x="60" y="529" class="statLabel">DEVICE DISTRIBUTION</text>
-  <g>
-      <circle cx="48" cy="550" r="4" fill="#36B961"/>
-      <text x="60" y="554" class="device">mac_work01</text>
-      <text x="60" y="565" class="rowMeta">MAC · SYNC 07-17</text>
-      <text x="350" y="554" text-anchor="end" class="numberStrong">122.8M</text>
-      <rect x="374" y="546" width="102" height="6" rx="3" class="track"/>
-      <rect x="374" y="546" width="74" height="6" rx="3" fill="#36B961"/>
-      <text x="506" y="554" text-anchor="end" class="numberStrong">72%</text>
-      <text x="620" y="554" text-anchor="end" class="numberStrong">97%</text>
-      <text x="796" y="554" text-anchor="end" class="numberStrong">2.3K CR</text>
-    </g><g>
-      <circle cx="48" cy="579" r="4" fill="#36B961"/>
-      <text x="60" y="583" class="device">linux</text>
-      <text x="60" y="594" class="rowMeta">LINUX · SYNC 07-17</text>
-      <text x="350" y="583" text-anchor="end" class="numberStrong">47.0M</text>
-      <rect x="374" y="575" width="102" height="6" rx="3" class="track"/>
-      <rect x="374" y="575" width="28" height="6" rx="3" fill="#36B961"/>
-      <text x="506" y="583" text-anchor="end" class="numberStrong">28%</text>
-      <text x="620" y="583" text-anchor="end" class="numberStrong">95%</text>
-      <text x="796" y="583" text-anchor="end" class="numberStrong">759 CR</text>
-    </g>
-  <line x1="44" y1="695" x2="796" y2="695" class="grid"/>
-  <text x="44" y="710" class="rowMeta">CACHE HIT = CACHED INPUT / INPUT · EST. CREDITS USE CODEX RATE CARD 2026-07-17</text>
+  <line x1="44" y1="542" x2="796" y2="542" class="grid"/>
+  <text x="44" y="558" class="rowMeta">DEVICE SPLIT = PER-MODEL DEVICE SHARE · CACHED IS INCLUDED IN INPUT · CREDITS USE CODEX RATE CARD 2026-07-17</text>
 
-  <text x="24" y="739" class="eyebrow">6 MONTHS · LOCAL-ONLY AGGREGATES · TRANSPARENT SVG · LIVE MOTION</text>
-  <text x="816" y="739" class="eyebrow" text-anchor="end">BUILD THE SYSTEM</text>
+  <text x="24" y="620" class="eyebrow">6 MONTHS · LOCAL-ONLY AGGREGATES · TRANSPARENT SVG · LIVE MOTION</text>
+  <text x="816" y="620" class="eyebrow" text-anchor="end">BUILD THE SYSTEM</text>
   </svg>

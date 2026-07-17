@@ -33,17 +33,6 @@ const estimateDetailedCredits = (model) => {
   const uncached = Math.max(0, (model.inputTokens || 0) - cached);
   return (uncached * rates.input + cached * rates.cached + (model.outputTokens || 0) * rates.output) / 1e6;
 };
-const estimateDeviceCredits = (device) => {
-  if (!hasFullDetail(device) || !device.models?.length) return null;
-  let sum = 0;
-  for (const model of device.models) {
-    const value = estimateModelCredits({ ...model, detailedTokens: model.tokens });
-    if (value == null) return null;
-    sum += value;
-  }
-  return sum;
-};
-
 function displayModels() {
   if (data.models.length <= 4) return data.models;
   const visible = data.models.slice(0, 3);
@@ -56,6 +45,7 @@ function displayModels() {
     outputTokens: 0,
     reasoningOutputTokens: 0,
     detailedTokens: 0,
+    sourceNames: remainder.map((model) => model.name),
     aggregate: true
   };
   let credits = 0;
@@ -70,36 +60,7 @@ function displayModels() {
   return [...visible, aggregate];
 }
 
-function displayDevices() {
-  if (data.devices.length <= 3) return data.devices;
-  const visible = data.devices.slice(0, 2);
-  const remainder = data.devices.slice(2);
-  const models = new Map();
-  const aggregate = {
-    name: `OTHER · ${remainder.length} DEVICES`,
-    platform: 'mixed',
-    collectedAt: remainder.map((device) => device.collectedAt || '').sort().at(-1),
-    tokens: 0,
-    inputTokens: 0,
-    cachedInputTokens: 0,
-    outputTokens: 0,
-    reasoningOutputTokens: 0,
-    detailedTokens: 0,
-    aggregate: true
-  };
-  for (const device of remainder) {
-    for (const key of ['tokens', 'inputTokens', 'cachedInputTokens', 'outputTokens', 'reasoningOutputTokens', 'detailedTokens']) aggregate[key] += device[key] || 0;
-    for (const model of device.models || []) {
-      if (!models.has(model.name)) models.set(model.name, { name: model.name, tokens: 0, inputTokens: 0, cachedInputTokens: 0, outputTokens: 0, reasoningOutputTokens: 0 });
-      for (const key of ['tokens', 'inputTokens', 'cachedInputTokens', 'outputTokens', 'reasoningOutputTokens']) models.get(model.name)[key] += model[key] || 0;
-    }
-  }
-  aggregate.models = [...models.values()];
-  return [...visible, aggregate];
-}
-
 const visibleModels = displayModels();
-const visibleDevices = displayDevices();
 
 function rollingWindow() {
   const values = new Map(data.days.map((day) => [day.date, day.tokens || 0]));
@@ -229,45 +190,47 @@ function modelPills(theme) {
   }).join('');
 }
 
-function modelDistributionRows(theme, startY) {
+function modelDeviceSplit(theme, model, y) {
+  const names = new Set(model.sourceNames || [model.name]);
+  const entries = data.devices.map((device) => ({
+    name: device.name,
+    tokens: (device.models || []).reduce((sum, item) => sum + (names.has(item.name) ? item.tokens || 0 : 0), 0)
+  })).filter((entry) => entry.tokens > 0).sort((a, b) => b.tokens - a.tokens);
+  const totalTokens = entries.reduce((sum, entry) => sum + entry.tokens, 0);
+  const listed = entries.length > 2
+    ? [entries[0], { name: `OTHER ${entries.length - 1}`, tokens: entries.slice(1).reduce((sum, entry) => sum + entry.tokens, 0) }]
+    : entries;
+  const x = 194;
+  const width = 120;
+  if (!listed.length || !totalTokens) return `<g><rect x="${x}" y="${y - 12}" width="${width}" height="24" rx="4" class="splitPanel"/><text x="${x + 7}" y="${y + 4}" class="splitLabel">NO DEVICE DATA</text></g>`;
+  let offset = 0;
+  const segments = listed.map((entry, index) => {
+    const segmentWidth = index === listed.length - 1 ? 108 - offset : Math.round(108 * entry.tokens / totalTokens);
+    const result = `<rect x="${x + 6 + offset}" y="${y - 8}" width="${Math.max(1, segmentWidth)}" height="3" rx="1.5" fill="${index ? theme.accent2 : theme.accent}"/>`;
+    offset += segmentWidth;
+    return result;
+  }).join('');
+  const line = (entry, lineY) => `<text x="${x + 7}" y="${lineY}" class="splitLabel">${safe(entry.name)}</text><text x="${x + 113}" y="${lineY}" text-anchor="end" class="splitLabel">${Math.round(entry.tokens / totalTokens * 100)}%</text>`;
+  return `<g><rect x="${x}" y="${y - 12}" width="${width}" height="24" rx="4" class="splitPanel"/><rect x="${x + 6}" y="${y - 8}" width="108" height="3" rx="1.5" class="track"/>${segments}${line(listed[0], y + 1)}${listed[1] ? line(listed[1], y + 9) : ''}</g>`;
+}
+
+function modelRows(theme, startY) {
   if (!visibleModels.length) return `<text x="44" y="${startY}" class="empty">NO MODEL DATA — SYNC CODEX CLI TO BEGIN</text>`;
   return visibleModels.map((model, index) => {
     const y = startY + index * 29;
     const detailed = hasFullDetail(model);
     const rate = detailed && model.inputTokens ? `${Math.round(cacheRate(model) * 100)}%` : 'SYNC';
     const credits = compactCredits(model.aggregate ? model.estimatedCredits : estimateModelCredits(model));
-    const share = total ? model.tokens / total : 0;
     return `<g>
       ${modelMark(50, y - 4, theme.accent)}
       <text x="66" y="${y}" class="model">${safe(model.name)}</text>
-      <text x="66" y="${y + 11}" class="rowMeta">MODEL · ${model.aggregate ? 'OVERFLOW GROUP' : detailed ? 'DETAIL READY' : 'RESYNC FOR DETAILS'}</text>
+      <text x="66" y="${y + 11}" class="rowMeta">${Math.round(total ? model.tokens / total * 100 : 0)}% SHARE · ${model.aggregate ? 'OVERFLOW GROUP' : detailed ? `REASON ${compact(model.reasoningOutputTokens)}` : 'RESYNC FOR DETAILS'}</text>
+      ${modelDeviceSplit(theme, model, y)}
       <text x="350" y="${y}" text-anchor="end" class="numberStrong">${compact(model.tokens)}</text>
-      <rect x="374" y="${y - 8}" width="102" height="6" rx="3" class="track"/>
-      <rect x="374" y="${y - 8}" width="${Math.max(3, Math.round(102 * share))}" height="6" rx="3" fill="${theme.accent}"/>
-      <text x="506" y="${y}" text-anchor="end" class="numberStrong">${Math.round(share * 100)}%</text>
-      <text x="620" y="${y}" text-anchor="end" class="numberStrong">${rate}</text>
-      <text x="796" y="${y}" text-anchor="end" class="numberStrong">${credits}</text>
-    </g>`;
-  }).join('');
-}
-
-function deviceDistributionRows(theme, startY) {
-  return visibleDevices.map((device, index) => {
-    const y = startY + index * 29;
-    const detailed = hasFullDetail(device);
-    const rate = detailed && device.inputTokens ? `${Math.round(cacheRate(device) * 100)}%` : 'SYNC';
-    const credits = compactCredits(estimateDeviceCredits(device));
-    const share = total ? device.tokens / total : 0;
-    const platform = device.platform === 'darwin' ? 'MAC' : device.platform === 'win32' ? 'WIN' : device.platform === 'mixed' ? 'MIXED' : 'LINUX';
-    return `<g>
-      <circle cx="48" cy="${y - 4}" r="4" fill="${theme.accent2}"/>
-      <text x="60" y="${y}" class="device">${safe(device.name)}</text>
-      <text x="60" y="${y + 11}" class="rowMeta">${platform} · ${device.aggregate ? 'OVERFLOW GROUP' : detailed ? `SYNC ${device.collectedAt?.slice(5, 10) || '—'}` : 'RESYNC FOR DETAILS'}</text>
-      <text x="350" y="${y}" text-anchor="end" class="numberStrong">${compact(device.tokens)}</text>
-      <rect x="374" y="${y - 8}" width="102" height="6" rx="3" class="track"/>
-      <rect x="374" y="${y - 8}" width="${Math.max(3, Math.round(102 * share))}" height="6" rx="3" fill="${theme.accent2}"/>
-      <text x="506" y="${y}" text-anchor="end" class="numberStrong">${Math.round(share * 100)}%</text>
-      <text x="620" y="${y}" text-anchor="end" class="numberStrong">${rate}</text>
+      <text x="440" y="${y}" text-anchor="end" class="number">${detailed ? compact(model.inputTokens) : '—'}</text>
+      <text x="530" y="${y}" text-anchor="end" class="number">${detailed ? compact(model.cachedInputTokens) : '—'}</text>
+      <text x="610" y="${y}" text-anchor="end" class="number">${detailed ? compact(model.outputTokens) : '—'}</text>
+      <text x="690" y="${y}" text-anchor="end" class="numberStrong">${rate}</text>
       <text x="796" y="${y}" text-anchor="end" class="numberStrong">${credits}</text>
     </g>`;
   }).join('');
@@ -279,10 +242,7 @@ function render(mode) {
   const coverageLabel = `${Math.round(detailCoverage * 100)}%`;
   const cacheLabel = detailedInput ? `${Math.round(detailedCached / detailedInput * 100)}%` : '—';
   const modelStartY = 430;
-  const modelBlockBottom = modelStartY + Math.max(visibleModels.length - 1, 0) * 29 + 13;
-  const deviceSectionY = modelBlockBottom + 28;
-  const deviceStartY = deviceSectionY + 25;
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="840" height="750" viewBox="0 0 840 750" role="img" aria-label="HJ Cheng six month AI coding and token economy dashboard">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="840" height="640" viewBox="0 0 840 640" role="img" aria-label="HJ Cheng six month AI coding and token economy dashboard">
   <style>
     text{font-family:'Cascadia Code','JetBrains Mono','SFMono-Regular',Consolas,monospace}
     .title{font-size:20px;font-weight:760;letter-spacing:2.2px;fill:${theme.ink}}
@@ -298,11 +258,13 @@ function render(mode) {
     .section{font-size:12px;font-weight:780;letter-spacing:1px;fill:${theme.ink}}
     .device,.model{font-size:10.5px;font-weight:750;fill:${theme.ink}}
     .rowMeta{font-size:7px;font-weight:650;letter-spacing:.45px;fill:${theme.faint}}
+    .splitLabel{font-size:5.7px;font-weight:700;letter-spacing:.1px;fill:${theme.muted}}
     .number{font-size:9.5px;font-weight:650;fill:${theme.muted}}
     .numberStrong{font-size:10px;font-weight:760;fill:${theme.ink}}
     .empty{font-size:10px;font-weight:650;letter-spacing:.5px;fill:${theme.muted}}
     .panel{fill:${theme.panel};stroke:${theme.stroke};stroke-width:1}
     .panel2{fill:${theme.panel2};stroke:${theme.stroke};stroke-width:1}
+    .splitPanel{fill:${theme.panel2};stroke:${theme.stroke};stroke-width:1}
     .pill{fill:${theme.panel};stroke:${theme.stroke};stroke-width:1}
     .track{fill:${theme.track}}
     .pin{stroke:${theme.accent2};stroke-width:1.2;stroke-opacity:.78}
@@ -339,24 +301,24 @@ function render(mode) {
   <text x="613" y="326" class="month">PEAK</text>
   <defs><linearGradient id="greenLegend"><stop stop-color="${theme.dormantTop}"/><stop offset=".28" stop-color="${theme.lowTop}"/><stop offset="1" stop-color="${theme.highTop}"/></linearGradient></defs>
 
-  <rect x="24" y="350" width="792" height="330" rx="13" class="panel"/>
-  <text x="44" y="377" class="section">USAGE DISTRIBUTION</text>
-  <text x="796" y="377" text-anchor="end" class="eyebrow">${visibleModels.length} MODELS · ${visibleDevices.length} DEVICES · CACHE · COST</text>
+  <rect x="24" y="350" width="792" height="230" rx="13" class="panel"/>
+  <text x="44" y="377" class="section">MODEL ECONOMY</text>
+  <text x="796" y="377" text-anchor="end" class="eyebrow">${data.models.length > 4 ? `TOP 3 + ${data.models.length - 3} IN OTHER` : `${data.models.length} MODELS`} · DEVICE SPLIT · INPUT · CACHE · OUTPUT</text>
   <line x1="44" y1="389" x2="796" y2="389" class="grid"/>
-  <text x="60" y="405" class="statLabel">MODEL DISTRIBUTION</text>
+  <text x="66" y="405" class="statLabel">MODEL / SHARE</text>
+  <text x="194" y="405" class="statLabel">DEVICE SPLIT</text>
   <text x="350" y="405" text-anchor="end" class="statLabel">TOKENS</text>
-  <text x="506" y="405" text-anchor="end" class="statLabel">SHARE</text>
-  <text x="620" y="405" text-anchor="end" class="statLabel">CACHE HIT</text>
+  <text x="440" y="405" text-anchor="end" class="statLabel">INPUT*</text>
+  <text x="530" y="405" text-anchor="end" class="statLabel">CACHED</text>
+  <text x="610" y="405" text-anchor="end" class="statLabel">OUTPUT</text>
+  <text x="690" y="405" text-anchor="end" class="statLabel">CACHE</text>
   <text x="796" y="405" text-anchor="end" class="statLabel">EST. CREDITS</text>
-  ${modelDistributionRows(theme, modelStartY)}
-  <line x1="44" y1="${modelBlockBottom + 10}" x2="796" y2="${modelBlockBottom + 10}" class="grid"/>
-  <text x="60" y="${deviceSectionY}" class="statLabel">DEVICE DISTRIBUTION</text>
-  ${deviceDistributionRows(theme, deviceStartY)}
-  <line x1="44" y1="695" x2="796" y2="695" class="grid"/>
-  <text x="44" y="710" class="rowMeta">CACHE HIT = CACHED INPUT / INPUT · EST. CREDITS USE CODEX RATE CARD ${RATE_CARD_DATE}</text>
+  ${modelRows(theme, modelStartY)}
+  <line x1="44" y1="542" x2="796" y2="542" class="grid"/>
+  <text x="44" y="558" class="rowMeta">DEVICE SPLIT = PER-MODEL DEVICE SHARE · CACHED IS INCLUDED IN INPUT · CREDITS USE CODEX RATE CARD ${RATE_CARD_DATE}</text>
 
-  <text x="24" y="739" class="eyebrow">6 MONTHS · LOCAL-ONLY AGGREGATES · TRANSPARENT SVG · LIVE MOTION</text>
-  <text x="816" y="739" class="eyebrow" text-anchor="end">BUILD THE SYSTEM</text>
+  <text x="24" y="620" class="eyebrow">6 MONTHS · LOCAL-ONLY AGGREGATES · TRANSPARENT SVG · LIVE MOTION</text>
+  <text x="816" y="620" class="eyebrow" text-anchor="end">BUILD THE SYSTEM</text>
   </svg>`;
 }
 
