@@ -3,18 +3,18 @@
   "windowDays": 183,
   "windowStart": "2026-01-16",
   "windowEnd": "2026-07-17",
-  "updatedAt": "2026-07-17T10:49:21.258Z",
+  "updatedAt": "2026-07-17T10:50:42.440Z",
   "devices": [
     {
       "name": "mac_work01",
       "platform": "darwin",
-      "collectedAt": "2026-07-17T10:18:38.781Z",
-      "tokens": 253667259,
-      "inputTokens": 252659242,
-      "cachedInputTokens": 245228544,
-      "outputTokens": 1008017,
-      "reasoningOutputTokens": 464208,
-      "detailedTokens": 253667259,
+      "collectedAt": "2026-07-17T10:50:24.114Z",
+      "tokens": 261939172,
+      "inputTokens": 260905478,
+      "cachedInputTokens": 253339648,
+      "outputTokens": 1033694,
+      "reasoningOutputTokens": 476198,
+      "detailedTokens": 261939172,
       "models": [
         {
           "name": "gpt-5.5",
@@ -36,25 +36,25 @@
         },
         {
           "name": "gpt-5.6-terra",
-          "tokens": 44521065,
-          "inputTokens": 44357197,
-          "cachedInputTokens": 42946560,
-          "outputTokens": 163868,
-          "reasoningOutputTokens": 76654,
-          "turnCount": 18
+          "tokens": 52792978,
+          "inputTokens": 52603433,
+          "cachedInputTokens": 51057664,
+          "outputTokens": 189545,
+          "reasoningOutputTokens": 88644,
+          "turnCount": 22
         }
       ]
     },
     {
       "name": "mac_work01-qoder",
       "platform": "darwin",
-      "collectedAt": "2026-07-17T10:18:39.233Z",
-      "tokens": 134112737,
-      "inputTokens": 133022127,
-      "cachedInputTokens": 118315546,
-      "outputTokens": 1090610,
+      "collectedAt": "2026-07-17T10:50:24.559Z",
+      "tokens": 135238893,
+      "inputTokens": 134138619,
+      "cachedInputTokens": 119135770,
+      "outputTokens": 1100274,
       "reasoningOutputTokens": 0,
-      "detailedTokens": 134112737,
+      "detailedTokens": 135238893,
       "models": [
         {
           "name": "Qwen3.7-Max",
@@ -76,12 +76,12 @@
         },
         {
           "name": "Kimi-K3",
-          "tokens": 4245067,
-          "inputTokens": 4161044,
-          "cachedInputTokens": 3479296,
-          "outputTokens": 84023,
+          "tokens": 5371223,
+          "inputTokens": 5277536,
+          "cachedInputTokens": 4299520,
+          "outputTokens": 93687,
           "reasoningOutputTokens": 0,
-          "turnCount": 55
+          "turnCount": 64
         },
         {
           "name": "Qwen Max",
@@ -190,6 +190,17 @@
       "turnCountComplete": false
     },
     {
+      "name": "gpt-5.6-terra",
+      "tokens": 76737851,
+      "inputTokens": 76483739,
+      "cachedInputTokens": 74344192,
+      "outputTokens": 254112,
+      "reasoningOutputTokens": 106206,
+      "detailedTokens": 76737851,
+      "turnCount": 22,
+      "turnCountComplete": false
+    },
+    {
       "name": "Qwen3.7-Max",
       "tokens": 73963497,
       "inputTokens": 73282282,
@@ -199,17 +210,6 @@
       "detailedTokens": 73963497,
       "turnCount": 973,
       "turnCountComplete": true
-    },
-    {
-      "name": "gpt-5.6-terra",
-      "tokens": 68465938,
-      "inputTokens": 68237503,
-      "cachedInputTokens": 66233088,
-      "outputTokens": 228435,
-      "reasoningOutputTokens": 94216,
-      "detailedTokens": 68465938,
-      "turnCount": 18,
-      "turnCountComplete": false
     },
     {
       "name": "GLM-5.2",
@@ -224,13 +224,13 @@
     },
     {
       "name": "Kimi-K3",
-      "tokens": 4245067,
-      "inputTokens": 4161044,
-      "cachedInputTokens": 3479296,
-      "outputTokens": 84023,
+      "tokens": 5371223,
+      "inputTokens": 5277536,
+      "cachedInputTokens": 4299520,
+      "outputTokens": 93687,
       "reasoningOutputTokens": 0,
-      "detailedTokens": 4245067,
-      "turnCount": 55,
+      "detailedTokens": 5371223,
+      "turnCount": 64,
       "turnCountComplete": true
     },
     {
@@ -466,11 +466,11 @@
     },
     {
       "date": "2026-07-17",
-      "tokens": 142819407,
-      "inputTokens": 142232505,
-      "cachedInputTokens": 136955686,
-      "outputTokens": 586902,
-      "reasoningOutputTokens": 226492
+      "tokens": 152217476,
+      "inputTokens": 151595233,
+      "cachedInputTokens": 145887014,
+      "outputTokens": 622243,
+      "reasoningOutputTokens": 238482
     }
   ]
 }
