@@ -84,13 +84,42 @@ function mix(from, to, amount) {
   return `#${a.map((value, index) => Math.round(value + (b[index] - value) * amount).toString(16).padStart(2, '0')).join('')}`;
 }
 
-function modelMark(x, y, color) {
-  return `<g transform="translate(${x} ${y})" fill="none" stroke="${color}" stroke-width="1.25" stroke-linecap="round" opacity=".95">
-    <path d="M0-6.4c3.4 0 6 2.2 6 5.2 0 1.5-.6 2.8-1.7 3.7"/>
-    <path d="M5.6 3.2C3.9 6.1.7 7.2-2 5.8c-1.3-.7-2.1-1.9-2.3-3.3"/>
-    <path d="M-5.6 3.2C-7.3.3-6.7-3.1-4-4.7c1.3-.7 2.7-.8 4.1-.3"/>
-    <path d="M-3.7-1.7L0-3.9l3.7 2.2v4.3L0 4.7l-3.7-2.1z"/>
-  </g>`;
+const providerIcons = {
+  openai: 'openai.svg',
+  qwen: 'qwen.svg',
+  glm: 'zhipu.svg',
+  deepseek: 'deepseek.svg',
+  minimax: 'minimax.svg',
+  kimi: 'kimi.svg'
+};
+
+function providerForModel(modelName) {
+  const name = modelName.toLowerCase();
+  return name.startsWith('gpt') ? 'openai'
+    : name.startsWith('qwen') ? 'qwen'
+      : name.startsWith('glm') ? 'glm'
+        : name.startsWith('deepseek') ? 'deepseek'
+          : name.startsWith('minimax') ? 'minimax'
+            : name.startsWith('kimi') ? 'kimi' : 'other';
+}
+
+function providerIconData(provider, theme) {
+  const filename = providerIcons[provider];
+  if (!filename) return null;
+  const source = readFileSync(`assets/providers/${filename}`, 'utf8').replaceAll('currentColor', theme.ink);
+  return `data:image/svg+xml;base64,${Buffer.from(source).toString('base64')}`;
+}
+
+function modelMark(x, y, modelName, theme) {
+  const provider = providerForModel(modelName);
+  const icon = providerIconData(provider, theme);
+  if (!icon) {
+    return `<g transform="translate(${x} ${y})" fill="none" stroke="${theme.accent}" stroke-width="1.25" stroke-linecap="round"><circle r="6"/><path d="M-3 0h6M0-3v6"/></g>`;
+  }
+  const kimiBackdrop = provider === 'kimi'
+    ? '<rect x="-7" y="-7" width="14" height="14" rx="3" fill="#1783FF"/>'
+    : '';
+  return `<g transform="translate(${x} ${y})">${kimiBackdrop}<image x="-7" y="-7" width="14" height="14" href="${icon}"/></g>`;
 }
 
 function coords(day) {
@@ -153,7 +182,7 @@ function modelPills(theme) {
     const label = safe(model.name);
     const width = Math.max(105, 42 + label.length * 7);
     const result = `<g class="intro tag" style="animation-delay:${(.2 + index * .08).toFixed(2)}s"><rect x="${x}" y="68" width="${width}" height="23" rx="11.5" class="pill"/>
-      ${modelMark(x + 16, 79.5, index ? theme.accent2 : theme.accent)}
+      ${modelMark(x + 16, 79.5, model.name, theme)}
       <text x="${x + 30}" y="83" class="pillText">${label}</text></g>`;
     x += width + 8;
     return result;
@@ -196,7 +225,7 @@ function modelRows(theme, startY) {
       ? `${compact(model.turnCount)}${model.turnCountComplete ? '' : '+'} TURNS`
       : 'TURN SYNC PENDING';
     return `<g class="mrow" style="animation-delay:${(1.28 + index * .1).toFixed(2)}s">
-      ${modelMark(50, y - 4, theme.accent)}
+      ${modelMark(50, y - 4, model.name, theme)}
       <text x="68" y="${y}" class="model">${safe(model.name)}</text>
       <text x="68" y="${y + 11}" class="rowMeta">${Math.round(total ? model.tokens / total * 100 : 0)}% SHARE · ${turnLabel}</text>
       ${modelDeviceSplit(theme, model, y)}
