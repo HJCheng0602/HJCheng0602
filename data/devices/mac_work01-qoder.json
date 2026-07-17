@@ -5,7 +5,7 @@
   "windowEnd": "2026-07-17",
   "device": "mac_work01-qoder",
   "platform": "darwin",
-  "collectedAt": "2026-07-17T09:26:12.119Z",
+  "collectedAt": "2026-07-17T10:18:39.233Z",
   "models": [
     {
       "name": "Qwen3.7-Max",
@@ -14,7 +14,7 @@
       "cachedInputTokens": 61917703,
       "outputTokens": 681215,
       "reasoningOutputTokens": 0,
-      "sessionCount": 27
+      "turnCount": 973
     },
     {
       "name": "GLM-5.2",
@@ -23,16 +23,16 @@
       "cachedInputTokens": 52266432,
       "outputTokens": 305317,
       "reasoningOutputTokens": 0,
-      "sessionCount": 6
+      "turnCount": 570
     },
     {
       "name": "Kimi-K3",
-      "tokens": 1315036,
-      "inputTokens": 1267703,
-      "cachedInputTokens": 1087744,
-      "outputTokens": 47333,
+      "tokens": 4245067,
+      "inputTokens": 4161044,
+      "cachedInputTokens": 3479296,
+      "outputTokens": 84023,
       "reasoningOutputTokens": 0,
-      "sessionCount": 2
+      "turnCount": 55
     },
     {
       "name": "Qwen Max",
@@ -41,7 +41,7 @@
       "cachedInputTokens": 553178,
       "outputTokens": 15960,
       "reasoningOutputTokens": 0,
-      "sessionCount": 4
+      "turnCount": 21
     },
     {
       "name": "Qwen Plus",
@@ -50,7 +50,7 @@
       "cachedInputTokens": 71175,
       "outputTokens": 3902,
       "reasoningOutputTokens": 0,
-      "sessionCount": 2
+      "turnCount": 6
     },
     {
       "name": "DeepSeek-V4-Fast",
@@ -59,7 +59,7 @@
       "cachedInputTokens": 4480,
       "outputTokens": 89,
       "reasoningOutputTokens": 0,
-      "sessionCount": 1
+      "turnCount": 1
     },
     {
       "name": "MiniMax-M3",
@@ -68,7 +68,7 @@
       "cachedInputTokens": 114,
       "outputTokens": 34,
       "reasoningOutputTokens": 0,
-      "sessionCount": 1
+      "turnCount": 1
     },
     {
       "name": "DeepSeek-V4-Pro",
@@ -77,7 +77,7 @@
       "cachedInputTokens": 4480,
       "outputTokens": 33,
       "reasoningOutputTokens": 0,
-      "sessionCount": 1
+      "turnCount": 1
     },
     {
       "name": "Kimi-K2.7-Code",
@@ -86,7 +86,7 @@
       "cachedInputTokens": 18688,
       "outputTokens": 37,
       "reasoningOutputTokens": 0,
-      "sessionCount": 1
+      "turnCount": 1
     }
   ],
   "days": [
@@ -228,10 +228,10 @@
     },
     {
       "date": "2026-07-17",
-      "tokens": 5520623,
-      "inputTokens": 5457517,
-      "cachedInputTokens": 5035558,
-      "outputTokens": 63106,
+      "tokens": 8450654,
+      "inputTokens": 8350858,
+      "cachedInputTokens": 7427110,
+      "outputTokens": 99796,
       "reasoningOutputTokens": 0
     }
   ]

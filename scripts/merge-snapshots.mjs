@@ -16,10 +16,10 @@ const devices = snapshots.map((snapshot) => {
   let detailedTokens = 0;
   for (const model of snapshot.models || []) {
     const detailed = Object.hasOwn(model, 'inputTokens');
-    if (!models.has(model.name)) models.set(model.name, { name: model.name, ...emptyMetrics(), detailedTokens: 0, sessionCount: 0, sessionCountComplete: true });
+    if (!models.has(model.name)) models.set(model.name, { name: model.name, ...emptyMetrics(), detailedTokens: 0, turnCount: 0, turnCountComplete: true });
     addMetrics(models.get(model.name), model);
-    models.get(model.name).sessionCount += model.sessionCount || 0;
-    models.get(model.name).sessionCountComplete &&= Object.hasOwn(model, 'sessionCount');
+    models.get(model.name).turnCount += model.turnCount || 0;
+    models.get(model.name).turnCountComplete &&= Object.hasOwn(model, 'turnCount');
     addMetrics(totals, model);
     if (detailed) {
       models.get(model.name).detailedTokens += model.tokens || 0;

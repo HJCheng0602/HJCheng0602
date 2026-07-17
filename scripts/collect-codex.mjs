@@ -8,7 +8,7 @@ const windowEnd = new Date().toISOString().slice(0, 10);
 const windowStartDate = new Date(`${windowEnd}T00:00:00Z`);
 windowStartDate.setUTCDate(windowStartDate.getUTCDate() - (windowDays - 1));
 const windowStart = windowStartDate.toISOString().slice(0, 10);
-const usage = new Map(); const days = new Map(); const modelSessions = new Map();
+const usage = new Map(); const days = new Map(); const modelTurns = new Map();
 const metricKeys = ['input_tokens', 'cached_input_tokens', 'output_tokens', 'reasoning_output_tokens', 'total_tokens'];
 const emptyMetrics = () => Object.fromEntries(metricKeys.map((key) => [key, 0]));
 const addMetrics = (target, delta) => {
@@ -20,6 +20,10 @@ for (const file of walk(root).filter((f) => f.endsWith('.jsonl'))) {
   for (const line of readFileSync(file, 'utf8').split('\n')) try {
     const event = JSON.parse(line);
     if (event.type === 'turn_context' && event.payload?.model) model = event.payload.model;
+    const day = event.timestamp?.slice(0, 10);
+    if (event.payload?.type === 'user_message' && day && day >= windowStart && day <= windowEnd) {
+      modelTurns.set(model, (modelTurns.get(model) || 0) + 1);
+    }
     const u = event?.payload?.type === 'token_count' ? event.payload.info?.total_token_usage : null;
     if (!u || !Number.isFinite(u.total_tokens)) continue;
     // token_count is cumulative within a rollout. Attribute only the new delta
@@ -29,11 +33,8 @@ for (const file of walk(root).filter((f) => f.endsWith('.jsonl'))) {
     const delta = Object.fromEntries(metricKeys.map((key) => [key, reset ? (u[key] || 0) : Math.max(0, (u[key] || 0) - (previous[key] || 0))]));
     previous = Object.fromEntries(metricKeys.map((key) => [key, u[key] || 0]));
     if (!delta.total_tokens) continue;
-    const day = event.timestamp?.slice(0, 10);
     if (!day || day < windowStart || day > windowEnd) continue;
     if (!usage.has(model)) usage.set(model, emptyMetrics());
-    if (!modelSessions.has(model)) modelSessions.set(model, new Set());
-    modelSessions.get(model).add(file);
     addMetrics(usage.get(model), delta);
     if (day) {
       if (!days.has(day)) days.set(day, emptyMetrics());
@@ -58,7 +59,7 @@ const output = {
   device,
   platform: platform(),
   collectedAt: new Date().toISOString(),
-  models: [...usage].map(([name, metrics]) => ({ name, ...serializeMetrics(metrics), sessionCount: modelSessions.get(name)?.size || 0 })),
+  models: [...usage].map(([name, metrics]) => ({ name, ...serializeMetrics(metrics), turnCount: modelTurns.get(name) || 0 })),
   days: [...days].map(([date, metrics]) => ({ date, ...serializeMetrics(metrics) }))
 };
 mkdirSync('data/devices', { recursive:true }); writeFileSync(`data/devices/${device}.json`, `${JSON.stringify(output,null,2)}\n`);
