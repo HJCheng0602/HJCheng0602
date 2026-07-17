@@ -1,0 +1,229 @@
+{
+  "schemaVersion": 2,
+  "windowDays": 183,
+  "windowStart": "2026-01-16",
+  "windowEnd": "2026-07-17",
+  "device": "mac_work01-qoder",
+  "platform": "darwin",
+  "collectedAt": "2026-07-17T06:21:51.840Z",
+  "models": [
+    {
+      "name": "Qwen3.7-Max",
+      "tokens": 73963497,
+      "inputTokens": 73282282,
+      "cachedInputTokens": 61917703,
+      "outputTokens": 681215,
+      "reasoningOutputTokens": 0
+    },
+    {
+      "name": "GLM-5.2",
+      "tokens": 54784272,
+      "inputTokens": 54478955,
+      "cachedInputTokens": 52266432,
+      "outputTokens": 305317,
+      "reasoningOutputTokens": 0
+    },
+    {
+      "name": "Qwen Max",
+      "tokens": 846853,
+      "inputTokens": 830893,
+      "cachedInputTokens": 553178,
+      "outputTokens": 15960,
+      "reasoningOutputTokens": 0
+    },
+    {
+      "name": "Qwen Plus",
+      "tokens": 151196,
+      "inputTokens": 147294,
+      "cachedInputTokens": 71175,
+      "outputTokens": 3902,
+      "reasoningOutputTokens": 0
+    },
+    {
+      "name": "DeepSeek-V4-Fast",
+      "tokens": 32713,
+      "inputTokens": 32624,
+      "cachedInputTokens": 4480,
+      "outputTokens": 89,
+      "reasoningOutputTokens": 0
+    },
+    {
+      "name": "MiniMax-M3",
+      "tokens": 32231,
+      "inputTokens": 32197,
+      "cachedInputTokens": 114,
+      "outputTokens": 34,
+      "reasoningOutputTokens": 0
+    },
+    {
+      "name": "DeepSeek-V4-Pro",
+      "tokens": 30027,
+      "inputTokens": 29994,
+      "cachedInputTokens": 4480,
+      "outputTokens": 33,
+      "reasoningOutputTokens": 0
+    },
+    {
+      "name": "Kimi-K3",
+      "tokens": 27204,
+      "inputTokens": 27029,
+      "cachedInputTokens": 4096,
+      "outputTokens": 175,
+      "reasoningOutputTokens": 0
+    },
+    {
+      "name": "Kimi-K2.7-Code",
+      "tokens": 26881,
+      "inputTokens": 26844,
+      "cachedInputTokens": 18688,
+      "outputTokens": 37,
+      "reasoningOutputTokens": 0
+    }
+  ],
+  "days": [
+    {
+      "date": "2026-06-18",
+      "tokens": 25626,
+      "inputTokens": 24539,
+      "cachedInputTokens": 11783,
+      "outputTokens": 1087,
+      "reasoningOutputTokens": 0
+    },
+    {
+      "date": "2026-06-19",
+      "tokens": 7148478,
+      "inputTokens": 7100706,
+      "cachedInputTokens": 6669512,
+      "outputTokens": 47772,
+      "reasoningOutputTokens": 0
+    },
+    {
+      "date": "2026-06-22",
+      "tokens": 15570151,
+      "inputTokens": 15483720,
+      "cachedInputTokens": 14337280,
+      "outputTokens": 86431,
+      "reasoningOutputTokens": 0
+    },
+    {
+      "date": "2026-06-23",
+      "tokens": 8926039,
+      "inputTokens": 8850530,
+      "cachedInputTokens": 7470116,
+      "outputTokens": 75509,
+      "reasoningOutputTokens": 0
+    },
+    {
+      "date": "2026-06-24",
+      "tokens": 8241907,
+      "inputTokens": 8137295,
+      "cachedInputTokens": 6297271,
+      "outputTokens": 104612,
+      "reasoningOutputTokens": 0
+    },
+    {
+      "date": "2026-06-25",
+      "tokens": 9047587,
+      "inputTokens": 8964916,
+      "cachedInputTokens": 7347038,
+      "outputTokens": 82671,
+      "reasoningOutputTokens": 0
+    },
+    {
+      "date": "2026-06-26",
+      "tokens": 12826312,
+      "inputTokens": 12656377,
+      "cachedInputTokens": 10746888,
+      "outputTokens": 169935,
+      "reasoningOutputTokens": 0
+    },
+    {
+      "date": "2026-06-27",
+      "tokens": 37761032,
+      "inputTokens": 37555979,
+      "cachedInputTokens": 36501398,
+      "outputTokens": 205053,
+      "reasoningOutputTokens": 0
+    },
+    {
+      "date": "2026-06-29",
+      "tokens": 520552,
+      "inputTokens": 516820,
+      "cachedInputTokens": 420369,
+      "outputTokens": 3732,
+      "reasoningOutputTokens": 0
+    },
+    {
+      "date": "2026-07-05",
+      "tokens": 1383842,
+      "inputTokens": 1354308,
+      "cachedInputTokens": 1272805,
+      "outputTokens": 29534,
+      "reasoningOutputTokens": 0
+    },
+    {
+      "date": "2026-07-06",
+      "tokens": 14060416,
+      "inputTokens": 13956643,
+      "cachedInputTokens": 11570008,
+      "outputTokens": 103773,
+      "reasoningOutputTokens": 0
+    },
+    {
+      "date": "2026-07-07",
+      "tokens": 1103991,
+      "inputTokens": 1085389,
+      "cachedInputTokens": 875483,
+      "outputTokens": 18602,
+      "reasoningOutputTokens": 0
+    },
+    {
+      "date": "2026-07-08",
+      "tokens": 2255893,
+      "inputTokens": 2243867,
+      "cachedInputTokens": 2026324,
+      "outputTokens": 12026,
+      "reasoningOutputTokens": 0
+    },
+    {
+      "date": "2026-07-09",
+      "tokens": 5214458,
+      "inputTokens": 5190018,
+      "cachedInputTokens": 4284962,
+      "outputTokens": 24440,
+      "reasoningOutputTokens": 0
+    },
+    {
+      "date": "2026-07-10",
+      "tokens": 595870,
+      "inputTokens": 591002,
+      "cachedInputTokens": 436594,
+      "outputTokens": 4868,
+      "reasoningOutputTokens": 0
+    },
+    {
+      "date": "2026-07-14",
+      "tokens": 64887,
+      "inputTokens": 63693,
+      "cachedInputTokens": 26996,
+      "outputTokens": 1194,
+      "reasoningOutputTokens": 0
+    },
+    {
+      "date": "2026-07-15",
+      "tokens": 915042,
+      "inputTokens": 895467,
+      "cachedInputTokens": 593609,
+      "outputTokens": 19575,
+      "reasoningOutputTokens": 0
+    },
+    {
+      "date": "2026-07-17",
+      "tokens": 4232791,
+      "inputTokens": 4216843,
+      "cachedInputTokens": 3951910,
+      "outputTokens": 15948,
+      "reasoningOutputTokens": 0
+    }
+  ]
+}

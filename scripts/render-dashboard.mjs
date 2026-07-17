@@ -28,30 +28,7 @@ const estimateDetailedCostUsd = (model) => {
   return (uncached * rates.input + cached * rates.cachedInput + (model.outputTokens || 0) * rates.output) / 1e6;
 };
 function displayModels() {
-  if (data.models.length <= 4) return data.models;
-  const visible = data.models.slice(0, 3);
-  const remainder = data.models.slice(3);
-  const aggregate = {
-    name: `OTHER · ${remainder.length} MODELS`,
-    tokens: 0,
-    inputTokens: 0,
-    cachedInputTokens: 0,
-    outputTokens: 0,
-    reasoningOutputTokens: 0,
-    detailedTokens: 0,
-    sourceNames: remainder.map((model) => model.name),
-    aggregate: true
-  };
-  let costUsd = 0;
-  let costKnown = true;
-  for (const model of remainder) {
-    for (const key of ['tokens', 'inputTokens', 'cachedInputTokens', 'outputTokens', 'reasoningOutputTokens', 'detailedTokens']) aggregate[key] += model[key] || 0;
-    const value = estimateModelCostUsd(model);
-    if (value == null) costKnown = false;
-    else costUsd += value;
-  }
-  aggregate.estimatedCostUsd = costKnown ? costUsd : null;
-  return [...visible, aggregate];
+  return data.models;
 }
 
 const visibleModels = displayModels();
@@ -283,7 +260,7 @@ function render(mode) {
     <linearGradient id="greenLegend"><stop stop-color="${theme.dormantTop}"/><stop offset=".3" stop-color="${theme.lowTop}"/><stop offset="1" stop-color="${theme.highTop}"/></linearGradient>
   </defs>
 
-  <g class="intro"><text x="24" y="32" class="title">VIBE CODING STATS</text><text x="24" y="54" class="eyebrow">CODEX CLI | MULTI-DEVICE LEDGER | @HJCHENG0602</text></g>
+  <g class="intro"><text x="24" y="32" class="title">VIBE CODING STATS</text><text x="24" y="54" class="eyebrow">AI WORKBENCH | CODEX + QODER | @HJCHENG0602</text></g>
   <g class="intro" style="animation-delay:.08s"><text x="816" y="43" class="hero" text-anchor="end">${compact(total)}<tspan class="heroUnit"> TOKENS</tspan></text><text x="816" y="62" class="muted" text-anchor="end">ROLLING 6 MONTHS | ${latest}</text></g>
 
   ${modelPills(theme)}
