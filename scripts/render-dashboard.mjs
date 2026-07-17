@@ -98,6 +98,9 @@ function displayDevices() {
   return [...visible, aggregate];
 }
 
+const visibleModels = displayModels();
+const visibleDevices = displayDevices();
+
 function rollingWindow() {
   const values = new Map(data.days.map((day) => [day.date, day.tokens || 0]));
   const latestUsage = data.days.at(-1)?.date || '1970-01-01';
@@ -226,46 +229,45 @@ function modelPills(theme) {
   }).join('');
 }
 
-function deviceRows(theme) {
-  return displayDevices().map((device, index) => {
-    const y = 423 + index * 29;
+function modelDistributionRows(theme, startY) {
+  if (!visibleModels.length) return `<text x="44" y="${startY}" class="empty">NO MODEL DATA — SYNC CODEX CLI TO BEGIN</text>`;
+  return visibleModels.map((model, index) => {
+    const y = startY + index * 29;
+    const detailed = hasFullDetail(model);
+    const rate = detailed && model.inputTokens ? `${Math.round(cacheRate(model) * 100)}%` : 'SYNC';
+    const credits = compactCredits(model.aggregate ? model.estimatedCredits : estimateModelCredits(model));
+    const share = total ? model.tokens / total : 0;
+    return `<g>
+      ${modelMark(50, y - 4, theme.accent)}
+      <text x="66" y="${y}" class="model">${safe(model.name)}</text>
+      <text x="66" y="${y + 11}" class="rowMeta">MODEL · ${model.aggregate ? 'OVERFLOW GROUP' : detailed ? 'DETAIL READY' : 'RESYNC FOR DETAILS'}</text>
+      <text x="350" y="${y}" text-anchor="end" class="numberStrong">${compact(model.tokens)}</text>
+      <rect x="374" y="${y - 8}" width="102" height="6" rx="3" class="track"/>
+      <rect x="374" y="${y - 8}" width="${Math.max(3, Math.round(102 * share))}" height="6" rx="3" fill="${theme.accent}"/>
+      <text x="506" y="${y}" text-anchor="end" class="numberStrong">${Math.round(share * 100)}%</text>
+      <text x="620" y="${y}" text-anchor="end" class="numberStrong">${rate}</text>
+      <text x="796" y="${y}" text-anchor="end" class="numberStrong">${credits}</text>
+    </g>`;
+  }).join('');
+}
+
+function deviceDistributionRows(theme, startY) {
+  return visibleDevices.map((device, index) => {
+    const y = startY + index * 29;
     const detailed = hasFullDetail(device);
     const rate = detailed && device.inputTokens ? `${Math.round(cacheRate(device) * 100)}%` : 'SYNC';
     const credits = compactCredits(estimateDeviceCredits(device));
     const share = total ? device.tokens / total : 0;
     const platform = device.platform === 'darwin' ? 'MAC' : device.platform === 'win32' ? 'WIN' : device.platform === 'mixed' ? 'MIXED' : 'LINUX';
     return `<g>
-      <circle cx="48" cy="${y - 4}" r="4" fill="${index ? theme.accent2 : theme.accent}"/>
+      <circle cx="48" cy="${y - 4}" r="4" fill="${theme.accent2}"/>
       <text x="60" y="${y}" class="device">${safe(device.name)}</text>
-      <text x="60" y="${y + 11}" class="rowMeta">${platform} · ${device.aggregate ? 'OVERFLOW GROUP' : detailed ? 'DETAIL READY' : 'RESYNC FOR DETAILS'}</text>
-      <text x="326" y="${y}" text-anchor="end" class="numberStrong">${compact(device.tokens)}</text>
-      <rect x="350" y="${y - 8}" width="102" height="6" rx="3" class="track"/>
-      <rect x="350" y="${y - 8}" width="${Math.max(3, Math.round(102 * share))}" height="6" rx="3" fill="${index ? theme.accent2 : theme.accent}"/>
-      <text x="480" y="${y}" text-anchor="end" class="numberStrong">${Math.round(share * 100)}%</text>
-      <text x="590" y="${y}" text-anchor="end" class="numberStrong">${rate}</text>
-      <text x="704" y="${y}" text-anchor="end" class="numberStrong">${credits}</text>
-      <text x="796" y="${y}" text-anchor="end" class="number">${device.collectedAt?.slice(5, 10) || '—'}</text>
-    </g>`;
-  }).join('');
-}
-
-function modelRows(theme) {
-  if (!data.models.length) return `<text x="44" y="596" class="empty">NO MODEL DATA — SYNC CODEX CLI TO BEGIN</text>`;
-  return displayModels().map((model, index) => {
-    const y = 580 + index * 31;
-    const detailed = hasFullDetail(model);
-    const rate = detailed && model.inputTokens ? `${Math.round(cacheRate(model) * 100)}%` : 'SYNC';
-    const credits = compactCredits(model.aggregate ? model.estimatedCredits : estimateModelCredits(model));
-    const color = index ? theme.accent2 : theme.accent;
-    return `<g>
-      ${modelMark(50, y - 4, color)}
-      <text x="66" y="${y}" class="model">${safe(model.name)}</text>
-      <text x="66" y="${y + 11}" class="rowMeta">${Math.round(total ? model.tokens / total * 100 : 0)}% SHARE · ${model.aggregate ? 'OVERFLOW GROUP' : `REASON ${detailed ? compact(model.reasoningOutputTokens) : '—'}`}</text>
-      <text x="316" y="${y}" text-anchor="end" class="numberStrong">${compact(model.tokens)}</text>
-      <text x="414" y="${y}" text-anchor="end" class="number">${detailed ? compact(model.inputTokens) : '—'}</text>
-      <text x="508" y="${y}" text-anchor="end" class="number">${detailed ? compact(model.cachedInputTokens) : '—'}</text>
-      <text x="596" y="${y}" text-anchor="end" class="number">${detailed ? compact(model.outputTokens) : '—'}</text>
-      <text x="682" y="${y}" text-anchor="end" class="numberStrong">${rate}</text>
+      <text x="60" y="${y + 11}" class="rowMeta">${platform} · ${device.aggregate ? 'OVERFLOW GROUP' : detailed ? `SYNC ${device.collectedAt?.slice(5, 10) || '—'}` : 'RESYNC FOR DETAILS'}</text>
+      <text x="350" y="${y}" text-anchor="end" class="numberStrong">${compact(device.tokens)}</text>
+      <rect x="374" y="${y - 8}" width="102" height="6" rx="3" class="track"/>
+      <rect x="374" y="${y - 8}" width="${Math.max(3, Math.round(102 * share))}" height="6" rx="3" fill="${theme.accent2}"/>
+      <text x="506" y="${y}" text-anchor="end" class="numberStrong">${Math.round(share * 100)}%</text>
+      <text x="620" y="${y}" text-anchor="end" class="numberStrong">${rate}</text>
       <text x="796" y="${y}" text-anchor="end" class="numberStrong">${credits}</text>
     </g>`;
   }).join('');
@@ -276,6 +278,10 @@ function render(mode) {
   const latest = data.updatedAt ? data.updatedAt.slice(0, 10) : 'SYNC PENDING';
   const coverageLabel = `${Math.round(detailCoverage * 100)}%`;
   const cacheLabel = detailedInput ? `${Math.round(detailedCached / detailedInput * 100)}%` : '—';
+  const modelStartY = 430;
+  const modelBlockBottom = modelStartY + Math.max(visibleModels.length - 1, 0) * 29 + 13;
+  const deviceSectionY = modelBlockBottom + 28;
+  const deviceStartY = deviceSectionY + 25;
   return `<svg xmlns="http://www.w3.org/2000/svg" width="840" height="750" viewBox="0 0 840 750" role="img" aria-label="HJ Cheng six month AI coding and token economy dashboard">
   <style>
     text{font-family:'Cascadia Code','JetBrains Mono','SFMono-Regular',Consolas,monospace}
@@ -333,32 +339,21 @@ function render(mode) {
   <text x="613" y="326" class="month">PEAK</text>
   <defs><linearGradient id="greenLegend"><stop stop-color="${theme.dormantTop}"/><stop offset=".28" stop-color="${theme.lowTop}"/><stop offset="1" stop-color="${theme.highTop}"/></linearGradient></defs>
 
-  <rect x="24" y="350" width="792" height="145" rx="13" class="panel"/>
-  <text x="44" y="377" class="section">DEVICE LEDGER</text>
-  <text x="796" y="377" text-anchor="end" class="eyebrow">${data.devices.length > 3 ? `TOP 2 + ${data.devices.length - 2} IN OTHER` : `${data.devices.length} DEVICES`} · CACHE · COST</text>
+  <rect x="24" y="350" width="792" height="330" rx="13" class="panel"/>
+  <text x="44" y="377" class="section">USAGE DISTRIBUTION</text>
+  <text x="796" y="377" text-anchor="end" class="eyebrow">${visibleModels.length} MODELS · ${visibleDevices.length} DEVICES · CACHE · COST</text>
   <line x1="44" y1="389" x2="796" y2="389" class="grid"/>
-  <text x="60" y="405" class="statLabel">DEVICE / SOURCE</text>
-  <text x="326" y="405" text-anchor="end" class="statLabel">TOKENS</text>
-  <text x="480" y="405" text-anchor="end" class="statLabel">SHARE</text>
-  <text x="590" y="405" text-anchor="end" class="statLabel">CACHE HIT</text>
-  <text x="704" y="405" text-anchor="end" class="statLabel">EST. CREDITS</text>
-  <text x="796" y="405" text-anchor="end" class="statLabel">SYNC</text>
-  ${deviceRows(theme)}
-
-  <rect x="24" y="509" width="792" height="202" rx="13" class="panel"/>
-  <text x="44" y="536" class="section">MODEL ECONOMY</text>
-  <text x="796" y="536" text-anchor="end" class="eyebrow">${data.models.length > 4 ? `TOP 3 + ${data.models.length - 3} IN OTHER` : `${data.models.length} MODELS`} · INPUT · CACHE · OUTPUT</text>
-  <line x1="44" y1="548" x2="796" y2="548" class="grid"/>
-  <text x="66" y="564" class="statLabel">MODEL / SHARE</text>
-  <text x="316" y="564" text-anchor="end" class="statLabel">TOKENS</text>
-  <text x="414" y="564" text-anchor="end" class="statLabel">INPUT*</text>
-  <text x="508" y="564" text-anchor="end" class="statLabel">CACHED</text>
-  <text x="596" y="564" text-anchor="end" class="statLabel">OUTPUT</text>
-  <text x="682" y="564" text-anchor="end" class="statLabel">CACHE</text>
-  <text x="796" y="564" text-anchor="end" class="statLabel">EST. CREDITS</text>
-  ${modelRows(theme)}
-  <line x1="44" y1="688" x2="796" y2="688" class="grid"/>
-  <text x="44" y="703" class="rowMeta">* CACHED IS A SUBSET OF INPUT · REASONING IS INCLUDED IN OUTPUT · CREDITS USE CODEX RATE CARD ${RATE_CARD_DATE}</text>
+  <text x="60" y="405" class="statLabel">MODEL DISTRIBUTION</text>
+  <text x="350" y="405" text-anchor="end" class="statLabel">TOKENS</text>
+  <text x="506" y="405" text-anchor="end" class="statLabel">SHARE</text>
+  <text x="620" y="405" text-anchor="end" class="statLabel">CACHE HIT</text>
+  <text x="796" y="405" text-anchor="end" class="statLabel">EST. CREDITS</text>
+  ${modelDistributionRows(theme, modelStartY)}
+  <line x1="44" y1="${modelBlockBottom + 10}" x2="796" y2="${modelBlockBottom + 10}" class="grid"/>
+  <text x="60" y="${deviceSectionY}" class="statLabel">DEVICE DISTRIBUTION</text>
+  ${deviceDistributionRows(theme, deviceStartY)}
+  <line x1="44" y1="695" x2="796" y2="695" class="grid"/>
+  <text x="44" y="710" class="rowMeta">CACHE HIT = CACHED INPUT / INPUT · EST. CREDITS USE CODEX RATE CARD ${RATE_CARD_DATE}</text>
 
   <text x="24" y="739" class="eyebrow">6 MONTHS · LOCAL-ONLY AGGREGATES · TRANSPARENT SVG · LIVE MOTION</text>
   <text x="816" y="739" class="eyebrow" text-anchor="end">BUILD THE SYSTEM</text>

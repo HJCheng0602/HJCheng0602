@@ -993,99 +993,86 @@
   <text x="613" y="326" class="month">PEAK</text>
   <defs><linearGradient id="greenLegend"><stop stop-color="#E3ECE6"/><stop offset=".28" stop-color="#BDE8C8"/><stop offset="1" stop-color="#29A854"/></linearGradient></defs>
 
-  <rect x="24" y="350" width="792" height="145" rx="13" class="panel"/>
-  <text x="44" y="377" class="section">DEVICE LEDGER</text>
-  <text x="796" y="377" text-anchor="end" class="eyebrow">2 DEVICES · CACHE · COST</text>
+  <rect x="24" y="350" width="792" height="330" rx="13" class="panel"/>
+  <text x="44" y="377" class="section">USAGE DISTRIBUTION</text>
+  <text x="796" y="377" text-anchor="end" class="eyebrow">3 MODELS · 2 DEVICES · CACHE · COST</text>
   <line x1="44" y1="389" x2="796" y2="389" class="grid"/>
-  <text x="60" y="405" class="statLabel">DEVICE / SOURCE</text>
-  <text x="326" y="405" text-anchor="end" class="statLabel">TOKENS</text>
-  <text x="480" y="405" text-anchor="end" class="statLabel">SHARE</text>
-  <text x="590" y="405" text-anchor="end" class="statLabel">CACHE HIT</text>
-  <text x="704" y="405" text-anchor="end" class="statLabel">EST. CREDITS</text>
-  <text x="796" y="405" text-anchor="end" class="statLabel">SYNC</text>
+  <text x="60" y="405" class="statLabel">MODEL DISTRIBUTION</text>
+  <text x="350" y="405" text-anchor="end" class="statLabel">TOKENS</text>
+  <text x="506" y="405" text-anchor="end" class="statLabel">SHARE</text>
+  <text x="620" y="405" text-anchor="end" class="statLabel">CACHE HIT</text>
+  <text x="796" y="405" text-anchor="end" class="statLabel">EST. CREDITS</text>
   <g>
-      <circle cx="48" cy="419" r="4" fill="#169847"/>
-      <text x="60" y="423" class="device">mac_work01</text>
-      <text x="60" y="434" class="rowMeta">MAC · DETAIL READY</text>
-      <text x="326" y="423" text-anchor="end" class="numberStrong">122.8M</text>
-      <rect x="350" y="415" width="102" height="6" rx="3" class="track"/>
-      <rect x="350" y="415" width="74" height="6" rx="3" fill="#169847"/>
-      <text x="480" y="423" text-anchor="end" class="numberStrong">72%</text>
-      <text x="590" y="423" text-anchor="end" class="numberStrong">97%</text>
-      <text x="704" y="423" text-anchor="end" class="numberStrong">2.3K CR</text>
-      <text x="796" y="423" text-anchor="end" class="number">07-17</text>
+      <g transform="translate(50 426)" fill="none" stroke="#169847" stroke-width="1.25" stroke-linecap="round" opacity=".95">
+    <path d="M0-6.4c3.4 0 6 2.2 6 5.2 0 1.5-.6 2.8-1.7 3.7"/>
+    <path d="M5.6 3.2C3.9 6.1.7 7.2-2 5.8c-1.3-.7-2.1-1.9-2.3-3.3"/>
+    <path d="M-5.6 3.2C-7.3.3-6.7-3.1-4-4.7c1.3-.7 2.7-.8 4.1-.3"/>
+    <path d="M-3.7-1.7L0-3.9l3.7 2.2v4.3L0 4.7l-3.7-2.1z"/>
+  </g>
+      <text x="66" y="430" class="model">gpt-5.6-sol</text>
+      <text x="66" y="441" class="rowMeta">MODEL · DETAIL READY</text>
+      <text x="350" y="430" text-anchor="end" class="numberStrong">142.2M</text>
+      <rect x="374" y="422" width="102" height="6" rx="3" class="track"/>
+      <rect x="374" y="422" width="85" height="6" rx="3" fill="#169847"/>
+      <text x="506" y="430" text-anchor="end" class="numberStrong">84%</text>
+      <text x="620" y="430" text-anchor="end" class="numberStrong">97%</text>
+      <text x="796" y="430" text-anchor="end" class="numberStrong">2.8K CR</text>
     </g><g>
-      <circle cx="48" cy="448" r="4" fill="#36B961"/>
-      <text x="60" y="452" class="device">linux</text>
-      <text x="60" y="463" class="rowMeta">LINUX · DETAIL READY</text>
-      <text x="326" y="452" text-anchor="end" class="numberStrong">47.0M</text>
-      <rect x="350" y="444" width="102" height="6" rx="3" class="track"/>
-      <rect x="350" y="444" width="28" height="6" rx="3" fill="#36B961"/>
-      <text x="480" y="452" text-anchor="end" class="numberStrong">28%</text>
-      <text x="590" y="452" text-anchor="end" class="numberStrong">95%</text>
-      <text x="704" y="452" text-anchor="end" class="numberStrong">759 CR</text>
-      <text x="796" y="452" text-anchor="end" class="number">07-17</text>
+      <g transform="translate(50 455)" fill="none" stroke="#169847" stroke-width="1.25" stroke-linecap="round" opacity=".95">
+    <path d="M0-6.4c3.4 0 6 2.2 6 5.2 0 1.5-.6 2.8-1.7 3.7"/>
+    <path d="M5.6 3.2C3.9 6.1.7 7.2-2 5.8c-1.3-.7-2.1-1.9-2.3-3.3"/>
+    <path d="M-5.6 3.2C-7.3.3-6.7-3.1-4-4.7c1.3-.7 2.7-.8 4.1-.3"/>
+    <path d="M-3.7-1.7L0-3.9l3.7 2.2v4.3L0 4.7l-3.7-2.1z"/>
+  </g>
+      <text x="66" y="459" class="model">gpt-5.6-terra</text>
+      <text x="66" y="470" class="rowMeta">MODEL · DETAIL READY</text>
+      <text x="350" y="459" text-anchor="end" class="numberStrong">24.1M</text>
+      <rect x="374" y="451" width="102" height="6" rx="3" class="track"/>
+      <rect x="374" y="451" width="14" height="6" rx="3" fill="#169847"/>
+      <text x="506" y="459" text-anchor="end" class="numberStrong">14%</text>
+      <text x="620" y="459" text-anchor="end" class="numberStrong">97%</text>
+      <text x="796" y="459" text-anchor="end" class="numberStrong">210 CR</text>
+    </g><g>
+      <g transform="translate(50 484)" fill="none" stroke="#169847" stroke-width="1.25" stroke-linecap="round" opacity=".95">
+    <path d="M0-6.4c3.4 0 6 2.2 6 5.2 0 1.5-.6 2.8-1.7 3.7"/>
+    <path d="M5.6 3.2C3.9 6.1.7 7.2-2 5.8c-1.3-.7-2.1-1.9-2.3-3.3"/>
+    <path d="M-5.6 3.2C-7.3.3-6.7-3.1-4-4.7c1.3-.7 2.7-.8 4.1-.3"/>
+    <path d="M-3.7-1.7L0-3.9l3.7 2.2v4.3L0 4.7l-3.7-2.1z"/>
+  </g>
+      <text x="66" y="488" class="model">gpt-5.5</text>
+      <text x="66" y="499" class="rowMeta">MODEL · DETAIL READY</text>
+      <text x="350" y="488" text-anchor="end" class="numberStrong">3.5M</text>
+      <rect x="374" y="480" width="102" height="6" rx="3" class="track"/>
+      <rect x="374" y="480" width="3" height="6" rx="3" fill="#169847"/>
+      <text x="506" y="488" text-anchor="end" class="numberStrong">2%</text>
+      <text x="620" y="488" text-anchor="end" class="numberStrong">85%</text>
+      <text x="796" y="488" text-anchor="end" class="numberStrong">123 CR</text>
     </g>
-
-  <rect x="24" y="509" width="792" height="202" rx="13" class="panel"/>
-  <text x="44" y="536" class="section">MODEL ECONOMY</text>
-  <text x="796" y="536" text-anchor="end" class="eyebrow">3 MODELS · INPUT · CACHE · OUTPUT</text>
-  <line x1="44" y1="548" x2="796" y2="548" class="grid"/>
-  <text x="66" y="564" class="statLabel">MODEL / SHARE</text>
-  <text x="316" y="564" text-anchor="end" class="statLabel">TOKENS</text>
-  <text x="414" y="564" text-anchor="end" class="statLabel">INPUT*</text>
-  <text x="508" y="564" text-anchor="end" class="statLabel">CACHED</text>
-  <text x="596" y="564" text-anchor="end" class="statLabel">OUTPUT</text>
-  <text x="682" y="564" text-anchor="end" class="statLabel">CACHE</text>
-  <text x="796" y="564" text-anchor="end" class="statLabel">EST. CREDITS</text>
+  <line x1="44" y1="511" x2="796" y2="511" class="grid"/>
+  <text x="60" y="529" class="statLabel">DEVICE DISTRIBUTION</text>
   <g>
-      <g transform="translate(50 576)" fill="none" stroke="#169847" stroke-width="1.25" stroke-linecap="round" opacity=".95">
-    <path d="M0-6.4c3.4 0 6 2.2 6 5.2 0 1.5-.6 2.8-1.7 3.7"/>
-    <path d="M5.6 3.2C3.9 6.1.7 7.2-2 5.8c-1.3-.7-2.1-1.9-2.3-3.3"/>
-    <path d="M-5.6 3.2C-7.3.3-6.7-3.1-4-4.7c1.3-.7 2.7-.8 4.1-.3"/>
-    <path d="M-3.7-1.7L0-3.9l3.7 2.2v4.3L0 4.7l-3.7-2.1z"/>
-  </g>
-      <text x="66" y="580" class="model">gpt-5.6-sol</text>
-      <text x="66" y="591" class="rowMeta">84% SHARE · REASON 277.1K</text>
-      <text x="316" y="580" text-anchor="end" class="numberStrong">142.2M</text>
-      <text x="414" y="580" text-anchor="end" class="number">141.6M</text>
-      <text x="508" y="580" text-anchor="end" class="number">137.0M</text>
-      <text x="596" y="580" text-anchor="end" class="number">629.2K</text>
-      <text x="682" y="580" text-anchor="end" class="numberStrong">97%</text>
-      <text x="796" y="580" text-anchor="end" class="numberStrong">2.8K CR</text>
+      <circle cx="48" cy="550" r="4" fill="#36B961"/>
+      <text x="60" y="554" class="device">mac_work01</text>
+      <text x="60" y="565" class="rowMeta">MAC · SYNC 07-17</text>
+      <text x="350" y="554" text-anchor="end" class="numberStrong">122.8M</text>
+      <rect x="374" y="546" width="102" height="6" rx="3" class="track"/>
+      <rect x="374" y="546" width="74" height="6" rx="3" fill="#36B961"/>
+      <text x="506" y="554" text-anchor="end" class="numberStrong">72%</text>
+      <text x="620" y="554" text-anchor="end" class="numberStrong">97%</text>
+      <text x="796" y="554" text-anchor="end" class="numberStrong">2.3K CR</text>
     </g><g>
-      <g transform="translate(50 607)" fill="none" stroke="#36B961" stroke-width="1.25" stroke-linecap="round" opacity=".95">
-    <path d="M0-6.4c3.4 0 6 2.2 6 5.2 0 1.5-.6 2.8-1.7 3.7"/>
-    <path d="M5.6 3.2C3.9 6.1.7 7.2-2 5.8c-1.3-.7-2.1-1.9-2.3-3.3"/>
-    <path d="M-5.6 3.2C-7.3.3-6.7-3.1-4-4.7c1.3-.7 2.7-.8 4.1-.3"/>
-    <path d="M-3.7-1.7L0-3.9l3.7 2.2v4.3L0 4.7l-3.7-2.1z"/>
-  </g>
-      <text x="66" y="611" class="model">gpt-5.6-terra</text>
-      <text x="66" y="622" class="rowMeta">14% SHARE · REASON 18.3K</text>
-      <text x="316" y="611" text-anchor="end" class="numberStrong">24.1M</text>
-      <text x="414" y="611" text-anchor="end" class="number">24.1M</text>
-      <text x="508" y="611" text-anchor="end" class="number">23.5M</text>
-      <text x="596" y="611" text-anchor="end" class="number">66.2K</text>
-      <text x="682" y="611" text-anchor="end" class="numberStrong">97%</text>
-      <text x="796" y="611" text-anchor="end" class="numberStrong">210 CR</text>
-    </g><g>
-      <g transform="translate(50 638)" fill="none" stroke="#36B961" stroke-width="1.25" stroke-linecap="round" opacity=".95">
-    <path d="M0-6.4c3.4 0 6 2.2 6 5.2 0 1.5-.6 2.8-1.7 3.7"/>
-    <path d="M5.6 3.2C3.9 6.1.7 7.2-2 5.8c-1.3-.7-2.1-1.9-2.3-3.3"/>
-    <path d="M-5.6 3.2C-7.3.3-6.7-3.1-4-4.7c1.3-.7 2.7-.8 4.1-.3"/>
-    <path d="M-3.7-1.7L0-3.9l3.7 2.2v4.3L0 4.7l-3.7-2.1z"/>
-  </g>
-      <text x="66" y="642" class="model">gpt-5.5</text>
-      <text x="66" y="653" class="rowMeta">2% SHARE · REASON 9.5K</text>
-      <text x="316" y="642" text-anchor="end" class="numberStrong">3.5M</text>
-      <text x="414" y="642" text-anchor="end" class="number">3.5M</text>
-      <text x="508" y="642" text-anchor="end" class="number">2.9M</text>
-      <text x="596" y="642" text-anchor="end" class="number">28.3K</text>
-      <text x="682" y="642" text-anchor="end" class="numberStrong">85%</text>
-      <text x="796" y="642" text-anchor="end" class="numberStrong">123 CR</text>
+      <circle cx="48" cy="579" r="4" fill="#36B961"/>
+      <text x="60" y="583" class="device">linux</text>
+      <text x="60" y="594" class="rowMeta">LINUX · SYNC 07-17</text>
+      <text x="350" y="583" text-anchor="end" class="numberStrong">47.0M</text>
+      <rect x="374" y="575" width="102" height="6" rx="3" class="track"/>
+      <rect x="374" y="575" width="28" height="6" rx="3" fill="#36B961"/>
+      <text x="506" y="583" text-anchor="end" class="numberStrong">28%</text>
+      <text x="620" y="583" text-anchor="end" class="numberStrong">95%</text>
+      <text x="796" y="583" text-anchor="end" class="numberStrong">759 CR</text>
     </g>
-  <line x1="44" y1="688" x2="796" y2="688" class="grid"/>
-  <text x="44" y="703" class="rowMeta">* CACHED IS A SUBSET OF INPUT · REASONING IS INCLUDED IN OUTPUT · CREDITS USE CODEX RATE CARD 2026-07-17</text>
+  <line x1="44" y1="695" x2="796" y2="695" class="grid"/>
+  <text x="44" y="710" class="rowMeta">CACHE HIT = CACHED INPUT / INPUT · EST. CREDITS USE CODEX RATE CARD 2026-07-17</text>
 
   <text x="24" y="739" class="eyebrow">6 MONTHS · LOCAL-ONLY AGGREGATES · TRANSPARENT SVG · LIVE MOTION</text>
   <text x="816" y="739" class="eyebrow" text-anchor="end">BUILD THE SYSTEM</text>
