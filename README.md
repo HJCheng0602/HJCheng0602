@@ -1,6 +1,6 @@
 # Hi, I'm JinCheng Han 👋
 
-Undergraduate at PKU, exploring the path from intelligent systems to ML infrastructure.
+Undergraduate at PKU focused on GPU kernels, CUDA architecture, and AI systems research.
 
 <p align="center">
   <picture>
@@ -12,7 +12,9 @@ Undergraduate at PKU, exploring the path from intelligent systems to ML infrastr
 
 ## Focus
 
-`ML Systems` · `LLM Inference` · `Computer Vision` · `Efficient Computing`
+- **GPU kernels and CUDA architecture** — optimizing GEMM, FlashAttention, and TopK from CUDA C++ down to PTX/SASS, with particular attention to warp scheduling, shared memory, occupancy, TMA, Distributed Shared Memory, TMEM, UMMA, and cluster execution on Hopper and Blackwell.
+- **AI systems and inference** — building and profiling efficient LLM systems with CUTLASS, CuTe, Nsight Compute, and Nsight Systems; the goal is architecture-aware performance analysis rather than API-level tuning alone.
+- **MLSys research** — turning concrete systems questions into implementations, measurements, and publishable results. Previous work includes real-time dense reconstruction with the Visual Computing Lab's SLAM3R project, with current interests centered on GPU systems and ML infrastructure.
 
 ## Selected work
 
