@@ -106,7 +106,10 @@ function providerForModel(modelName) {
 function providerIconData(provider, theme) {
   const filename = providerIcons[provider];
   if (!filename) return null;
-  const source = readFileSync(`assets/providers/${filename}`, 'utf8').replaceAll('currentColor', theme.ink);
+  const source = readFileSync(`assets/providers/${filename}`, 'utf8')
+    .replaceAll('currentColor', theme.accent)
+    .replace(/fill="url\([^)]*\)"/g, `fill="${theme.accent}"`)
+    .replace(/(?:fill|stop-color)="(?:#[0-9a-f]{3,8}|white|black)"/gi, (match) => `${match.slice(0, match.indexOf('='))}="${theme.accent}"`);
   return `data:image/svg+xml;base64,${Buffer.from(source).toString('base64')}`;
 }
 
@@ -114,12 +117,9 @@ function modelMark(x, y, modelName, theme) {
   const provider = providerForModel(modelName);
   const icon = providerIconData(provider, theme);
   if (!icon) {
-    return `<g transform="translate(${x} ${y})" fill="none" stroke="${theme.accent}" stroke-width="1.25" stroke-linecap="round"><circle r="6"/><path d="M-3 0h6M0-3v6"/></g>`;
+    return `<g transform="translate(${x} ${y})"><rect x="-8" y="-8" width="16" height="16" rx="4" fill="${theme.panel2}" stroke="${theme.stroke}"/><g fill="none" stroke="${theme.accent}" stroke-width="1.25" stroke-linecap="round"><circle r="4"/><path d="M-2 0h4M0-2v4"/></g></g>`;
   }
-  const kimiBackdrop = provider === 'kimi'
-    ? '<rect x="-7" y="-7" width="14" height="14" rx="3" fill="#1783FF"/>'
-    : '';
-  return `<g transform="translate(${x} ${y})">${kimiBackdrop}<image x="-7" y="-7" width="14" height="14" href="${icon}"/></g>`;
+  return `<g transform="translate(${x} ${y})"><rect x="-8" y="-8" width="16" height="16" rx="4" fill="${theme.panel2}" stroke="${theme.stroke}"/><image x="-5.5" y="-5.5" width="11" height="11" href="${icon}"/></g>`;
 }
 
 function coords(day) {
