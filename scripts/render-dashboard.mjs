@@ -96,14 +96,14 @@ const detailCoverage = total ? detailedTokens / total : 0;
 
 const themes = {
   dark: {
-    ink: '#E9F6EE', muted: '#9AAEA0', faint: '#6D8274', panel: '#151D18', panel2: '#101612', stroke: '#3A5143', grid: '#2E4438', track: '#2B4135',
-    accent: '#5BEA91', accent2: '#62D7D0', dormantTop: '#32473A', dormantRight: '#233629', dormantLeft: '#1B2B21',
-    lowTop: '#3B8A5B', highTop: '#C7F8D7', lowRight: '#226744', highRight: '#45CA83', lowLeft: '#1B5538', highLeft: '#2FAD70'
+    ink: '#EAF2FF', muted: '#A1B2C9', faint: '#7488A3', panel: '#151C27', panel2: '#101722', stroke: '#3B4F6A', grid: '#2D4058', track: '#2A3C54',
+    accent: '#58A6FF', accent2: '#7EE7F5', dormantTop: '#33465E', dormantRight: '#24364D', dormantLeft: '#1B2B40',
+    lowTop: '#3979D3', highTop: '#C2E3FF', lowRight: '#255EAE', highRight: '#4C9EFF', lowLeft: '#1C4B92', highLeft: '#357FD8'
   },
   light: {
-    ink: '#17251E', muted: '#557064', faint: '#7E9689', panel: '#F4F9F5', panel2: '#FFFFFF', stroke: '#BDD2C5', grid: '#D6E5DB', track: '#D3E2D8',
-    accent: '#118B54', accent2: '#168A91', dormantTop: '#DCEAE0', dormantRight: '#CCDDD1', dormantLeft: '#C1D5C7',
-    lowTop: '#A9DFC0', highTop: '#32AE6A', lowRight: '#7BCB9A', highRight: '#187D54', lowLeft: '#63B985', highLeft: '#106B47'
+    ink: '#17243A', muted: '#526A87', faint: '#7B90AA', panel: '#F4F8FE', panel2: '#FFFFFF', stroke: '#BDCCE1', grid: '#D8E3F1', track: '#D4E0EF',
+    accent: '#0969DA', accent2: '#087EA4', dormantTop: '#DCE7F5', dormantRight: '#CDDCEE', dormantLeft: '#C1D3E8',
+    lowTop: '#A8C9F5', highTop: '#3687E8', lowRight: '#7FAFE9', highRight: '#1769C8', lowLeft: '#6398D9', highLeft: '#0D58B7'
   }
 };
 
