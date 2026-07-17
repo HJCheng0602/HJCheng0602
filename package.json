@@ -3,8 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "render": "node scripts/render-dashboard.mjs && node scripts/render-focus.mjs",
+    "render": "node scripts/render-dashboard.mjs && node scripts/render-focus.mjs && node scripts/render-selected-work.mjs",
     "render:focus": "node scripts/render-focus.mjs",
+    "render:work": "node scripts/render-selected-work.mjs",
     "merge": "node scripts/merge-snapshots.mjs",
     "collect": "node scripts/collect-codex.mjs",
     "collect:qoder": "node scripts/collect-qoder.mjs",

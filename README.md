@@ -22,9 +22,17 @@ Undergraduate at PKU focused on GPU kernels, CUDA architecture, and AI systems r
 
 ## Selected work
 
-- [nanoPD](https://github.com/HJCheng0602/nanoPD) — a from-scratch Prefill/Decode disaggregation inference engine for LLMs.
-- [SLAM3R OnlineCam](https://github.com/HJCheng0602/SLAM3R_onlinecam) — real-time dense reconstruction from an online camera stream.
-- [paperwise](https://github.com/HJCheng0602/paperwise) — deep reading for research papers with LLM reports, a vector KB, and a knowledge graph.
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./assets/selected-work-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="./assets/selected-work-light.svg">
+    <img alt="JinCheng Han's selected work across LLM infrastructure, visual computing, and research workflows" src="./assets/selected-work-dark.svg" width="840">
+  </picture>
+</p>
+
+<p align="center">
+  <a href="https://github.com/HJCheng0602/nanoPD">nanoPD</a> · <a href="https://github.com/HJCheng0602/SLAM3R_onlinecam">SLAM3R OnlineCam</a> · <a href="https://github.com/HJCheng0602/paperwise">paperwise</a>
+</p>
 
 ## Dashboard sync
 

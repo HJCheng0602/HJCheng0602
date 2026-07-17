@@ -16,7 +16,8 @@ function chip(x, y, width, label, theme, tone = 'accent') {
 
 function node(x, y, label, detail, theme, tone = 'accent') {
   const color = tone === 'accent2' ? theme.accent2 : theme.accent;
-  return `<g class="focusNode"><circle cx="${x}" cy="${y}" r="4" fill="${color}"/><circle cx="${x}" cy="${y}" r="8" fill="none" stroke="${color}" stroke-opacity=".35" stroke-width="1"/><text x="${x + 15}" y="${y - 1}" class="nodeLabel">${label}</text><text x="${x + 15}" y="${y + 11}" class="nodeDetail">${detail}</text></g>`;
+  const delay = tone === 'accent2' ? '.7s' : '0s';
+  return `<g class="focusNode"><circle cx="${x}" cy="${y}" r="12" fill="none" stroke="${color}" stroke-width="1" class="breathRing" style="animation-delay:${delay}"/><circle cx="${x}" cy="${y}" r="4" fill="${color}"/><circle cx="${x}" cy="${y}" r="8" fill="none" stroke="${color}" stroke-opacity=".35" stroke-width="1"/><text x="${x + 15}" y="${y - 1}" class="nodeLabel">${label}</text><text x="${x + 15}" y="${y + 11}" class="nodeDetail">${detail}</text></g>`;
 }
 
 function render(mode) {
@@ -33,30 +34,33 @@ function render(mode) {
     .nodeDetail{font-size:7.5px;font-weight:700;fill:${theme.muted}}
     .footer{font-size:8px;font-weight:700;fill:${theme.muted}}
     .panel{fill:${theme.panel};stroke:${theme.stroke};stroke-width:1}
-    .panelHighlight{fill:none;stroke:${theme.accent};stroke-opacity:.25;stroke-width:1}
+    .panelHighlight{fill:none;stroke:${theme.accent};stroke-opacity:.25;stroke-width:1;animation:panelBreathe 4.8s ease-in-out 1.35s infinite}
     .chipPanel{fill:${theme.panel2};stroke:${theme.stroke};stroke-width:1}
     .grid{stroke:${theme.grid};stroke-width:1}
     .track{fill:${theme.track}}
-    .focusIn{animation:fadeUp 560ms cubic-bezier(.22,1,.36,1) both}
-    .chip{animation:fadeUp 480ms cubic-bezier(.22,1,.36,1) both}
-    .focusNode{animation:fadeIn 520ms ease-out both}
+    .intro,.panelIn{animation:fadeUp 560ms cubic-bezier(.22,1,.36,1) both}
+    .breathRing{transform-box:fill-box;transform-origin:center;animation:nodeBreathe 4s ease-in-out 1.35s infinite}
+    .signal{transform-box:fill-box;transform-origin:0% 50%;animation:signalFlow 3.8s ease-in-out 1.35s infinite}
     @keyframes fadeUp{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
     @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    @keyframes panelBreathe{0%,100%{stroke-opacity:.18}50%{stroke-opacity:.72}}
+    @keyframes nodeBreathe{0%,100%{opacity:.12;transform:scale(.72)}50%{opacity:.7;transform:scale(1.2)}}
+    @keyframes signalFlow{0%,100%{opacity:.5;transform:scaleX(.78)}50%{opacity:1;transform:scaleX(1)}}
     @media(prefers-reduced-motion:reduce){*{animation:none!important}}
   </style>
 
-  <g class="focusIn"><text x="24" y="32" class="title">TECHNICAL FOCUS</text><text x="24" y="53" class="eyebrow">GPU KERNELS | AI SYSTEMS | MLSYS RESEARCH</text><text x="816" y="32" text-anchor="end" class="eyebrow">BUILD - PROFILE - VALIDATE</text></g>
+  <g class="intro"><text x="24" y="32" class="title">TECHNICAL FOCUS</text><text x="24" y="53" class="eyebrow">GPU KERNELS | AI SYSTEMS | MLSYS RESEARCH</text><text x="816" y="32" text-anchor="end" class="eyebrow">BUILD - PROFILE - VALIDATE</text></g>
 
-  <g class="focusIn" style="animation-delay:.12s"><rect x="24" y="76" width="248" height="202" rx="8" class="panel"/><rect x="25" y="77" width="246" height="200" rx="7" class="panelHighlight"/>
+  <g class="panelIn" style="animation-delay:.38s"><rect x="24" y="76" width="248" height="202" rx="8" class="panel"/><rect x="25" y="77" width="246" height="200" rx="7" class="panelHighlight"/>
     <text x="44" y="105" class="section">KERNEL ENGINEERING</text><text x="44" y="120" class="sectionMeta">CUDA C++ TO PTX / SASS</text>
     <line x1="44" y1="135" x2="252" y2="135" class="grid"/>
     <path d="M49 181h48v-12h48v-12h48v-12h42" fill="none" stroke="${theme.accent}" stroke-width="2" stroke-linejoin="round"/>
-    <rect x="49" y="182" width="48" height="8" rx="2" fill="${theme.low}"/><rect x="97" y="170" width="48" height="8" rx="2" fill="${theme.accent}"/><rect x="145" y="158" width="48" height="8" rx="2" fill="${theme.accent2}"/><rect x="193" y="146" width="42" height="8" rx="2" fill="${theme.high}"/>
+    <rect x="49" y="182" width="48" height="8" rx="2" fill="${theme.low}" class="signal"/><rect x="97" y="170" width="48" height="8" rx="2" fill="${theme.accent}" class="signal" style="animation-delay:.16s"/><rect x="145" y="158" width="48" height="8" rx="2" fill="${theme.accent2}" class="signal" style="animation-delay:.32s"/><rect x="193" y="146" width="42" height="8" rx="2" fill="${theme.high}" class="signal" style="animation-delay:.48s"/>
     <text x="49" y="207" class="sectionMeta">TILE - LOAD - SCHEDULE - EXECUTE</text>
     ${chip(44, 229, 58, 'GEMM', theme)}${chip(108, 229, 89, 'FLASHATTN', theme, 'accent2')}${chip(203, 229, 49, 'TOPK', theme)}
   </g>
 
-  <g class="focusIn" style="animation-delay:.22s"><rect x="296" y="76" width="248" height="202" rx="8" class="panel"/><rect x="297" y="77" width="246" height="200" rx="7" class="panelHighlight"/>
+  <g class="panelIn" style="animation-delay:.54s"><rect x="296" y="76" width="248" height="202" rx="8" class="panel"/><rect x="297" y="77" width="246" height="200" rx="7" class="panelHighlight"/>
     <text x="316" y="105" class="section">GPU ARCHITECTURE</text><text x="316" y="120" class="sectionMeta">HOPPER / BLACKWELL</text>
     <line x1="316" y1="135" x2="524" y2="135" class="grid"/>
     <line x1="332" y1="157" x2="332" y2="239" class="grid"/>
@@ -66,7 +70,7 @@ function render(mode) {
     ${chip(316, 247, 94, 'CUTLASS', theme)}${chip(416, 247, 69, 'CUTE', theme, 'accent2')}
   </g>
 
-  <g class="focusIn" style="animation-delay:.32s"><rect x="568" y="76" width="248" height="202" rx="8" class="panel"/><rect x="569" y="77" width="246" height="200" rx="7" class="panelHighlight"/>
+  <g class="panelIn" style="animation-delay:.70s"><rect x="568" y="76" width="248" height="202" rx="8" class="panel"/><rect x="569" y="77" width="246" height="200" rx="7" class="panelHighlight"/>
     <text x="588" y="105" class="section">SYSTEMS RESEARCH</text><text x="588" y="120" class="sectionMeta">MEASURED, END-TO-END WORK</text>
     <line x1="588" y1="135" x2="796" y2="135" class="grid"/>
     ${chip(588, 151, 105, 'LLM INFERENCE', theme)}${chip(699, 151, 83, 'MLSYS', theme, 'accent2')}

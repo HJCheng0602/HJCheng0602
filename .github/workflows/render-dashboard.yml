@@ -2,7 +2,7 @@ name: Render AI workbench
 
 on:
   push:
-    paths: [data/devices/**, scripts/merge-snapshots.mjs, scripts/render-dashboard.mjs, scripts/render-focus.mjs]
+    paths: [data/devices/**, scripts/merge-snapshots.mjs, scripts/render-dashboard.mjs, scripts/render-focus.mjs, scripts/render-selected-work.mjs]
   workflow_dispatch:
 
 permissions:
