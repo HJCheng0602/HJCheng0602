@@ -67,13 +67,17 @@ const pricingCoverage = total ? pricedDetailedTokens / total : 0;
 
 const themes = {
   dark: {
-    ink: '#EAF2FF', muted: '#A1B2C9', faint: '#7488A3', panel: '#151C27', panel2: '#101722', stroke: '#3B4F6A', grid: '#2D4058', track: '#2A3C54',
-    accent: '#58A6FF', accent2: '#7EE7F5', dormantTop: '#33465E', dormantRight: '#24364D', dormantLeft: '#1B2B40',
+    ink: '#E6EDF3', muted: '#9198A1', faint: '#656D76',
+    panel: '#161B22', panelOpacity: '.88', panel2: '#0D1117', edge: '#2D333B', topEdge: '#3D444D', track: '#21262D',
+    accent: '#58A6FF', accent2: '#7EE7F5', accent3: '#BC8CFF',
+    dormantTop: '#33465E', dormantRight: '#24364D', dormantLeft: '#1B2B40',
     lowTop: '#3979D3', highTop: '#C2E3FF', lowRight: '#255EAE', highRight: '#4C9EFF', lowLeft: '#1C4B92', highLeft: '#357FD8'
   },
   light: {
-    ink: '#17243A', muted: '#526A87', faint: '#7B90AA', panel: '#F4F8FE', panel2: '#FFFFFF', stroke: '#BDCCE1', grid: '#D8E3F1', track: '#D4E0EF',
-    accent: '#0969DA', accent2: '#087EA4', dormantTop: '#DCE7F5', dormantRight: '#CDDCEE', dormantLeft: '#C1D3E8',
+    ink: '#1F2328', muted: '#59636E', faint: '#818B98',
+    panel: '#FFFFFF', panelOpacity: '.82', panel2: '#F6F8FA', edge: '#D1D9E0', topEdge: '#B6C2CF', track: '#EAEFF2',
+    accent: '#0969DA', accent2: '#087EA4', accent3: '#8250DF',
+    dormantTop: '#DCE7F5', dormantRight: '#CDDCEE', dormantLeft: '#C1D3E8',
     lowTop: '#A8C9F5', highTop: '#3687E8', lowRight: '#7FAFE9', highRight: '#1769C8', lowLeft: '#6398D9', highLeft: '#0D58B7'
   }
 };
@@ -117,9 +121,9 @@ function modelMark(x, y, modelName, theme) {
   const provider = providerForModel(modelName);
   const icon = providerIconData(provider, theme);
   if (!icon) {
-    return `<g transform="translate(${x} ${y})"><rect x="-8" y="-8" width="16" height="16" rx="4" fill="${theme.panel2}" stroke="${theme.stroke}"/><g fill="none" stroke="${theme.accent}" stroke-width="1.25" stroke-linecap="round"><circle r="4"/><path d="M-2 0h4M0-2v4"/></g></g>`;
+    return `<g transform="translate(${x} ${y})"><rect x="-8" y="-8" width="16" height="16" rx="4" fill="${theme.panel2}" stroke="${theme.edge}"/><g fill="none" stroke="${theme.accent}" stroke-width="1.25" stroke-linecap="round"><circle r="4"/><path d="M-2 0h4M0-2v4"/></g></g>`;
   }
-  return `<g transform="translate(${x} ${y})"><rect x="-8" y="-8" width="16" height="16" rx="4" fill="${theme.panel2}" stroke="${theme.stroke}"/><image x="-5.5" y="-5.5" width="11" height="11" href="${icon}"/></g>`;
+  return `<g transform="translate(${x} ${y})"><rect x="-8" y="-8" width="16" height="16" rx="4" fill="${theme.panel2}" stroke="${theme.edge}"/><image x="-5.5" y="-5.5" width="11" height="11" href="${icon}"/></g>`;
 }
 
 function coords(day) {
@@ -141,7 +145,7 @@ function dayCube(theme, day, maxTokens) {
   const top = day.tokens ? mix(theme.lowTop, theme.highTop, intensity) : theme.dormantTop;
   const right = day.tokens ? mix(theme.lowRight, theme.highRight, intensity) : theme.dormantRight;
   const left = day.tokens ? mix(theme.lowLeft, theme.highLeft, intensity) : theme.dormantLeft;
-  const edge = day.tokens ? theme.accent2 : theme.stroke;
+  const edge = day.tokens ? theme.accent2 : theme.edge;
   const delay = Math.min(1.3, .1 + day.index * .007).toFixed(2);
   return `<g class="cube${day.tokens ? ' liveCube' : ''}" style="animation-delay:${delay}s">
     <polygon points="${x},${topY} ${x + width},${topY + depth} ${x},${topY + depth * 2} ${x - width},${topY + depth}" fill="${top}" stroke="${edge}" stroke-opacity="${day.tokens ? .28 : .38}" stroke-width=".42"/>
@@ -177,13 +181,13 @@ function calendar(theme) {
 }
 
 function modelPills(theme) {
-  let x = 24;
+  let x = 28;
   return data.models.slice(0, 3).map((model, index) => {
     const label = safe(model.name);
     const width = Math.max(105, 42 + label.length * 7);
-    const result = `<g class="intro tag" style="animation-delay:${(.2 + index * .08).toFixed(2)}s"><rect x="${x}" y="68" width="${width}" height="23" rx="11.5" class="pill"/>
-      ${modelMark(x + 16, 79.5, model.name, theme)}
-      <text x="${x + 30}" y="83" class="pillText">${label}</text></g>`;
+    const result = `<g class="intro" style="animation-delay:${(.2 + index * .08).toFixed(2)}s"><rect x="${x}" y="74" width="${width}" height="24" rx="12" class="pill"/>
+      ${modelMark(x + 17, 86, model.name, theme)}
+      <text x="${x + 30}" y="90" class="pillText">${label}</text></g>`;
     x += width + 8;
     return result;
   }).join('');
@@ -201,17 +205,17 @@ function modelDeviceSplit(theme, model, y) {
     : entries;
   const x = 204;
   const width = 146;
-  if (!listed.length || !totalTokens) return `<g class="deviceSplit"><rect x="${x}" y="${y - 14}" width="${width}" height="28" rx="5" class="splitPanel"/><text x="${x + 9}" y="${y + 4}" class="splitLabel">NO DEVICE DATA</text></g>`;
+  if (!listed.length || !totalTokens) return `<g><rect x="${x}" y="${y - 14}" width="${width}" height="28" rx="6" class="splitPanel"/><text x="${x + 9}" y="${y + 4}" class="splitLabel">NO DEVICE DATA</text></g>`;
   let offset = 0;
   const segments = listed.map((entry, index) => {
     const segmentWidth = index === listed.length - 1 ? 128 - offset : Math.round(128 * entry.tokens / totalTokens);
-    const result = `<rect x="${x + 9 + offset}" y="${y - 9}" width="${Math.max(1, segmentWidth)}" height="3" rx="1.5" fill="${index ? theme.accent2 : theme.accent}"/>`;
+    const result = `<rect x="${x + 9 + offset}" y="${y - 9}" width="${Math.max(1, segmentWidth)}" height="3.5" rx="1.75" fill="${index ? theme.accent2 : theme.accent}"/>`;
     offset += segmentWidth;
     return result;
   }).join('');
   const line = (entry, lineY) => `<text x="${x + 9}" y="${lineY}" class="splitLabel">${safe(entry.name)}</text><text x="${x + 137}" y="${lineY}" text-anchor="end" class="splitLabel">${Math.round(entry.tokens / totalTokens * 100)}%</text>`;
   const labels = listed.length === 1 ? line(listed[0], y + 4) : `${line(listed[0], y + 1)}${line(listed[1], y + 10)}`;
-  return `<g class="deviceSplit"><rect x="${x}" y="${y - 14}" width="${width}" height="28" rx="5" class="splitPanel"/><rect x="${x + 9}" y="${y - 9}" width="128" height="3" rx="1.5" class="track"/>${segments}${labels}</g>`;
+  return `<g><rect x="${x}" y="${y - 14}" width="${width}" height="28" rx="6" class="splitPanel"/><rect x="${x + 9}" y="${y - 9}" width="128" height="3.5" rx="1.75" class="track"/>${segments}${labels}</g>`;
 }
 
 function modelRows(theme, startY) {
@@ -224,14 +228,18 @@ function modelRows(theme, startY) {
     const turnLabel = model.turnCountComplete || model.turnCount
       ? `${compact(model.turnCount)}${model.turnCountComplete ? '' : '+'} TURNS`
       : 'TURN SYNC PENDING';
+    const highlight = index === 0 ? `<rect x="42" y="${y - 17}" width="756" height="31" rx="7" fill="${theme.accent}" fill-opacity=".055"/><rect x="42" y="${y - 12}" width="2.5" height="21" rx="1.25" fill="${theme.accent}"/>` : '';
+    const rule = index < visibleModels.length - 1 ? `<line x1="68" y1="${y + 17}" x2="796" y2="${y + 17}" class="rowRule"/>` : '';
     return `<g class="mrow" style="animation-delay:${(1.28 + index * .1).toFixed(2)}s">
-      ${modelMark(50, y - 4, model.name, theme)}
-      <text x="68" y="${y}" class="model">${safe(model.name)}</text>
-      <text x="68" y="${y + 11}" class="rowMeta">${Math.round(total ? model.tokens / total * 100 : 0)}% SHARE · ${turnLabel}</text>
+      ${highlight}
+      ${modelMark(56, y - 4, model.name, theme)}
+      <text x="72" y="${y}" class="model">${safe(model.name)}</text>
+      <text x="72" y="${y + 11}" class="rowMeta">${Math.round(total ? model.tokens / total * 100 : 0)}% SHARE · ${turnLabel}</text>
       ${modelDeviceSplit(theme, model, y)}
       <text x="470" y="${y + 5}" text-anchor="end" class="numberStrong">${compact(model.tokens)}</text>
       <text x="610" y="${y + 5}" text-anchor="end" class="numberStrong">${rate}</text>
       <text x="796" y="${y}" text-anchor="end" class="numberStrong">${cost}</text>
+      ${rule}
     </g>`;
   }).join('');
 }
@@ -252,83 +260,125 @@ function render(mode) {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="840" height="${dashboardHeight}" viewBox="0 0 840 ${dashboardHeight}" role="img" aria-label="HJ Cheng six month AI coding and token economy dashboard">
   <style>
     text{font-family:ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace;text-rendering:geometricPrecision}
-    .title{font-size:22px;font-weight:700;fill:${theme.ink}}
-    .eyebrow{font-size:10px;font-weight:700;fill:${theme.muted}}
-    .hero{font-size:40px;font-weight:700;fill:${theme.accent}}
-    .heroUnit{font-size:12px;font-weight:700;fill:${theme.accent}}
-    .muted{font-size:10px;font-weight:600;fill:${theme.muted}}
-    .pillText{font-size:10px;font-weight:700;fill:${theme.ink}}
-    .stat{font-size:23px;font-weight:700;fill:${theme.ink}}
-    .statLabel{font-size:9px;font-weight:700;fill:${theme.muted}}
-    .month{font-size:9px;font-weight:700;fill:${theme.muted}}
-    .peakText{font-size:10px;font-weight:700;fill:${theme.ink}}
-    .section{font-size:13px;font-weight:700;fill:${theme.ink}}
+    .sans{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif}
+    .title{font-size:20px;font-weight:800;letter-spacing:.6px;fill:${theme.ink}}
+    .eyebrow{font-size:8.5px;font-weight:600;letter-spacing:2.2px;fill:${theme.faint}}
+    .hero{font-size:34px;font-weight:700;fill:url(#heroGrad)}
+    .heroUnit{font-size:13px;font-weight:700;fill:${theme.accent2}}
+    .muted{font-size:8.5px;font-weight:600;letter-spacing:1.2px;fill:${theme.muted}}
+    .pillText{font-size:9px;font-weight:600;letter-spacing:.5px;fill:${theme.ink}}
+    .stat{font-size:20px;font-weight:700;fill:${theme.ink}}
+    .statCost{fill:url(#heroGrad)}
+    .statLabel{font-size:7px;font-weight:600;letter-spacing:1.5px;fill:${theme.faint}}
+    .month{font-size:8.5px;font-weight:600;letter-spacing:1px;fill:${theme.muted}}
+    .peakText{font-size:9.5px;font-weight:600;fill:${theme.ink}}
+    .section{font-size:13px;font-weight:700;letter-spacing:.4px;fill:${theme.ink}}
     .model{font-size:12px;font-weight:700;fill:${theme.ink}}
-    .rowMeta{font-size:8px;font-weight:600;fill:${theme.faint}}
-    .splitLabel{font-size:7.5px;font-weight:700;fill:${theme.muted}}
-    .numberStrong{font-size:13px;font-weight:700;fill:${theme.ink}}
+    .rowMeta{font-size:7.5px;font-weight:600;letter-spacing:.8px;fill:${theme.faint}}
+    .splitLabel{font-size:7px;font-weight:600;letter-spacing:.5px;fill:${theme.muted}}
+    .numberStrong{font-size:12.5px;font-weight:700;fill:${theme.ink}}
     .empty{font-size:11px;font-weight:600;fill:${theme.muted}}
-    .panel{fill:${theme.panel};stroke:${theme.stroke};stroke-width:1}
-    .panelHighlight{fill:none;stroke:url(#panelGlow);stroke-width:1}
-    .splitPanel{fill:${theme.panel2};stroke:${theme.stroke};stroke-width:1}
-    .pill{fill:${theme.panel};stroke:${theme.stroke};stroke-width:1}
+    .footText{font-size:8px;font-weight:600;letter-spacing:2px;fill:${theme.faint}}
+    .panel{fill:${theme.panel};fill-opacity:${theme.panelOpacity};stroke:${theme.edge};stroke-width:1}
+    .splitPanel{fill:${theme.panel2};stroke:${theme.edge};stroke-width:1}
+    .pill{fill:${theme.panel2};stroke:${theme.edge};stroke-width:1}
     .track{fill:${theme.track}}
     .pin{stroke:${theme.accent2};stroke-width:1.4;stroke-opacity:.9}
-    .grid{stroke:${theme.grid};stroke-width:1}
+    .grid{stroke:${theme.edge};stroke-width:1}
+    .topEdge{stroke:${theme.topEdge};stroke-width:1;stroke-opacity:.55}
+    .edgeFlow{animation:edgeRun 8s linear infinite}
+    .rowRule{stroke:${theme.edge};stroke-width:1;stroke-dasharray:2 4;stroke-opacity:.7}
     .intro,.panelIn,.mrow{animation:fadeUp 560ms cubic-bezier(.22,1,.36,1) both}
     .terrainIn{animation:fadeIn 600ms ease-out 240ms both}
     .cube{transform-box:fill-box;transform-origin:50% 100%;animation:rise 560ms cubic-bezier(.2,.9,.3,1) both}
     .meterFill{transform-box:fill-box;transform-origin:0% 50%;animation:growX 620ms cubic-bezier(.22,1,.36,1) 780ms both}
     .beacon{transform-box:fill-box;transform-origin:50% 50%;animation:fadeIn 500ms ease-out 1.35s both,pulse 4.2s ease-in-out 2s infinite}
+    .liveDot{transform-box:fill-box;transform-origin:center;animation:livePulse 2.6s ease-in-out infinite}
+    .ripple{transform-box:fill-box;transform-origin:center;opacity:0;animation:ripple 3.6s cubic-bezier(.25,.6,.35,1) infinite}
     @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
     @keyframes fadeIn{from{opacity:0}to{opacity:1}}
     @keyframes rise{0%{opacity:0;transform:scaleY(0)}35%{opacity:1}100%{opacity:1;transform:scaleY(1)}}
     @keyframes growX{from{transform:scaleX(0)}to{transform:scaleX(1)}}
     @keyframes pulse{0%,100%{opacity:.82}50%{opacity:1}}
+    @keyframes livePulse{0%,100%{opacity:.45}50%{opacity:1}}
+    @keyframes ripple{0%{opacity:0;transform:scale(.5)}18%{opacity:.55}72%{opacity:0;transform:scale(1.5)}100%{opacity:0;transform:scale(1.5)}}
+    @keyframes edgeRun{to{stroke-dashoffset:0}}
     @media(prefers-reduced-motion:reduce){*{animation:none!important}}
   </style>
 
   <defs>
-    <linearGradient id="panelGlow" x1="0" y1="0" x2="1" y2="0"><stop stop-color="${theme.accent}" stop-opacity=".46"/><stop offset=".45" stop-color="${theme.accent2}" stop-opacity=".05"/><stop offset="1" stop-color="${theme.accent2}" stop-opacity=".28"/></linearGradient>
+    <linearGradient id="heroGrad" x1="0" y1="0" x2="1" y2="0"><stop stop-color="${theme.accent}"/><stop offset="1" stop-color="${theme.accent2}"/></linearGradient>
+    <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1"><stop stop-color="${theme.accent2}"/><stop offset="1" stop-color="${theme.accent}"/></linearGradient>
+    <linearGradient id="footGrad" x1="0" y1="0" x2="1" y2="0"><stop stop-color="${theme.accent}"/><stop offset=".55" stop-color="${theme.accent2}"/><stop offset="1" stop-color="${theme.accent3}"/></linearGradient>
+    <linearGradient id="meterGrad" x1="0" y1="0" x2="1" y2="0"><stop stop-color="${theme.accent}"/><stop offset="1" stop-color="${theme.accent2}"/></linearGradient>
     <linearGradient id="greenLegend"><stop stop-color="${theme.dormantTop}"/><stop offset=".3" stop-color="${theme.lowTop}"/><stop offset="1" stop-color="${theme.highTop}"/></linearGradient>
+    <radialGradient id="heroGlow" cx=".5" cy=".5" r=".5"><stop stop-color="${theme.accent}" stop-opacity=".12"/><stop offset="1" stop-color="${theme.accent}" stop-opacity="0"/></radialGradient>
   </defs>
 
-  <g class="intro"><text x="24" y="32" class="title">VIBE CODING STATS</text><text x="24" y="54" class="eyebrow">AI WORKBENCH | CODEX + QODER | @HJCHENG0602</text></g>
-  <g class="intro" style="animation-delay:.08s"><text x="816" y="43" class="hero" text-anchor="end">${compact(total)}<tspan class="heroUnit"> TOKENS</tspan></text><text x="816" y="62" class="muted" text-anchor="end">ROLLING 6 MONTHS | ${latest}</text></g>
+  <g class="intro">
+    <text x="28" y="28" class="eyebrow">AI WORKBENCH · CODEX + QODER · @HJCHENG0602</text>
+    <text x="28" y="52" class="title sans">VIBE CODING STATS</text>
+    <rect x="29" y="60" width="58" height="3" rx="1.5" fill="url(#footGrad)"/>
+    <circle cx="700" cy="40" r="80" fill="url(#heroGlow)"/>
+    <text x="812" y="44" class="hero" text-anchor="end">${compact(total)}<tspan class="heroUnit"> TOKENS</tspan></text>
+    <text x="812" y="63" class="muted" text-anchor="end">ROLLING 183 DAYS · SYNCED ${latest}</text>
+    <circle cx="352" cy="25" r="6.5" fill="none" stroke="${theme.accent2}" stroke-width="1" class="ripple" style="animation-delay:.4s"/><circle cx="352" cy="25" r="6.5" fill="none" stroke="${theme.accent2}" stroke-width="1" class="ripple" style="animation-delay:2.2s"/>
+    <circle cx="352" cy="25" r="2.4" fill="${theme.accent2}" class="liveDot"/>
+  </g>
 
   ${modelPills(theme)}
-  <g class="terrainIn"><text x="24" y="116" class="eyebrow">6-MONTH WINDOW | ONE CUBE PER DAY</text><text x="24" y="133" class="muted">HEIGHT AND COLOR SHOW DAILY TOKEN VOLUME</text><g>${calendar(theme)}</g></g>
 
-  <g class="panelIn" style="animation-delay:.38s"><rect x="580" y="98" width="236" height="192" rx="12" class="panel"/><rect x="581" y="99" width="234" height="190" rx="11" class="panelHighlight"/>
-    <text x="602" y="126" class="section">TOKEN ECONOMY</text><text x="797" y="126" text-anchor="end" class="statLabel">PRICED ${coverageLabel}</text>
-    <line x1="602" y1="141" x2="797" y2="141" class="grid"/>
-    <text x="602" y="171" class="stat">${activeDays}d</text><text x="602" y="188" class="statLabel">ACTIVE DAYS</text>
-    <text x="676" y="171" class="stat">${longestStreak}d</text><text x="676" y="188" class="statLabel">STREAK</text>
-    <text x="752" y="171" class="stat">${data.devices.length}</text><text x="752" y="188" class="statLabel">DEVICES</text>
-    <line x1="602" y1="201" x2="797" y2="201" class="grid"/>
-    <text x="602" y="230" class="stat">${cacheLabel}</text><text x="602" y="247" class="statLabel">CACHE HIT</text>
-    <text x="797" y="230" text-anchor="end" class="stat">${compactUsd(totalCostUsd)}</text><text x="797" y="247" text-anchor="end" class="statLabel">EST. API COST</text>
-    <rect x="602" y="261" width="195" height="8" rx="4" class="track"/><rect x="602" y="261" width="${Math.round(195 * pricingCoverage)}" height="8" rx="4" fill="${theme.accent}" class="meterFill"/>
-    <text x="602" y="281" class="statLabel">API PRICE COVERAGE</text><text x="797" y="281" text-anchor="end" class="statLabel">${coverageLabel}</text></g>
+  <g class="terrainIn">
+    <text x="28" y="120" class="eyebrow">6-MONTH WINDOW · ONE CUBE PER DAY</text>
+    <text x="28" y="135" class="muted">HEIGHT AND COLOR SHOW DAILY TOKEN VOLUME</text>
+    <g>${calendar(theme)}</g>
+    <text x="452" y="326" text-anchor="end" class="month">LOW</text><rect x="460" y="319" width="76" height="7" rx="3.5" fill="url(#greenLegend)"/><text x="544" y="326" class="month">PEAK</text>
+  </g>
 
-  <text x="494" y="326" class="month">LOW</text><rect x="528" y="320" width="76" height="7" rx="3.5" fill="url(#greenLegend)"/><text x="612" y="326" class="month">PEAK</text>
+  <g class="panelIn" style="animation-delay:.38s">
+    <rect x="580" y="98" width="236" height="192" rx="14" class="panel"/>
+    <rect x="581" y="99" width="234" height="190" rx="13" fill="none" stroke="${theme.accent2}" stroke-width="3" stroke-opacity=".15" pathLength="100" stroke-dasharray="14 86" stroke-dashoffset="100" class="edgeFlow"/>
+        <rect x="581" y="99" width="234" height="190" rx="13" fill="none" stroke="${theme.accent2}" stroke-width="1.1" stroke-opacity=".8" pathLength="100" stroke-dasharray="14 86" stroke-dashoffset="100" class="edgeFlow"/>
+    <line x1="594" y1="99" x2="802" y2="99" class="topEdge"/>
+    <rect x="580" y="112" width="3" height="34" rx="1.5" fill="url(#barGrad)"/>
+    <text x="598" y="124" class="section sans">TOKEN ECONOMY</text>
+    <text x="598" y="139" class="statLabel">PRICED ${coverageLabel} OF VOLUME</text>
+    <line x1="598" y1="154" x2="798" y2="154" class="grid"/>
+    <text x="598" y="183" class="stat">${activeDays}<tspan class="muted">d</tspan></text><text x="598" y="198" class="statLabel">ACTIVE DAYS</text>
+    <text x="666" y="183" class="stat">${longestStreak}<tspan class="muted">d</tspan></text><text x="666" y="198" class="statLabel">STREAK</text>
+    <text x="734" y="183" class="stat">${data.devices.length}</text><text x="734" y="198" class="statLabel">DEVICES</text>
+    <line x1="598" y1="212" x2="798" y2="212" class="grid"/>
+    <text x="598" y="240" class="stat">${cacheLabel}</text><text x="598" y="255" class="statLabel">CACHE HIT RATE</text>
+    <text x="798" y="240" text-anchor="end" class="stat statCost">${compactUsd(totalCostUsd)}</text><text x="798" y="255" text-anchor="end" class="statLabel">EST. API COST</text>
+    <rect x="598" y="262" width="200" height="6" rx="3" class="track"/><rect x="598" y="262" width="${Math.round(200 * pricingCoverage)}" height="6" rx="3" fill="url(#meterGrad)" class="meterFill"/>
+    <text x="598" y="281" class="statLabel">API PRICE COVERAGE</text><text x="798" y="281" text-anchor="end" class="statLabel">${coverageLabel}</text>
+  </g>
 
-  <g class="panelIn" style="animation-delay:.8s"><rect x="24" y="${tableTop}" width="792" height="${tableBottom - tableTop}" rx="12" class="panel"/><rect x="25" y="${tableTop + 1}" width="790" height="${tableBottom - tableTop - 2}" rx="11" class="panelHighlight"/>
-  <text x="44" y="376" class="section">MODEL ECONOMY</text>
-  <text x="796" y="376" text-anchor="end" class="eyebrow">${visibleModels.length} MODELS | PER-MODEL DEVICE SPLIT</text>
-  <line x1="44" y1="392" x2="796" y2="392" class="grid"/>
-  <text x="68" y="409" class="statLabel">MODEL / SHARE</text>
-  <text x="204" y="409" class="statLabel">DEVICE SPLIT</text>
-  <text x="470" y="409" text-anchor="end" class="statLabel">TOKENS</text>
-  <text x="610" y="409" text-anchor="end" class="statLabel">CACHE HIT</text>
-  <text x="796" y="409" text-anchor="end" class="statLabel">EST. USD</text>
-  ${modelRows(theme, modelStartY)}
-  <line x1="44" y1="${tableRuleY}" x2="796" y2="${tableRuleY}" class="grid"/>
-  <text x="44" y="${tableNoteY}" class="rowMeta">TEXT TOKEN API ESTIMATE | EXCLUDES TOOLS, REGIONAL, AND LONG-CONTEXT SURCHARGES | PUBLIC API RATES ${RATE_CARD_DATE}</text></g>
+  <g class="panelIn" style="animation-delay:.8s">
+    <rect x="28" y="${tableTop}" width="784" height="${tableBottom - tableTop}" rx="14" class="panel"/>
+    <rect x="29" y="${tableTop + 1}" width="782" height="${tableBottom - tableTop - 2}" rx="13" fill="none" stroke="${theme.accent2}" stroke-width="3" stroke-opacity=".13" pathLength="100" stroke-dasharray="9 91" stroke-dashoffset="100" class="edgeFlow" style="animation-delay:3.6s;animation-duration:10s"/>
+        <rect x="29" y="${tableTop + 1}" width="782" height="${tableBottom - tableTop - 2}" rx="13" fill="none" stroke="${theme.accent2}" stroke-width="1.1" stroke-opacity=".75" pathLength="100" stroke-dasharray="9 91" stroke-dashoffset="100" class="edgeFlow" style="animation-delay:3.6s;animation-duration:10s"/>
+    <line x1="42" y1="${tableTop + 1}" x2="798" y2="${tableTop + 1}" class="topEdge"/>
+    <rect x="44" y="368" width="6" height="6" rx="1.5" fill="${theme.accent}"/>
+    <text x="58" y="375" class="section sans">MODEL ECONOMY</text>
+    <text x="796" y="375" text-anchor="end" class="eyebrow">${visibleModels.length} MODELS · PER-MODEL DEVICE SPLIT</text>
+    <line x1="44" y1="390" x2="796" y2="390" class="grid"/>
+    <text x="72" y="407" class="statLabel">MODEL / SHARE</text>
+    <text x="204" y="407" class="statLabel">DEVICE SPLIT</text>
+    <text x="470" y="407" text-anchor="end" class="statLabel">TOKENS</text>
+    <text x="610" y="407" text-anchor="end" class="statLabel">CACHE HIT</text>
+    <text x="796" y="407" text-anchor="end" class="statLabel">EST. USD</text>
+    ${modelRows(theme, modelStartY)}
+    <line x1="44" y1="${tableRuleY}" x2="796" y2="${tableRuleY}" class="grid"/>
+    <text x="44" y="${tableNoteY}" class="rowMeta">TEXT TOKEN API ESTIMATE · EXCLUDES TOOLS, REGIONAL, AND LONG-CONTEXT SURCHARGES · PUBLIC API RATES ${RATE_CARD_DATE}</text>
+  </g>
 
-  <text x="24" y="${footerY}" class="eyebrow">6 MONTHS | LOCAL-ONLY AGGREGATES | LIVE SVG</text>
-  <text x="816" y="${footerY}" class="eyebrow" text-anchor="end">BUILD THE SYSTEM</text>
-  </svg>`;
+  <g class="panelIn" style="animation-delay:1s">
+    <line x1="28" y1="${footerY - 14}" x2="812" y2="${footerY - 14}" stroke="url(#footGrad)" stroke-width="1.5" stroke-linecap="round" stroke-opacity=".55"/>
+    <text x="28" y="${footerY}" class="footText">183 DAYS · LOCAL-ONLY AGGREGATES · LIVE SVG</text>
+    <text x="812" y="${footerY}" text-anchor="end" class="footText">BUILD THE SYSTEM</text>
+  </g>
+</svg>`;
 }
 
 mkdirSync('assets', { recursive: true });

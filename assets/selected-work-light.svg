@@ -1,49 +1,95 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="840" height="354" viewBox="0 0 840 354" role="img" aria-label="JinCheng Han selected work across LLM infrastructure, visual computing, and research workflows">
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="364" viewBox="0 0 840 364" role="img" aria-label="JinCheng Han selected work across LLM infrastructure, visual computing, and research workflows">
   <style>
     text{font-family:ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace;text-rendering:geometricPrecision}
-    .title{font-size:20px;font-weight:700;fill:#17243A}
-    .eyebrow{font-size:10px;font-weight:700;fill:#526A87}
-    .project{font-size:13px;font-weight:700;fill:#17243A}
-    .projectMeta{font-size:8px;font-weight:700;fill:#7B90AA}
-    .flowLabel{font-size:8px;font-weight:700;fill:#526A87}
-    .stageText{font-size:7.5px;font-weight:700;fill:#17243A}
-    .footer{font-size:8px;font-weight:700;fill:#526A87}
-    .panel{fill:#F4F8FE;stroke:#BDCCE1;stroke-width:1}
-    .panelHighlight{fill:none;stroke:#0969DA;stroke-opacity:.25;stroke-width:1;animation:panelBreathe 4.8s ease-in-out 1.35s infinite}
-    .stagePanel{fill:#FFFFFF;stroke:#BDCCE1;stroke-width:1}
-    .grid{stroke:#D8E3F1;stroke-width:1}
-    .track{fill:#D4E0EF}
+    .sans{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif}
+    .title{font-size:20px;font-weight:800;letter-spacing:.6px;fill:#1F2328}
+    .eyebrow{font-size:8.5px;font-weight:600;letter-spacing:2.2px;fill:#818B98}
+    .indexNum{font-size:17px;font-weight:700;fill:url(#numGrad)}
+    .project{font-size:15px;font-weight:700;letter-spacing:.3px;fill:#1F2328}
+    .projectMeta{font-size:7.5px;font-weight:600;letter-spacing:1.5px;fill:#818B98}
+    .flowLabel{font-size:7.5px;font-weight:600;letter-spacing:1.2px;fill:#59636E}
+    .stageText{font-size:7.5px;font-weight:600;letter-spacing:1px;fill:#1F2328}
+    .footText{font-size:8px;font-weight:600;letter-spacing:2px;fill:#818B98}
+    .panel{fill:#FFFFFF;fill-opacity:.82;stroke:#D1D9E0;stroke-width:1}
+    .chipPanel{fill:#F6F8FA;stroke:#D1D9E0;stroke-width:1}
+    .topEdge{stroke:#B6C2CF;stroke-width:1;stroke-opacity:.55}
+    .edgeFlow{animation:edgeRun 8s linear infinite}
+    .ripple{transform-box:fill-box;transform-origin:center;opacity:0;animation:ripple 3.6s cubic-bezier(.25,.6,.35,1) infinite}
+    .grid{stroke:#D1D9E0;stroke-width:1}
+    .track{fill:#EAEFF2}
     .intro,.panelIn{animation:fadeUp 560ms cubic-bezier(.22,1,.36,1) both}
-    .breathRing{transform-box:fill-box;transform-origin:center;animation:nodeBreathe 4s ease-in-out 1.35s infinite}
     .meter{transform-box:fill-box;transform-origin:0% 50%;animation:growX 620ms cubic-bezier(.22,1,.36,1) .78s both,meterBreathe 3.8s ease-in-out 1.55s infinite}
     @keyframes fadeUp{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
     @keyframes growX{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-    @keyframes panelBreathe{0%,100%{stroke-opacity:.18}50%{stroke-opacity:.72}}
-    @keyframes nodeBreathe{0%,100%{opacity:.12;transform:scale(.72)}50%{opacity:.7;transform:scale(1.2)}}
-    @keyframes meterBreathe{0%,100%{opacity:.58}50%{opacity:1}}
+    @keyframes meterBreathe{0%,100%{opacity:.62}50%{opacity:1}}
+    @keyframes ripple{0%{opacity:0;transform:scale(.5)}18%{opacity:.55}72%{opacity:0;transform:scale(1.5)}100%{opacity:0;transform:scale(1.5)}}
+    @keyframes edgeRun{to{stroke-dashoffset:0}}
     @media(prefers-reduced-motion:reduce){*{animation:none!important}}
   </style>
 
-  <g class="intro"><text x="24" y="32" class="title">SELECTED WORK</text><text x="24" y="53" class="eyebrow">SYSTEMS | VISION | RESEARCH TOOLS</text><text x="816" y="32" text-anchor="end" class="eyebrow">DESIGN - MEASURE - ITERATE</text></g>
-  <g class="panelIn" style="animation-delay:0.38s"><rect x="24" y="77" width="792" height="68" rx="8" class="panel"/><rect x="25" y="78" width="790" height="66" rx="7" class="panelHighlight"/>
-    <circle cx="52" cy="111" r="13" fill="none" stroke="#0969DA" stroke-width="1" class="breathRing"/><circle cx="52" cy="111" r="5" fill="#0969DA"/><circle cx="52" cy="111" r="9" fill="none" stroke="#087EA4" stroke-opacity=".55" stroke-width="1"/>
-    <text x="72" y="106" class="project">nanoPD</text><text x="72" y="122" class="projectMeta">LLM INFRASTRUCTURE</text>
-    <line x1="288" y1="91" x2="288" y2="131" class="grid"/>
-    <text x="316" y="98" class="flowLabel">PREFILL / DECODE DISAGGREGATION</text><g class="stage"><rect x="316" y="109" width="58" height="20" rx="4" class="stagePanel"/><rect x="323" y="117" width="4" height="4" rx="2" fill="#0969DA"/><text x="333" y="123" class="stageText">PREFILL</text></g><path d="M378 119h5l-3-3m3 3l-3 3" fill="none" stroke="#7B90AA" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/><g class="stage"><rect x="388" y="109" width="66" height="20" rx="4" class="stagePanel"/><rect x="395" y="117" width="4" height="4" rx="2" fill="#087EA4"/><text x="405" y="123" class="stageText">TRANSFER</text></g><path d="M458 119h5l-3-3m3 3l-3 3" fill="none" stroke="#7B90AA" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/><g class="stage"><rect x="468" y="109" width="58" height="20" rx="4" class="stagePanel"/><rect x="475" y="117" width="4" height="4" rx="2" fill="#0969DA"/><text x="485" y="123" class="stageText">DECODE</text></g>
-    <text x="588" y="106" class="projectMeta">FROM-SCRATCH INFERENCE ENGINE</text><rect x="588" y="119" width="188" height="4" rx="2" class="track"/><rect x="588" y="119" width="148" height="4" rx="2" fill="#087EA4" class="meter"/>
-  </g><g class="panelIn" style="animation-delay:0.54s"><rect x="24" y="161" width="792" height="68" rx="8" class="panel"/><rect x="25" y="162" width="790" height="66" rx="7" class="panelHighlight"/>
-    <circle cx="52" cy="195" r="13" fill="none" stroke="#0969DA" stroke-width="1" class="breathRing"/><circle cx="52" cy="195" r="5" fill="#0969DA"/><circle cx="52" cy="195" r="9" fill="none" stroke="#087EA4" stroke-opacity=".55" stroke-width="1"/>
-    <text x="72" y="190" class="project">SLAM3R OnlineCam</text><text x="72" y="206" class="projectMeta">VISUAL COMPUTING</text>
-    <line x1="288" y1="175" x2="288" y2="215" class="grid"/>
-    <text x="316" y="182" class="flowLabel">ONLINE CAMERA TO DENSE 3D</text><g class="stage"><rect x="316" y="193" width="58" height="20" rx="4" class="stagePanel"/><rect x="323" y="201" width="4" height="4" rx="2" fill="#0969DA"/><text x="333" y="207" class="stageText">STREAM</text></g><path d="M378 203h5l-3-3m3 3l-3 3" fill="none" stroke="#7B90AA" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/><g class="stage"><rect x="388" y="193" width="55" height="20" rx="4" class="stagePanel"/><rect x="395" y="201" width="4" height="4" rx="2" fill="#087EA4"/><text x="405" y="207" class="stageText">TRACK</text></g><path d="M447 203h5l-3-3m3 3l-3 3" fill="none" stroke="#7B90AA" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/><g class="stage"><rect x="457" y="193" width="59" height="20" rx="4" class="stagePanel"/><rect x="464" y="201" width="4" height="4" rx="2" fill="#0969DA"/><text x="474" y="207" class="stageText">RECON</text></g>
-    <text x="588" y="190" class="projectMeta">REAL-TIME RECONSTRUCTION</text><rect x="588" y="203" width="188" height="4" rx="2" class="track"/><rect x="588" y="203" width="124" height="4" rx="2" fill="#087EA4" class="meter"/>
-  </g><g class="panelIn" style="animation-delay:0.70s"><rect x="24" y="245" width="792" height="68" rx="8" class="panel"/><rect x="25" y="246" width="790" height="66" rx="7" class="panelHighlight"/>
-    <circle cx="52" cy="279" r="13" fill="none" stroke="#0969DA" stroke-width="1" class="breathRing"/><circle cx="52" cy="279" r="5" fill="#0969DA"/><circle cx="52" cy="279" r="9" fill="none" stroke="#087EA4" stroke-opacity=".55" stroke-width="1"/>
-    <text x="72" y="274" class="project">paperwise</text><text x="72" y="290" class="projectMeta">RESEARCH WORKFLOW</text>
-    <line x1="288" y1="259" x2="288" y2="299" class="grid"/>
-    <text x="316" y="266" class="flowLabel">DEEP READING, RETRIEVAL, CONNECTIONS</text><g class="stage"><rect x="316" y="277" width="48" height="20" rx="4" class="stagePanel"/><rect x="323" y="285" width="4" height="4" rx="2" fill="#0969DA"/><text x="333" y="291" class="stageText">READ</text></g><path d="M368 287h5l-3-3m3 3l-3 3" fill="none" stroke="#7B90AA" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/><g class="stage"><rect x="378" y="277" width="68" height="20" rx="4" class="stagePanel"/><rect x="385" y="285" width="4" height="4" rx="2" fill="#087EA4"/><text x="395" y="291" class="stageText">RETRIEVE</text></g><path d="M450 287h5l-3-3m3 3l-3 3" fill="none" stroke="#7B90AA" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/><g class="stage"><rect x="460" y="277" width="66" height="20" rx="4" class="stagePanel"/><rect x="467" y="285" width="4" height="4" rx="2" fill="#0969DA"/><text x="477" y="291" class="stageText">CONNECT</text></g>
-    <text x="588" y="274" class="projectMeta">LLM REPORTS / VECTOR KB / KG</text><rect x="588" y="287" width="188" height="4" rx="2" class="track"/><rect x="588" y="287" width="104" height="4" rx="2" fill="#087EA4" class="meter"/>
+  <defs>
+    <linearGradient id="numGrad" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0969DA"/><stop offset="1" stop-color="#8250DF"/></linearGradient>
+    <linearGradient id="meterGrad" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#0969DA"/><stop offset="1" stop-color="#087EA4"/></linearGradient>
+    <linearGradient id="footGrad" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#0969DA"/><stop offset=".55" stop-color="#087EA4"/><stop offset="1" stop-color="#8250DF"/></linearGradient>
+  </defs>
+
+  <g class="intro">
+    <text x="28" y="28" class="eyebrow">SYSTEMS · VISION · RESEARCH TOOLS</text>
+    <text x="28" y="52" class="title sans">SELECTED WORK</text>
+    <text x="812" y="28" text-anchor="end" class="eyebrow">DESIGN · MEASURE · ITERATE</text>
+    <rect x="29" y="60" width="58" height="3" rx="1.5" fill="url(#footGrad)"/>
   </g>
-  <line x1="24" y1="333" x2="816" y2="333" class="grid"/>
-  <text x="24" y="350" class="footer">SYSTEMS DESIGN | REAL-TIME VISION | KNOWLEDGE WORKFLOWS</text><text x="816" y="350" text-anchor="end" class="footer">JINCHENG HAN</text>
+
+  <g class="panelIn" style="animation-delay:0.24s">
+    <rect x="28" y="74" width="784" height="74" rx="14" class="panel"/>
+    <rect x="29" y="75" width="782" height="72" rx="13" fill="none" stroke="#087EA4" stroke-width="3" stroke-opacity=".14" pathLength="100" stroke-dasharray="10 90" stroke-dashoffset="100" class="edgeFlow" style="animation-delay:0s"/>
+    <rect x="29" y="75" width="782" height="72" rx="13" fill="none" stroke="#087EA4" stroke-width="1.1" stroke-opacity=".8" pathLength="100" stroke-dasharray="10 90" stroke-dashoffset="100" class="edgeFlow" style="animation-delay:0s"/>
+    <line x1="42" y1="75" x2="798" y2="75" class="topEdge"/>
+    <rect x="28" y="93" width="3" height="36" rx="1.5" fill="#0969DA"/>
+    <circle cx="57" cy="111" r="14" fill="none" stroke="#0969DA" stroke-width="1" class="ripple" style="animation-delay:0s"/>
+    <circle cx="57" cy="111" r="14" fill="none" stroke="#0969DA" stroke-width="1" class="ripple" style="animation-delay:1.8s"/>
+    <text x="48" y="117" class="indexNum">01</text>
+    <text x="92" y="106" class="project sans">nanoPD</text>
+    <circle cx="93" cy="121" r="2" fill="#0969DA"/><text x="100" y="124" class="projectMeta">LLM INFRASTRUCTURE</text>
+    <line x1="308" y1="89" x2="308" y2="133" class="grid"/>
+    <text x="336" y="99" class="flowLabel">PREFILL / DECODE DISAGGREGATION</text><g><rect x="336" y="106" width="58" height="22" rx="6" class="chipPanel"/><polygon points="0,-3.2 3.2,0 0,3.2 -3.2,0" transform="translate(346 117)" fill="#0969DA"/><text x="354" y="121" class="stageText">PREFILL</text></g><path d="M398 117h5l-2.6-2.6m2.6 2.6l-2.6 2.6" fill="none" stroke="#818B98" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><g><rect x="408" y="106" width="66" height="22" rx="6" class="chipPanel"/><polygon points="0,-3.2 3.2,0 0,3.2 -3.2,0" transform="translate(418 117)" fill="#087EA4"/><text x="426" y="121" class="stageText">TRANSFER</text></g><path d="M478 117h5l-2.6-2.6m2.6 2.6l-2.6 2.6" fill="none" stroke="#818B98" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><g><rect x="488" y="106" width="58" height="22" rx="6" class="chipPanel"/><polygon points="0,-3.2 3.2,0 0,3.2 -3.2,0" transform="translate(498 117)" fill="#0969DA"/><text x="506" y="121" class="stageText">DECODE</text></g>
+    <text x="796" y="99" text-anchor="end" class="projectMeta">FROM-SCRATCH INFERENCE ENGINE</text>
+    <rect x="640" y="108" width="156" height="5" rx="2.5" class="track"/><rect x="640" y="108" width="123" height="5" rx="2.5" fill="url(#meterGrad)" class="meter"/>
+  </g><g class="panelIn" style="animation-delay:0.38s">
+    <rect x="28" y="162" width="784" height="74" rx="14" class="panel"/>
+    <rect x="29" y="163" width="782" height="72" rx="13" fill="none" stroke="#087EA4" stroke-width="3" stroke-opacity=".14" pathLength="100" stroke-dasharray="10 90" stroke-dashoffset="100" class="edgeFlow" style="animation-delay:2.2s"/>
+    <rect x="29" y="163" width="782" height="72" rx="13" fill="none" stroke="#087EA4" stroke-width="1.1" stroke-opacity=".8" pathLength="100" stroke-dasharray="10 90" stroke-dashoffset="100" class="edgeFlow" style="animation-delay:2.2s"/>
+    <line x1="42" y1="163" x2="798" y2="163" class="topEdge"/>
+    <rect x="28" y="181" width="3" height="36" rx="1.5" fill="#087EA4"/>
+    <circle cx="57" cy="199" r="14" fill="none" stroke="#087EA4" stroke-width="1" class="ripple" style="animation-delay:0.8s"/>
+    <circle cx="57" cy="199" r="14" fill="none" stroke="#087EA4" stroke-width="1" class="ripple" style="animation-delay:2.6s"/>
+    <text x="48" y="205" class="indexNum">02</text>
+    <text x="92" y="194" class="project sans">SLAM3R OnlineCam</text>
+    <circle cx="93" cy="209" r="2" fill="#087EA4"/><text x="100" y="212" class="projectMeta">VISUAL COMPUTING</text>
+    <line x1="308" y1="177" x2="308" y2="221" class="grid"/>
+    <text x="336" y="187" class="flowLabel">ONLINE CAMERA TO DENSE 3D</text><g><rect x="336" y="194" width="58" height="22" rx="6" class="chipPanel"/><polygon points="0,-3.2 3.2,0 0,3.2 -3.2,0" transform="translate(346 205)" fill="#087EA4"/><text x="354" y="209" class="stageText">STREAM</text></g><path d="M398 205h5l-2.6-2.6m2.6 2.6l-2.6 2.6" fill="none" stroke="#818B98" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><g><rect x="408" y="194" width="55" height="22" rx="6" class="chipPanel"/><polygon points="0,-3.2 3.2,0 0,3.2 -3.2,0" transform="translate(418 205)" fill="#087EA4"/><text x="426" y="209" class="stageText">TRACK</text></g><path d="M467 205h5l-2.6-2.6m2.6 2.6l-2.6 2.6" fill="none" stroke="#818B98" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><g><rect x="477" y="194" width="59" height="22" rx="6" class="chipPanel"/><polygon points="0,-3.2 3.2,0 0,3.2 -3.2,0" transform="translate(487 205)" fill="#087EA4"/><text x="495" y="209" class="stageText">RECON</text></g>
+    <text x="796" y="187" text-anchor="end" class="projectMeta">REAL-TIME RECONSTRUCTION</text>
+    <rect x="640" y="196" width="156" height="5" rx="2.5" class="track"/><rect x="640" y="196" width="103" height="5" rx="2.5" fill="url(#meterGrad)" class="meter"/>
+  </g><g class="panelIn" style="animation-delay:0.52s">
+    <rect x="28" y="250" width="784" height="74" rx="14" class="panel"/>
+    <rect x="29" y="251" width="782" height="72" rx="13" fill="none" stroke="#087EA4" stroke-width="3" stroke-opacity=".14" pathLength="100" stroke-dasharray="10 90" stroke-dashoffset="100" class="edgeFlow" style="animation-delay:4.4s"/>
+    <rect x="29" y="251" width="782" height="72" rx="13" fill="none" stroke="#087EA4" stroke-width="1.1" stroke-opacity=".8" pathLength="100" stroke-dasharray="10 90" stroke-dashoffset="100" class="edgeFlow" style="animation-delay:4.4s"/>
+    <line x1="42" y1="251" x2="798" y2="251" class="topEdge"/>
+    <rect x="28" y="269" width="3" height="36" rx="1.5" fill="#8250DF"/>
+    <circle cx="57" cy="287" r="14" fill="none" stroke="#8250DF" stroke-width="1" class="ripple" style="animation-delay:1.6s"/>
+    <circle cx="57" cy="287" r="14" fill="none" stroke="#8250DF" stroke-width="1" class="ripple" style="animation-delay:3.4s"/>
+    <text x="48" y="293" class="indexNum">03</text>
+    <text x="92" y="282" class="project sans">paperwise</text>
+    <circle cx="93" cy="297" r="2" fill="#8250DF"/><text x="100" y="300" class="projectMeta">RESEARCH WORKFLOW</text>
+    <line x1="308" y1="265" x2="308" y2="309" class="grid"/>
+    <text x="336" y="275" class="flowLabel">DEEP READING, RETRIEVAL, CONNECTIONS</text><g><rect x="336" y="282" width="48" height="22" rx="6" class="chipPanel"/><polygon points="0,-3.2 3.2,0 0,3.2 -3.2,0" transform="translate(346 293)" fill="#8250DF"/><text x="354" y="297" class="stageText">READ</text></g><path d="M388 293h5l-2.6-2.6m2.6 2.6l-2.6 2.6" fill="none" stroke="#818B98" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><g><rect x="398" y="282" width="68" height="22" rx="6" class="chipPanel"/><polygon points="0,-3.2 3.2,0 0,3.2 -3.2,0" transform="translate(408 293)" fill="#087EA4"/><text x="416" y="297" class="stageText">RETRIEVE</text></g><path d="M470 293h5l-2.6-2.6m2.6 2.6l-2.6 2.6" fill="none" stroke="#818B98" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><g><rect x="480" y="282" width="66" height="22" rx="6" class="chipPanel"/><polygon points="0,-3.2 3.2,0 0,3.2 -3.2,0" transform="translate(490 293)" fill="#8250DF"/><text x="498" y="297" class="stageText">CONNECT</text></g>
+    <text x="796" y="275" text-anchor="end" class="projectMeta">LLM REPORTS / VECTOR KB / KG</text>
+    <rect x="640" y="284" width="156" height="5" rx="2.5" class="track"/><rect x="640" y="284" width="86" height="5" rx="2.5" fill="url(#meterGrad)" class="meter"/>
+  </g>
+
+  <g class="panelIn" style="animation-delay:.66s">
+    <line x1="28" y1="338" x2="812" y2="338" stroke="url(#footGrad)" stroke-width="1.5" stroke-linecap="round" stroke-opacity=".55"/>
+    <text x="28" y="354" class="footText">SYSTEMS DESIGN · REAL-TIME VISION · KNOWLEDGE WORKFLOWS</text>
+    <text x="812" y="354" text-anchor="end" class="footText">JINCHENG HAN</text>
+  </g>
 </svg>
