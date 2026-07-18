@@ -1,9 +1,9 @@
 {
   "schemaVersion": 2,
   "windowDays": 183,
-  "windowStart": "2026-01-16",
-  "windowEnd": "2026-07-17",
-  "updatedAt": "2026-07-17T16:30:59.701Z",
+  "windowStart": "2026-01-17",
+  "windowEnd": "2026-07-18",
+  "updatedAt": "2026-07-18T01:54:10.490Z",
   "devices": [
     {
       "name": "mac",
@@ -42,46 +42,6 @@
           "outputTokens": 194165,
           "reasoningOutputTokens": 91098,
           "turnCount": 24
-        }
-      ]
-    },
-    {
-      "name": "mac_work01",
-      "platform": "darwin",
-      "collectedAt": "2026-07-17T13:12:59.937Z",
-      "tokens": 271589463,
-      "inputTokens": 270530568,
-      "cachedInputTokens": 262401280,
-      "outputTokens": 1058895,
-      "reasoningOutputTokens": 489659,
-      "detailedTokens": 271589463,
-      "models": [
-        {
-          "name": "gpt-5.5",
-          "tokens": 953705,
-          "inputTokens": 939532,
-          "cachedInputTokens": 807680,
-          "outputTokens": 14173,
-          "reasoningOutputTokens": 5471,
-          "turnCount": 7
-        },
-        {
-          "name": "gpt-5.6-sol",
-          "tokens": 217842780,
-          "inputTokens": 216987603,
-          "cachedInputTokens": 210535936,
-          "outputTokens": 855177,
-          "reasoningOutputTokens": 395544,
-          "turnCount": 114
-        },
-        {
-          "name": "gpt-5.6-terra",
-          "tokens": 52792978,
-          "inputTokens": 52603433,
-          "cachedInputTokens": 51057664,
-          "outputTokens": 189545,
-          "reasoningOutputTokens": 88644,
-          "turnCount": 22
         }
       ]
     },
@@ -180,109 +140,15 @@
       ]
     },
     {
-      "name": "mac_work01-qoder",
-      "platform": "darwin",
-      "collectedAt": "2026-07-17T13:13:00.412Z",
-      "tokens": 137066373,
-      "inputTokens": 135948400,
-      "cachedInputTokens": 120853415,
-      "outputTokens": 1117973,
-      "reasoningOutputTokens": 0,
-      "detailedTokens": 137066373,
-      "models": [
-        {
-          "name": "Qwen3.7-Max",
-          "tokens": 73963497,
-          "inputTokens": 73282282,
-          "cachedInputTokens": 61917703,
-          "outputTokens": 681215,
-          "reasoningOutputTokens": 0,
-          "turnCount": 973
-        },
-        {
-          "name": "GLM-5.2",
-          "tokens": 54784272,
-          "inputTokens": 54478955,
-          "cachedInputTokens": 52266432,
-          "outputTokens": 305317,
-          "reasoningOutputTokens": 0,
-          "turnCount": 570
-        },
-        {
-          "name": "Kimi-K3",
-          "tokens": 7198703,
-          "inputTokens": 7087317,
-          "cachedInputTokens": 6017165,
-          "outputTokens": 111386,
-          "reasoningOutputTokens": 0,
-          "turnCount": 95
-        },
-        {
-          "name": "Qwen Max",
-          "tokens": 846853,
-          "inputTokens": 830893,
-          "cachedInputTokens": 553178,
-          "outputTokens": 15960,
-          "reasoningOutputTokens": 0,
-          "turnCount": 21
-        },
-        {
-          "name": "Qwen Plus",
-          "tokens": 151196,
-          "inputTokens": 147294,
-          "cachedInputTokens": 71175,
-          "outputTokens": 3902,
-          "reasoningOutputTokens": 0,
-          "turnCount": 6
-        },
-        {
-          "name": "DeepSeek-V4-Fast",
-          "tokens": 32713,
-          "inputTokens": 32624,
-          "cachedInputTokens": 4480,
-          "outputTokens": 89,
-          "reasoningOutputTokens": 0,
-          "turnCount": 1
-        },
-        {
-          "name": "MiniMax-M3",
-          "tokens": 32231,
-          "inputTokens": 32197,
-          "cachedInputTokens": 114,
-          "outputTokens": 34,
-          "reasoningOutputTokens": 0,
-          "turnCount": 1
-        },
-        {
-          "name": "DeepSeek-V4-Pro",
-          "tokens": 30027,
-          "inputTokens": 29994,
-          "cachedInputTokens": 4480,
-          "outputTokens": 33,
-          "reasoningOutputTokens": 0,
-          "turnCount": 1
-        },
-        {
-          "name": "Kimi-K2.7-Code",
-          "tokens": 26881,
-          "inputTokens": 26844,
-          "cachedInputTokens": 18688,
-          "outputTokens": 37,
-          "reasoningOutputTokens": 0,
-          "turnCount": 1
-        }
-      ]
-    },
-    {
       "name": "linux",
       "platform": "linux",
-      "collectedAt": "2026-07-17T01:00:52.805Z",
-      "tokens": 47011991,
-      "inputTokens": 46835163,
-      "cachedInputTokens": 44635520,
-      "outputTokens": 176828,
-      "reasoningOutputTokens": 58571,
-      "detailedTokens": 47011991,
+      "collectedAt": "2026-07-18T01:54:02.814Z",
+      "tokens": 54308740,
+      "inputTokens": 54110984,
+      "cachedInputTokens": 51570816,
+      "outputTokens": 197756,
+      "reasoningOutputTokens": 68727,
+      "detailedTokens": 54308740,
       "models": [
         {
           "name": "gpt-5.5",
@@ -290,7 +156,8 @@
           "inputTokens": 2525019,
           "cachedInputTokens": 2140544,
           "outputTokens": 14090,
-          "reasoningOutputTokens": 4007
+          "reasoningOutputTokens": 4007,
+          "turnCount": 6
         },
         {
           "name": "gpt-5.6-terra",
@@ -298,15 +165,17 @@
           "inputTokens": 23880306,
           "cachedInputTokens": 23286528,
           "outputTokens": 64567,
-          "reasoningOutputTokens": 17562
+          "reasoningOutputTokens": 17562,
+          "turnCount": 29
         },
         {
           "name": "gpt-5.6-sol",
-          "tokens": 20528009,
-          "inputTokens": 20429838,
-          "cachedInputTokens": 19208448,
-          "outputTokens": 98171,
-          "reasoningOutputTokens": 37002
+          "tokens": 27824758,
+          "inputTokens": 27705659,
+          "cachedInputTokens": 26143744,
+          "outputTokens": 119099,
+          "reasoningOutputTokens": 47158,
+          "turnCount": 12
         }
       ]
     }
@@ -314,256 +183,256 @@
   "models": [
     {
       "name": "gpt-5.6-sol",
-      "tokens": 496065929,
-      "inputTokens": 494131953,
-      "cachedInputTokens": 478702336,
-      "outputTokens": 1933976,
-      "reasoningOutputTokens": 886503,
-      "detailedTokens": 496065929,
-      "turnCount": 248,
-      "turnCountComplete": false
-    },
-    {
-      "name": "Qwen3.7-Max",
-      "tokens": 147926994,
-      "inputTokens": 146564564,
-      "cachedInputTokens": 123835406,
-      "outputTokens": 1362430,
-      "reasoningOutputTokens": 0,
-      "detailedTokens": 147926994,
-      "turnCount": 1946,
+      "tokens": 285519898,
+      "inputTokens": 284420171,
+      "cachedInputTokens": 275101696,
+      "outputTokens": 1099727,
+      "reasoningOutputTokens": 501115,
+      "detailedTokens": 285519898,
+      "turnCount": 146,
       "turnCountComplete": true
     },
     {
       "name": "gpt-5.6-terra",
-      "tokens": 130608239,
-      "inputTokens": 130159962,
-      "cachedInputTokens": 126389504,
-      "outputTokens": 448277,
-      "reasoningOutputTokens": 197304,
-      "detailedTokens": 130608239,
-      "turnCount": 46,
-      "turnCountComplete": false
+      "tokens": 77815261,
+      "inputTokens": 77556529,
+      "cachedInputTokens": 75331840,
+      "outputTokens": 258732,
+      "reasoningOutputTokens": 108660,
+      "detailedTokens": 77815261,
+      "turnCount": 53,
+      "turnCountComplete": true
+    },
+    {
+      "name": "Qwen3.7-Max",
+      "tokens": 73963497,
+      "inputTokens": 73282282,
+      "cachedInputTokens": 61917703,
+      "outputTokens": 681215,
+      "reasoningOutputTokens": 0,
+      "detailedTokens": 73963497,
+      "turnCount": 973,
+      "turnCountComplete": true
     },
     {
       "name": "GLM-5.2",
-      "tokens": 109568544,
-      "inputTokens": 108957910,
-      "cachedInputTokens": 104532864,
-      "outputTokens": 610634,
+      "tokens": 54784272,
+      "inputTokens": 54478955,
+      "cachedInputTokens": 52266432,
+      "outputTokens": 305317,
       "reasoningOutputTokens": 0,
-      "detailedTokens": 109568544,
-      "turnCount": 1140,
+      "detailedTokens": 54784272,
+      "turnCount": 570,
       "turnCountComplete": true
     },
     {
       "name": "Kimi-K3",
-      "tokens": 43416079,
-      "inputTokens": 43000434,
-      "cachedInputTokens": 39937847,
-      "outputTokens": 415645,
+      "tokens": 36217376,
+      "inputTokens": 35913117,
+      "cachedInputTokens": 33920682,
+      "outputTokens": 304259,
       "reasoningOutputTokens": 0,
-      "detailedTokens": 43416079,
-      "turnCount": 494,
+      "detailedTokens": 36217376,
+      "turnCount": 399,
       "turnCountComplete": true
     },
     {
       "name": "gpt-5.5",
-      "tokens": 4446519,
-      "inputTokens": 4404083,
-      "cachedInputTokens": 3755904,
-      "outputTokens": 42436,
-      "reasoningOutputTokens": 14949,
-      "detailedTokens": 4446519,
-      "turnCount": 14,
-      "turnCountComplete": false
+      "tokens": 3492814,
+      "inputTokens": 3464551,
+      "cachedInputTokens": 2948224,
+      "outputTokens": 28263,
+      "reasoningOutputTokens": 9478,
+      "detailedTokens": 3492814,
+      "turnCount": 13,
+      "turnCountComplete": true
     },
     {
       "name": "Qwen Max",
-      "tokens": 1693706,
-      "inputTokens": 1661786,
-      "cachedInputTokens": 1106356,
-      "outputTokens": 31920,
+      "tokens": 846853,
+      "inputTokens": 830893,
+      "cachedInputTokens": 553178,
+      "outputTokens": 15960,
       "reasoningOutputTokens": 0,
-      "detailedTokens": 1693706,
-      "turnCount": 42,
+      "detailedTokens": 846853,
+      "turnCount": 21,
       "turnCountComplete": true
     },
     {
       "name": "Qwen Plus",
-      "tokens": 302392,
-      "inputTokens": 294588,
-      "cachedInputTokens": 142350,
-      "outputTokens": 7804,
+      "tokens": 151196,
+      "inputTokens": 147294,
+      "cachedInputTokens": 71175,
+      "outputTokens": 3902,
       "reasoningOutputTokens": 0,
-      "detailedTokens": 302392,
-      "turnCount": 12,
+      "detailedTokens": 151196,
+      "turnCount": 6,
       "turnCountComplete": true
     },
     {
       "name": "DeepSeek-V4-Fast",
-      "tokens": 65426,
-      "inputTokens": 65248,
-      "cachedInputTokens": 8960,
-      "outputTokens": 178,
+      "tokens": 32713,
+      "inputTokens": 32624,
+      "cachedInputTokens": 4480,
+      "outputTokens": 89,
       "reasoningOutputTokens": 0,
-      "detailedTokens": 65426,
-      "turnCount": 2,
+      "detailedTokens": 32713,
+      "turnCount": 1,
       "turnCountComplete": true
     },
     {
       "name": "MiniMax-M3",
-      "tokens": 64462,
-      "inputTokens": 64394,
-      "cachedInputTokens": 228,
-      "outputTokens": 68,
+      "tokens": 32231,
+      "inputTokens": 32197,
+      "cachedInputTokens": 114,
+      "outputTokens": 34,
       "reasoningOutputTokens": 0,
-      "detailedTokens": 64462,
-      "turnCount": 2,
+      "detailedTokens": 32231,
+      "turnCount": 1,
       "turnCountComplete": true
     },
     {
       "name": "DeepSeek-V4-Pro",
-      "tokens": 60054,
-      "inputTokens": 59988,
-      "cachedInputTokens": 8960,
-      "outputTokens": 66,
+      "tokens": 30027,
+      "inputTokens": 29994,
+      "cachedInputTokens": 4480,
+      "outputTokens": 33,
       "reasoningOutputTokens": 0,
-      "detailedTokens": 60054,
-      "turnCount": 2,
+      "detailedTokens": 30027,
+      "turnCount": 1,
       "turnCountComplete": true
     },
     {
       "name": "Kimi-K2.7-Code",
-      "tokens": 53762,
-      "inputTokens": 53688,
-      "cachedInputTokens": 37376,
-      "outputTokens": 74,
+      "tokens": 26881,
+      "inputTokens": 26844,
+      "cachedInputTokens": 18688,
+      "outputTokens": 37,
       "reasoningOutputTokens": 0,
-      "detailedTokens": 53762,
-      "turnCount": 2,
+      "detailedTokens": 26881,
+      "turnCount": 1,
       "turnCountComplete": true
     }
   ],
   "days": [
     {
       "date": "2026-06-18",
-      "tokens": 51252,
-      "inputTokens": 49078,
-      "cachedInputTokens": 23566,
-      "outputTokens": 2174,
+      "tokens": 25626,
+      "inputTokens": 24539,
+      "cachedInputTokens": 11783,
+      "outputTokens": 1087,
       "reasoningOutputTokens": 0
     },
     {
       "date": "2026-06-19",
-      "tokens": 14296956,
-      "inputTokens": 14201412,
-      "cachedInputTokens": 13339024,
-      "outputTokens": 95544,
+      "tokens": 7148478,
+      "inputTokens": 7100706,
+      "cachedInputTokens": 6669512,
+      "outputTokens": 47772,
       "reasoningOutputTokens": 0
     },
     {
       "date": "2026-06-22",
-      "tokens": 31140302,
-      "inputTokens": 30967440,
-      "cachedInputTokens": 28674560,
-      "outputTokens": 172862,
+      "tokens": 15570151,
+      "inputTokens": 15483720,
+      "cachedInputTokens": 14337280,
+      "outputTokens": 86431,
       "reasoningOutputTokens": 0
     },
     {
       "date": "2026-06-23",
-      "tokens": 17852078,
-      "inputTokens": 17701060,
-      "cachedInputTokens": 14940232,
-      "outputTokens": 151018,
+      "tokens": 8926039,
+      "inputTokens": 8850530,
+      "cachedInputTokens": 7470116,
+      "outputTokens": 75509,
       "reasoningOutputTokens": 0
     },
     {
       "date": "2026-06-24",
-      "tokens": 16483814,
-      "inputTokens": 16274590,
-      "cachedInputTokens": 12594542,
-      "outputTokens": 209224,
+      "tokens": 8241907,
+      "inputTokens": 8137295,
+      "cachedInputTokens": 6297271,
+      "outputTokens": 104612,
       "reasoningOutputTokens": 0
     },
     {
       "date": "2026-06-25",
-      "tokens": 18095174,
-      "inputTokens": 17929832,
-      "cachedInputTokens": 14694076,
-      "outputTokens": 165342,
+      "tokens": 9047587,
+      "inputTokens": 8964916,
+      "cachedInputTokens": 7347038,
+      "outputTokens": 82671,
       "reasoningOutputTokens": 0
     },
     {
       "date": "2026-06-26",
-      "tokens": 25652624,
-      "inputTokens": 25312754,
-      "cachedInputTokens": 21493776,
-      "outputTokens": 339870,
+      "tokens": 12826312,
+      "inputTokens": 12656377,
+      "cachedInputTokens": 10746888,
+      "outputTokens": 169935,
       "reasoningOutputTokens": 0
     },
     {
       "date": "2026-06-27",
-      "tokens": 75522064,
-      "inputTokens": 75111958,
-      "cachedInputTokens": 73002796,
-      "outputTokens": 410106,
+      "tokens": 37761032,
+      "inputTokens": 37555979,
+      "cachedInputTokens": 36501398,
+      "outputTokens": 205053,
       "reasoningOutputTokens": 0
     },
     {
       "date": "2026-06-29",
-      "tokens": 1041104,
-      "inputTokens": 1033640,
-      "cachedInputTokens": 840738,
-      "outputTokens": 7464,
+      "tokens": 520552,
+      "inputTokens": 516820,
+      "cachedInputTokens": 420369,
+      "outputTokens": 3732,
       "reasoningOutputTokens": 0
     },
     {
       "date": "2026-07-05",
-      "tokens": 2767684,
-      "inputTokens": 2708616,
-      "cachedInputTokens": 2545610,
-      "outputTokens": 59068,
+      "tokens": 1383842,
+      "inputTokens": 1354308,
+      "cachedInputTokens": 1272805,
+      "outputTokens": 29534,
       "reasoningOutputTokens": 0
     },
     {
       "date": "2026-07-06",
-      "tokens": 30659941,
-      "inputTokens": 30438305,
-      "cachedInputTokens": 25280560,
-      "outputTokens": 221636,
+      "tokens": 16599525,
+      "inputTokens": 16481662,
+      "cachedInputTokens": 13710552,
+      "outputTokens": 117863,
       "reasoningOutputTokens": 4007
     },
     {
       "date": "2026-07-07",
-      "tokens": 2207982,
-      "inputTokens": 2170778,
-      "cachedInputTokens": 1750966,
-      "outputTokens": 37204,
+      "tokens": 1103991,
+      "inputTokens": 1085389,
+      "cachedInputTokens": 875483,
+      "outputTokens": 18602,
       "reasoningOutputTokens": 0
     },
     {
       "date": "2026-07-08",
-      "tokens": 4511786,
-      "inputTokens": 4487734,
-      "cachedInputTokens": 4052648,
-      "outputTokens": 24052,
+      "tokens": 2255893,
+      "inputTokens": 2243867,
+      "cachedInputTokens": 2026324,
+      "outputTokens": 12026,
       "reasoningOutputTokens": 0
     },
     {
       "date": "2026-07-09",
-      "tokens": 10428916,
-      "inputTokens": 10380036,
-      "cachedInputTokens": 8569924,
-      "outputTokens": 48880,
+      "tokens": 5214458,
+      "inputTokens": 5190018,
+      "cachedInputTokens": 4284962,
+      "outputTokens": 24440,
       "reasoningOutputTokens": 0
     },
     {
       "date": "2026-07-10",
-      "tokens": 1191740,
-      "inputTokens": 1182004,
-      "cachedInputTokens": 873188,
-      "outputTokens": 9736,
+      "tokens": 595870,
+      "inputTokens": 591002,
+      "cachedInputTokens": 436594,
+      "outputTokens": 4868,
       "reasoningOutputTokens": 0
     },
     {
@@ -576,35 +445,43 @@
     },
     {
       "date": "2026-07-14",
-      "tokens": 446023,
-      "inputTokens": 440883,
-      "cachedInputTokens": 303080,
-      "outputTokens": 5140,
+      "tokens": 381136,
+      "inputTokens": 377190,
+      "cachedInputTokens": 276084,
+      "outputTokens": 3946,
       "reasoningOutputTokens": 888
     },
     {
       "date": "2026-07-15",
-      "tokens": 1863788,
-      "inputTokens": 1824610,
-      "cachedInputTokens": 1208466,
-      "outputTokens": 39178,
+      "tokens": 931894,
+      "inputTokens": 912305,
+      "cachedInputTokens": 604233,
+      "outputTokens": 19589,
       "reasoningOutputTokens": 0
     },
     {
       "date": "2026-07-16",
-      "tokens": 282991225,
-      "inputTokens": 281775820,
-      "cachedInputTokens": 273915904,
-      "outputTokens": 1215405,
-      "reasoningOutputTokens": 534322
+      "tokens": 161523354,
+      "inputTokens": 160851129,
+      "cachedInputTokens": 156214912,
+      "outputTokens": 672225,
+      "reasoningOutputTokens": 289323
     },
     {
       "date": "2026-07-17",
-      "tokens": 395152720,
-      "inputTokens": 393521773,
-      "cachedInputTokens": 378634115,
-      "outputTokens": 1630947,
-      "reasoningOutputTokens": 557470
+      "tokens": 239400503,
+      "inputTokens": 238396400,
+      "cachedInputTokens": 229556432,
+      "outputTokens": 1004103,
+      "reasoningOutputTokens": 320543
+    },
+    {
+      "date": "2026-07-18",
+      "tokens": 1539936,
+      "inputTokens": 1535024,
+      "cachedInputTokens": 1358336,
+      "outputTokens": 4912,
+      "reasoningOutputTokens": 2423
     }
   ]
 }
