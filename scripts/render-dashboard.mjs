@@ -40,12 +40,12 @@ const estimateDetailedCostUsd = (model) => {
   return costFromMetrics(model, rates);
 };
 function displayModels() {
-  if (data.models.length <= 7) return data.models;
-  const overflow = data.models.slice(6);
+  if (data.models.length <= 8) return data.models;
+  const overflow = data.models.slice(7);
   const metricKeys = ['tokens', 'inputTokens', 'cachedInputTokens', 'cacheCreationInputTokens', 'cacheCreation5mInputTokens', 'cacheCreation1hInputTokens', 'outputTokens', 'reasoningOutputTokens', 'detailedTokens', 'turnCount'];
   const aggregate = Object.fromEntries(metricKeys.map((key) => [key, overflow.reduce((sum, model) => sum + (model[key] || 0), 0)]));
   const allPriced = overflow.every((model) => apiRates[model.name] && hasFullDetail(model));
-  return [...data.models.slice(0, 6), {
+  return [...data.models.slice(0, 7), {
     name: `OTHER · ${overflow.length} MODELS`,
     ...aggregate,
     aggregate: true,
@@ -239,7 +239,11 @@ function modelDeviceSplit(theme, model, y) {
     offset += segmentWidth;
     return result;
   }).join('');
-  const line = (entry, lineY) => `<text x="${x + 9}" y="${lineY}" class="splitLabel">${safe(entry.name)}</text><text x="${x + 137}" y="${lineY}" text-anchor="end" class="splitLabel">${Math.round(entry.tokens / totalTokens * 100)}%</text>`;
+  const line = (entry, lineY) => {
+    const share = entry.tokens / totalTokens * 100;
+    const label = share > 0 && share < 1 ? '&lt;1%' : `${Math.round(share)}%`;
+    return `<text x="${x + 9}" y="${lineY}" class="splitLabel">${safe(entry.name)}</text><text x="${x + 137}" y="${lineY}" text-anchor="end" class="splitLabel">${label}</text>`;
+  };
   const labels = listed.length === 1 ? line(listed[0], y + 4) : `${line(listed[0], y + 1)}${line(listed[1], y + 10)}`;
   return `<g><rect x="${x}" y="${y - 14}" width="${width}" height="28" rx="6" class="splitPanel"/><rect x="${x + 9}" y="${y - 9}" width="128" height="3.5" rx="1.75" class="track"/>${segments}${labels}</g>`;
 }
@@ -342,7 +346,7 @@ function render(mode) {
   </defs>
 
   <g class="intro">
-    <text x="28" y="28" class="eyebrow">AI WORKBENCH · CODEX + QODER + CLAUDE · @HJCHENG0602</text>
+    <text x="28" y="28" class="eyebrow">AI WORKBENCH · CODEX + QODER + CLAUDE + OPENCODE · @HJCHENG0602</text>
     <text x="28" y="52" class="title sans">VIBE CODING STATS</text>
     <rect x="29" y="60" width="58" height="3" rx="1.5" fill="url(#footGrad)"/>
     <circle cx="700" cy="40" r="80" fill="url(#heroGlow)"/>

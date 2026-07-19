@@ -11,6 +11,7 @@
     "collect": "node scripts/collect-codex.mjs",
     "collect:qoder": "node scripts/collect-qoder.mjs",
     "collect:claude": "node scripts/collect-claude.mjs",
+    "collect:opencode": "node scripts/collect-opencode.mjs",
     "sync": "node scripts/sync.mjs"
   }
 }

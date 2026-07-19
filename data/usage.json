@@ -3,7 +3,7 @@
   "windowDays": 183,
   "windowStart": "2026-01-18",
   "windowEnd": "2026-07-19",
-  "updatedAt": "2026-07-19T08:47:51.339Z",
+  "updatedAt": "2026-07-19T10:37:04.007Z",
   "devices": [
     {
       "name": "mac",
@@ -227,6 +227,34 @@
           "turnCount": 12
         }
       ]
+    },
+    {
+      "name": "linux-opencode",
+      "platform": "linux",
+      "collectedAt": "2026-07-19T10:37:03.759Z",
+      "tokens": 46795688,
+      "inputTokens": 46505376,
+      "cachedInputTokens": 45563776,
+      "cacheCreationInputTokens": 0,
+      "cacheCreation5mInputTokens": 0,
+      "cacheCreation1hInputTokens": 0,
+      "outputTokens": 290312,
+      "reasoningOutputTokens": 123592,
+      "detailedTokens": 46795688,
+      "models": [
+        {
+          "name": "DeepSeek-V4-Pro",
+          "tokens": 46795688,
+          "inputTokens": 46505376,
+          "cachedInputTokens": 45563776,
+          "cacheCreationInputTokens": 0,
+          "cacheCreation5mInputTokens": 0,
+          "cacheCreation1hInputTokens": 0,
+          "outputTokens": 290312,
+          "reasoningOutputTokens": 123592,
+          "turnCount": 629
+        }
+      ]
     }
   ],
   "models": [
@@ -315,6 +343,20 @@
       "turnCountComplete": true
     },
     {
+      "name": "DeepSeek-V4-Pro",
+      "tokens": 46825715,
+      "inputTokens": 46535370,
+      "cachedInputTokens": 45568256,
+      "cacheCreationInputTokens": 0,
+      "cacheCreation5mInputTokens": 0,
+      "cacheCreation1hInputTokens": 0,
+      "outputTokens": 290345,
+      "reasoningOutputTokens": 123592,
+      "detailedTokens": 46825715,
+      "turnCount": 630,
+      "turnCountComplete": true
+    },
+    {
       "name": "gpt-5.5",
       "tokens": 3492814,
       "inputTokens": 3464551,
@@ -395,20 +437,6 @@
       "outputTokens": 34,
       "reasoningOutputTokens": 0,
       "detailedTokens": 32231,
-      "turnCount": 1,
-      "turnCountComplete": true
-    },
-    {
-      "name": "DeepSeek-V4-Pro",
-      "tokens": 30027,
-      "inputTokens": 29994,
-      "cachedInputTokens": 4480,
-      "cacheCreationInputTokens": 0,
-      "cacheCreation5mInputTokens": 0,
-      "cacheCreation1hInputTokens": 0,
-      "outputTokens": 33,
-      "reasoningOutputTokens": 0,
-      "detailedTokens": 30027,
       "turnCount": 1,
       "turnCountComplete": true
     },
@@ -771,14 +799,14 @@
     },
     {
       "date": "2026-06-01",
-      "tokens": 5341751,
-      "inputTokens": 5323679,
-      "cachedInputTokens": 5227673,
+      "tokens": 6962294,
+      "inputTokens": 6922382,
+      "cachedInputTokens": 6747673,
       "cacheCreationInputTokens": 95919,
       "cacheCreation5mInputTokens": 0,
       "cacheCreation1hInputTokens": 95919,
-      "outputTokens": 18072,
-      "reasoningOutputTokens": 0
+      "outputTokens": 39912,
+      "reasoningOutputTokens": 11679
     },
     {
       "date": "2026-06-02",
@@ -801,6 +829,17 @@
       "cacheCreation1hInputTokens": 620717,
       "outputTokens": 247818,
       "reasoningOutputTokens": 0
+    },
+    {
+      "date": "2026-06-04",
+      "tokens": 303707,
+      "inputTokens": 296344,
+      "cachedInputTokens": 279168,
+      "cacheCreationInputTokens": 0,
+      "cacheCreation5mInputTokens": 0,
+      "cacheCreation1hInputTokens": 0,
+      "outputTokens": 7363,
+      "reasoningOutputTokens": 2971
     },
     {
       "date": "2026-06-05",
@@ -837,36 +876,36 @@
     },
     {
       "date": "2026-06-08",
-      "tokens": 1472840,
-      "inputTokens": 1467405,
-      "cachedInputTokens": 1363311,
+      "tokens": 1626682,
+      "inputTokens": 1619562,
+      "cachedInputTokens": 1486575,
       "cacheCreationInputTokens": 103821,
       "cacheCreation5mInputTokens": 0,
       "cacheCreation1hInputTokens": 103821,
-      "outputTokens": 5435,
-      "reasoningOutputTokens": 0
+      "outputTokens": 7120,
+      "reasoningOutputTokens": 684
     },
     {
       "date": "2026-06-11",
-      "tokens": 3406750,
-      "inputTokens": 3280750,
-      "cachedInputTokens": 3014234,
+      "tokens": 30384648,
+      "inputTokens": 30114256,
+      "cachedInputTokens": 29449178,
       "cacheCreationInputTokens": 266412,
       "cacheCreation5mInputTokens": 0,
       "cacheCreation1hInputTokens": 266412,
-      "outputTokens": 126000,
-      "reasoningOutputTokens": 0
+      "outputTokens": 270392,
+      "reasoningOutputTokens": 58407
     },
     {
       "date": "2026-06-12",
-      "tokens": 308449,
-      "inputTokens": 251685,
-      "cachedInputTokens": 169232,
+      "tokens": 623186,
+      "inputTokens": 562020,
+      "cachedInputTokens": 441872,
       "cacheCreationInputTokens": 82441,
       "cacheCreation5mInputTokens": 0,
       "cacheCreation1hInputTokens": 82441,
-      "outputTokens": 56764,
-      "reasoningOutputTokens": 0
+      "outputTokens": 61166,
+      "reasoningOutputTokens": 1926
     },
     {
       "date": "2026-06-13",
@@ -892,25 +931,25 @@
     },
     {
       "date": "2026-06-16",
-      "tokens": 13194029,
-      "inputTokens": 13066908,
-      "cachedInputTokens": 12448458,
+      "tokens": 14877620,
+      "inputTokens": 14728678,
+      "cachedInputTokens": 13971018,
       "cacheCreationInputTokens": 615531,
       "cacheCreation5mInputTokens": 46228,
       "cacheCreation1hInputTokens": 569303,
-      "outputTokens": 127121,
-      "reasoningOutputTokens": 0
+      "outputTokens": 148942,
+      "reasoningOutputTokens": 4090
     },
     {
       "date": "2026-06-18",
-      "tokens": 25626,
-      "inputTokens": 24539,
-      "cachedInputTokens": 11783,
+      "tokens": 14804248,
+      "inputTokens": 14737454,
+      "cachedInputTokens": 14559111,
       "cacheCreationInputTokens": 0,
       "cacheCreation5mInputTokens": 0,
       "cacheCreation1hInputTokens": 0,
-      "outputTokens": 1087,
-      "reasoningOutputTokens": 0
+      "outputTokens": 66794,
+      "reasoningOutputTokens": 29485
     },
     {
       "date": "2026-06-19",
@@ -969,25 +1008,25 @@
     },
     {
       "date": "2026-06-26",
-      "tokens": 12826312,
-      "inputTokens": 12656377,
-      "cachedInputTokens": 10746888,
+      "tokens": 13586545,
+      "inputTokens": 13394286,
+      "cachedInputTokens": 11434248,
       "cacheCreationInputTokens": 0,
       "cacheCreation5mInputTokens": 0,
       "cacheCreation1hInputTokens": 0,
-      "outputTokens": 169935,
-      "reasoningOutputTokens": 0
+      "outputTokens": 192259,
+      "reasoningOutputTokens": 14134
     },
     {
       "date": "2026-06-27",
-      "tokens": 37761032,
-      "inputTokens": 37555979,
-      "cachedInputTokens": 36501398,
+      "tokens": 37963547,
+      "inputTokens": 37757716,
+      "cachedInputTokens": 36677910,
       "cacheCreationInputTokens": 0,
       "cacheCreation5mInputTokens": 0,
       "cacheCreation1hInputTokens": 0,
-      "outputTokens": 205053,
-      "reasoningOutputTokens": 0
+      "outputTokens": 205831,
+      "reasoningOutputTokens": 216
     },
     {
       "date": "2026-06-29",

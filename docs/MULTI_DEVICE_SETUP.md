@@ -1,15 +1,17 @@
 # 多设备同步指南
 
-这套同步工具会读取每台机器本地的 Codex、Qoder 和 Claude Code 会话记录，把过去 183 天内的聚合 token 数据提交到本仓库，再由 GitHub Actions 合并所有设备并重新生成主页图表。
+这套同步工具会读取每台机器本地的 Codex、Qoder、Claude Code 和 OpenCode 会话记录，把过去 183 天内的聚合 token 数据提交到本仓库，再由 GitHub Actions 合并所有设备并重新生成主页图表。
 
 ```text
 ~/.codex/sessions
 ~/.qoder/...（存在时）
 ~/.claude/projects
+~/.local/share/opencode/opencode.db
         ↓ npm run sync
 data/devices/<设备名>.json
 data/devices/<设备名>-qoder.json
 data/devices/<设备名>-claude.json
+data/devices/<设备名>-opencode.json
         ↓ push
 GitHub Actions 合并并生成 SVG
 ```
@@ -21,6 +23,7 @@ GitHub Actions 合并并生成 SVG
 - Git
 - Node.js 20 或更高版本
 - 已经运行并产生过会话记录的 Codex CLI/IDE
+- 若需采集 OpenCode：安装 `sqlite3`（采集器只查询模型、时间与 token 字段）
 - 能向 `HJCheng0602/HJCheng0602` 推送的 GitHub SSH 密钥
 
 每台机器必须使用唯一的设备名，例如：
@@ -144,8 +147,8 @@ npm run sync
 `npm run sync` 会依次：
 
 1. 拉取其他设备的最新快照；
-2. 扫描本机 Codex、Qoder 与 Claude Code 的本地记录（不存在的数据源会跳过）；
-3. 只更新本机对应的设备快照；Claude Code 使用 `<设备名>-claude.json`，避免与 Codex 重叠；
+2. 扫描本机 Codex、Qoder、Claude Code 与 OpenCode 的本地记录（不存在的数据源会跳过）；
+3. 只更新本机对应的设备快照；Claude Code 与 OpenCode 分别使用 `<设备名>-claude.json` 和 `<设备名>-opencode.json`，避免与 Codex 重叠；
 4. 提交并推送更改；
 5. 触发 GitHub Actions 合并数据并更新主页 SVG。
 
@@ -159,6 +162,7 @@ npm run sync
 npm run collect
 npm run collect:qoder
 npm run collect:claude
+npm run collect:opencode
 ```
 
 终端应显示扫描位置和发现的模型数量，例如：
@@ -174,7 +178,7 @@ ls data/devices
 git status --short
 ```
 
-如果显示 `0 model(s)`，先确认本机在过去 183 天内运行过对应客户端，并检查相应记录目录是否存在。采集器不会上传提示词、代码、文件路径、请求 ID、会话 ID 或机器 hostname，只会提交按日期和模型聚合后的 token 数量。Claude transcript 中重复出现的同一 API 请求会按 `requestId` 去重。
+如果显示 `0 model(s)`，先确认本机在过去 183 天内运行过对应客户端，并检查相应记录目录是否存在。采集器不会上传提示词、代码、文件路径、请求 ID、会话 ID 或机器 hostname，只会提交按日期和模型聚合后的 token 数量。Claude transcript 中重复出现的同一 API 请求会按 `requestId` 去重；OpenCode 只读取 SQLite 中的聚合所需字段，不读取消息正文。
 
 ## 图表统计口径
 
@@ -182,7 +186,7 @@ git status --short
 - 缓存率为 `cached input tokens / input tokens`。缓存 token 是输入 token 的子集，不应再次加到 token 总量中。
 - reasoning token 已包含在 output token 中，只作为补充明细展示。
 - 成本按各厂商官方 API 单价估算为 USD，不代表实际订阅或 API 账单。Claude Code 会分别计算普通输入、5 分钟缓存写入、1 小时缓存写入、缓存读取与输出；费率来自 [Anthropic 官方价格文档](https://platform.claude.com/docs/en/about-claude/pricing)。
-- 模型超过七种时，前六名逐行展示，其余模型合并到 `OTHER · N MODELS`，所有 token、缓存与可计算成本仍会计入。
+- 模型超过八种时，前七名逐行展示，其余模型合并到 `OTHER · N MODELS`，所有 token、缓存与可计算成本仍会计入。
 - 设备超过三台时，前两台逐行展示，其余设备合并到 `OTHER · N DEVICES`。
 
 旧版设备快照只有 token 总量，没有输入、缓存和输出明细。图表会显示 `RESYNC FOR DETAILS`，而不是把缺失数据当成 0；在对应设备拉取新版采集器并重新运行 `npm run sync` 后即可补齐完整历史窗口。
