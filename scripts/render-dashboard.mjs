@@ -13,22 +13,46 @@ const safe = (value) => String(value).replace(/[&<>"']/g, (char) => ({ '&': '&am
 const isoDate = (value) => value.toISOString().slice(0, 10);
 const cacheRate = (item) => item?.inputTokens ? item.cachedInputTokens / item.inputTokens : 0;
 const hasFullDetail = (item) => Boolean(item?.tokens) && (item.detailedTokens || 0) >= item.tokens * .999;
+const costFromMetrics = (model, rates) => {
+  const cacheRead = model.cachedInputTokens || 0;
+  const cacheWrite5m = model.cacheCreation5mInputTokens || 0;
+  const cacheWrite1h = model.cacheCreation1hInputTokens || 0;
+  const cacheCreation = model.cacheCreationInputTokens || cacheWrite5m + cacheWrite1h;
+  const unclassifiedWrite = Math.max(0, cacheCreation - cacheWrite5m - cacheWrite1h);
+  const baseInput = Math.max(0, (model.inputTokens || 0) - cacheRead - cacheCreation);
+  return (
+    baseInput * rates.input
+    + cacheRead * rates.cachedInput
+    + cacheWrite5m * (rates.cacheWrite5m ?? rates.input)
+    + cacheWrite1h * (rates.cacheWrite1h ?? rates.input)
+    + unclassifiedWrite * (rates.cacheWrite5m ?? rates.input)
+    + (model.outputTokens || 0) * rates.output
+  ) / 1e6;
+};
 const estimateModelCostUsd = (model) => {
   const rates = apiRates[model.name];
   if (!rates || !hasFullDetail(model)) return null;
-  const cached = model.cachedInputTokens || 0;
-  const uncached = Math.max(0, (model.inputTokens || 0) - cached);
-  return (uncached * rates.input + cached * rates.cachedInput + (model.outputTokens || 0) * rates.output) / 1e6;
+  return costFromMetrics(model, rates);
 };
 const estimateDetailedCostUsd = (model) => {
   const rates = apiRates[model.name];
   if (!rates || !(model.detailedTokens || 0)) return 0;
-  const cached = model.cachedInputTokens || 0;
-  const uncached = Math.max(0, (model.inputTokens || 0) - cached);
-  return (uncached * rates.input + cached * rates.cachedInput + (model.outputTokens || 0) * rates.output) / 1e6;
+  return costFromMetrics(model, rates);
 };
 function displayModels() {
-  return data.models.slice(0, 7);
+  if (data.models.length <= 7) return data.models;
+  const overflow = data.models.slice(6);
+  const metricKeys = ['tokens', 'inputTokens', 'cachedInputTokens', 'cacheCreationInputTokens', 'cacheCreation5mInputTokens', 'cacheCreation1hInputTokens', 'outputTokens', 'reasoningOutputTokens', 'detailedTokens', 'turnCount'];
+  const aggregate = Object.fromEntries(metricKeys.map((key) => [key, overflow.reduce((sum, model) => sum + (model[key] || 0), 0)]));
+  const allPriced = overflow.every((model) => apiRates[model.name] && hasFullDetail(model));
+  return [...data.models.slice(0, 6), {
+    name: `OTHER · ${overflow.length} MODELS`,
+    ...aggregate,
+    aggregate: true,
+    estimatedCostUsd: allPriced ? overflow.reduce((sum, model) => sum + estimateModelCostUsd(model), 0) : null,
+    turnCountComplete: overflow.every((model) => model.turnCountComplete),
+    sourceNames: overflow.map((model) => model.name)
+  }];
 }
 
 const visibleModels = displayModels();
@@ -94,13 +118,15 @@ const providerIcons = {
   glm: 'zhipu.svg',
   deepseek: 'deepseek.svg',
   minimax: 'minimax.svg',
-  kimi: 'kimi.svg'
+  kimi: 'kimi.svg',
+  anthropic: 'anthropic.svg'
 };
 
 function providerForModel(modelName) {
   const name = modelName.toLowerCase();
   return name.startsWith('gpt') ? 'openai'
-    : name.startsWith('qwen') ? 'qwen'
+    : name.startsWith('claude') ? 'anthropic'
+      : name.startsWith('qwen') ? 'qwen'
       : name.startsWith('glm') ? 'glm'
         : name.startsWith('deepseek') ? 'deepseek'
           : name.startsWith('minimax') ? 'minimax'
@@ -316,7 +342,7 @@ function render(mode) {
   </defs>
 
   <g class="intro">
-    <text x="28" y="28" class="eyebrow">AI WORKBENCH · CODEX + QODER · @HJCHENG0602</text>
+    <text x="28" y="28" class="eyebrow">AI WORKBENCH · CODEX + QODER + CLAUDE · @HJCHENG0602</text>
     <text x="28" y="52" class="title sans">VIBE CODING STATS</text>
     <rect x="29" y="60" width="58" height="3" rx="1.5" fill="url(#footGrad)"/>
     <circle cx="700" cy="40" r="80" fill="url(#heroGlow)"/>

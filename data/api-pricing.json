@@ -2,14 +2,15 @@
   "schemaVersion": 2,
   "currency": "USD",
   "unit": "USD per 1M text tokens",
-  "asOf": "2026-07-17",
+  "asOf": "2026-07-19",
   "sources": {
     "OpenAI": "https://developers.openai.com/api/docs/models",
     "Qwen Cloud": "https://www.qwencloud.com/models/qwen3.7-max",
     "Z.AI": "https://docs.z.ai/guides/overview/pricing",
     "DeepSeek": "https://api-docs.deepseek.com/quick_start/pricing?article_id=article_1779470751466_8",
     "MiniMax": "https://platform.minimax.io/docs/guides/pricing-paygo",
-    "Kimi": "https://www.kimi.com/resources/kimi-k2-7-code-pricing"
+    "Kimi": "https://www.kimi.com/resources/kimi-k2-7-code-pricing",
+    "Anthropic": "https://platform.claude.com/docs/en/about-claude/pricing"
   },
   "models": {
     "gpt-5.6": { "provider": "OpenAI", "input": 5, "cachedInput": 0.5, "output": 30 },
@@ -31,6 +32,9 @@
     "DeepSeek-V4-Pro": { "provider": "DeepSeek", "input": 0.435, "cachedInput": 0.003625, "output": 0.87 },
     "MiniMax-M3": { "provider": "MiniMax", "input": 0.3, "cachedInput": 0.06, "output": 1.2, "rateNote": "Standard tier, <=512K input, permanent 50% discount" },
     "Kimi-K3": { "provider": "Kimi", "input": 3, "cachedInput": 0.3, "output": 15, "source": "https://www.kimi.com/fr-fr/blog/kimi-k3" },
-    "Kimi-K2.7-Code": { "provider": "Kimi", "input": 0.95, "cachedInput": 0.19, "output": 4 }
+    "Kimi-K2.7-Code": { "provider": "Kimi", "input": 0.95, "cachedInput": 0.19, "output": 4 },
+    "claude-sonnet-4-6": { "provider": "Anthropic", "input": 3, "cacheWrite5m": 3.75, "cacheWrite1h": 6, "cachedInput": 0.3, "output": 15, "rateNote": "Standard global inference; US-only inference is 1.1x" },
+    "claude-haiku-4-5-20251001": { "provider": "Anthropic", "input": 1, "cacheWrite5m": 1.25, "cacheWrite1h": 2, "cachedInput": 0.1, "output": 5 },
+    "claude-haiku-4-5": { "provider": "Anthropic", "input": 1, "cacheWrite5m": 1.25, "cacheWrite1h": 2, "cachedInput": 0.1, "output": 5 }
   }
 }

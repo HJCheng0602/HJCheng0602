@@ -10,6 +10,7 @@
     "merge": "node scripts/merge-snapshots.mjs",
     "collect": "node scripts/collect-codex.mjs",
     "collect:qoder": "node scripts/collect-qoder.mjs",
+    "collect:claude": "node scripts/collect-claude.mjs",
     "sync": "node scripts/sync.mjs"
   }
 }

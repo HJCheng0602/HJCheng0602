@@ -1,11 +1,15 @@
 # 多设备同步指南
 
-这套同步工具会读取每台机器本地的 Codex 会话记录，把过去 183 天内的聚合 token 数据提交到本仓库，再由 GitHub Actions 合并所有设备并重新生成主页图表。
+这套同步工具会读取每台机器本地的 Codex、Qoder 和 Claude Code 会话记录，把过去 183 天内的聚合 token 数据提交到本仓库，再由 GitHub Actions 合并所有设备并重新生成主页图表。
 
 ```text
 ~/.codex/sessions
+~/.qoder/...（存在时）
+~/.claude/projects
         ↓ npm run sync
 data/devices/<设备名>.json
+data/devices/<设备名>-qoder.json
+data/devices/<设备名>-claude.json
         ↓ push
 GitHub Actions 合并并生成 SVG
 ```
@@ -140,8 +144,8 @@ npm run sync
 `npm run sync` 会依次：
 
 1. 拉取其他设备的最新快照；
-2. 扫描本机 `~/.codex/sessions`；
-3. 只更新本机对应的 `data/devices/<设备名>.json`；
+2. 扫描本机 Codex、Qoder 与 Claude Code 的本地记录（不存在的数据源会跳过）；
+3. 只更新本机对应的设备快照；Claude Code 使用 `<设备名>-claude.json`，避免与 Codex 重叠；
 4. 提交并推送更改；
 5. 触发 GitHub Actions 合并数据并更新主页 SVG。
 
@@ -149,10 +153,12 @@ npm run sync
 
 ## 首次同步检查
 
-先单独采集一次：
+可分别单独采集一次：
 
 ```bash
 npm run collect
+npm run collect:qoder
+npm run collect:claude
 ```
 
 终端应显示扫描位置和发现的模型数量，例如：
@@ -168,15 +174,15 @@ ls data/devices
 git status --short
 ```
 
-如果显示 `0 model(s)`，先确认本机在过去 183 天内运行过 Codex，并检查 `~/.codex/sessions` 是否存在。采集器不会上传提示词、代码、文件路径或机器 hostname，只会提交按日期和模型聚合后的 token 数量。
+如果显示 `0 model(s)`，先确认本机在过去 183 天内运行过对应客户端，并检查相应记录目录是否存在。采集器不会上传提示词、代码、文件路径、请求 ID、会话 ID 或机器 hostname，只会提交按日期和模型聚合后的 token 数量。Claude transcript 中重复出现的同一 API 请求会按 `requestId` 去重。
 
 ## 图表统计口径
 
 - 顶部 token 总量、每日积木、设备贡献和模型明细全部使用滚动 183 天窗口；窗口每天随同步向前移动。
 - 缓存率为 `cached input tokens / input tokens`。缓存 token 是输入 token 的子集，不应再次加到 token 总量中。
 - reasoning token 已包含在 output token 中，只作为补充明细展示。
-- 成本使用 [Codex 官方 rate card](https://learn.chatgpt.com/docs/pricing) 估算为 credits，不代表美元 API 账单。
-- 模型超过四种时，前三名逐行展示，其余模型合并到 `OTHER · N MODELS`，所有 token、缓存和可计算的 credits 仍会计入。
+- 成本按各厂商官方 API 单价估算为 USD，不代表实际订阅或 API 账单。Claude Code 会分别计算普通输入、5 分钟缓存写入、1 小时缓存写入、缓存读取与输出；费率来自 [Anthropic 官方价格文档](https://platform.claude.com/docs/en/about-claude/pricing)。
+- 模型超过七种时，前六名逐行展示，其余模型合并到 `OTHER · N MODELS`，所有 token、缓存与可计算成本仍会计入。
 - 设备超过三台时，前两台逐行展示，其余设备合并到 `OTHER · N DEVICES`。
 
 旧版设备快照只有 token 总量，没有输入、缓存和输出明细。图表会显示 `RESYNC FOR DETAILS`，而不是把缺失数据当成 0；在对应设备拉取新版采集器并重新运行 `npm run sync` 后即可补齐完整历史窗口。

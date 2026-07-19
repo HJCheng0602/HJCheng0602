@@ -3,7 +3,7 @@ import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 const directory = 'data/devices';
 const files = existsSync(directory) ? readdirSync(directory).filter((file) => file.endsWith('.json')).sort() : [];
 const snapshots = files.map((file) => JSON.parse(readFileSync(`${directory}/${file}`, 'utf8')));
-const metricKeys = ['tokens', 'inputTokens', 'cachedInputTokens', 'outputTokens', 'reasoningOutputTokens'];
+const metricKeys = ['tokens', 'inputTokens', 'cachedInputTokens', 'cacheCreationInputTokens', 'cacheCreation5mInputTokens', 'cacheCreation1hInputTokens', 'outputTokens', 'reasoningOutputTokens'];
 const emptyMetrics = () => Object.fromEntries(metricKeys.map((key) => [key, 0]));
 const addMetrics = (target, source) => {
   for (const key of metricKeys) target[key] += source[key] || 0;
