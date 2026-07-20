@@ -24,7 +24,8 @@ const modelAliases = new Map([
   ['deepseek/deepseek-v4-pro', 'DeepSeek-V4-Pro'],
   ['deepseek/deepseek-v4-fast', 'DeepSeek-V4-Fast'],
   ['anthropic/claude-sonnet-4-6', 'claude-sonnet-4-6'],
-  ['anthropic/claude-haiku-4-5-20251001', 'claude-haiku-4-5-20251001']
+  ['anthropic/claude-haiku-4-5-20251001', 'claude-haiku-4-5-20251001'],
+  ['opencode/big-pickle', 'Big Pickle']
 ]);
 const normalizeModel = (provider, model) => modelAliases.get(`${provider}/${model}`.toLowerCase()) || model;
 

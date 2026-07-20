@@ -1,11 +1,11 @@
 {
   "schemaVersion": 2,
   "windowDays": 183,
-  "windowStart": "2026-01-17",
-  "windowEnd": "2026-07-18",
+  "windowStart": "2026-01-19",
+  "windowEnd": "2026-07-20",
   "device": "mac-qoder",
   "platform": "darwin",
-  "collectedAt": "2026-07-18T20:14:31.703Z",
+  "collectedAt": "2026-07-20T12:37:07.693Z",
   "models": [
     {
       "name": "Qwen3.7-Max",
@@ -27,12 +27,30 @@
     },
     {
       "name": "Kimi-K3",
-      "tokens": 48942311,
-      "inputTokens": 48538876,
-      "cachedInputTokens": 45927466,
-      "outputTokens": 403435,
+      "tokens": 50353041,
+      "inputTokens": 49941949,
+      "cachedInputTokens": 47258922,
+      "outputTokens": 411092,
       "reasoningOutputTokens": 0,
-      "turnCount": 542
+      "turnCount": 561
+    },
+    {
+      "name": "Claude Fable 5",
+      "tokens": 18442856,
+      "inputTokens": 17845861,
+      "cachedInputTokens": 14936989,
+      "outputTokens": 596995,
+      "reasoningOutputTokens": 0,
+      "turnCount": 244
+    },
+    {
+      "name": "Qwen3.8-Max",
+      "tokens": 2837475,
+      "inputTokens": 2809169,
+      "cachedInputTokens": 2547187,
+      "outputTokens": 28306,
+      "reasoningOutputTokens": 0,
+      "turnCount": 26
     },
     {
       "name": "Qwen Max",
@@ -236,10 +254,18 @@
     },
     {
       "date": "2026-07-18",
-      "tokens": 12724935,
-      "inputTokens": 12625759,
-      "cachedInputTokens": 12006784,
-      "outputTokens": 99176,
+      "tokens": 13227612,
+      "inputTokens": 13126209,
+      "cachedInputTokens": 12501632,
+      "outputTokens": 101403,
+      "reasoningOutputTokens": 0
+    },
+    {
+      "date": "2026-07-20",
+      "tokens": 22188384,
+      "inputTokens": 21557653,
+      "cachedInputTokens": 18320784,
+      "outputTokens": 630731,
       "reasoningOutputTokens": 0
     }
   ]

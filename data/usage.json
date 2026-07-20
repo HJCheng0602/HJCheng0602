@@ -1,23 +1,23 @@
 {
   "schemaVersion": 2,
   "windowDays": 183,
-  "windowStart": "2026-01-18",
-  "windowEnd": "2026-07-19",
-  "updatedAt": "2026-07-19T10:39:30.688Z",
+  "windowStart": "2026-01-19",
+  "windowEnd": "2026-07-20",
+  "updatedAt": "2026-07-20T12:40:14.617Z",
   "devices": [
     {
       "name": "mac",
       "platform": "darwin",
-      "collectedAt": "2026-07-18T20:14:31.403Z",
-      "tokens": 344683299,
-      "inputTokens": 343423945,
-      "cachedInputTokens": 332966144,
+      "collectedAt": "2026-07-20T12:37:07.346Z",
+      "tokens": 366439337,
+      "inputTokens": 365131382,
+      "cachedInputTokens": 353352192,
       "cacheCreationInputTokens": 0,
       "cacheCreation5mInputTokens": 0,
       "cacheCreation1hInputTokens": 0,
-      "outputTokens": 1259354,
-      "reasoningOutputTokens": 580271,
-      "detailedTokens": 344683299,
+      "outputTokens": 1307955,
+      "reasoningOutputTokens": 598206,
+      "detailedTokens": 366439337,
       "models": [
         {
           "name": "gpt-5.5",
@@ -30,12 +30,12 @@
         },
         {
           "name": "gpt-5.6-sol",
-          "tokens": 289608814,
-          "inputTokens": 288558335,
-          "cachedInputTokens": 279940864,
-          "outputTokens": 1050479,
-          "reasoningOutputTokens": 483457,
-          "turnCount": 147
+          "tokens": 311364852,
+          "inputTokens": 310265772,
+          "cachedInputTokens": 300326912,
+          "outputTokens": 1099080,
+          "reasoningOutputTokens": 501392,
+          "turnCount": 169
         },
         {
           "name": "gpt-5.6-terra",
@@ -91,16 +91,16 @@
     {
       "name": "mac-qoder",
       "platform": "darwin",
-      "collectedAt": "2026-07-18T20:14:31.703Z",
-      "tokens": 178809981,
-      "inputTokens": 177399959,
-      "cachedInputTokens": 160763716,
+      "collectedAt": "2026-07-20T12:37:07.693Z",
+      "tokens": 201501042,
+      "inputTokens": 199458062,
+      "cachedInputTokens": 179579348,
       "cacheCreationInputTokens": 0,
       "cacheCreation5mInputTokens": 0,
       "cacheCreation1hInputTokens": 0,
-      "outputTokens": 1410022,
+      "outputTokens": 2042980,
       "reasoningOutputTokens": 0,
-      "detailedTokens": 178809981,
+      "detailedTokens": 201501042,
       "models": [
         {
           "name": "Qwen3.7-Max",
@@ -122,12 +122,30 @@
         },
         {
           "name": "Kimi-K3",
-          "tokens": 48942311,
-          "inputTokens": 48538876,
-          "cachedInputTokens": 45927466,
-          "outputTokens": 403435,
+          "tokens": 50353041,
+          "inputTokens": 49941949,
+          "cachedInputTokens": 47258922,
+          "outputTokens": 411092,
           "reasoningOutputTokens": 0,
-          "turnCount": 542
+          "turnCount": 561
+        },
+        {
+          "name": "Claude Fable 5",
+          "tokens": 18442856,
+          "inputTokens": 17845861,
+          "cachedInputTokens": 14936989,
+          "outputTokens": 596995,
+          "reasoningOutputTokens": 0,
+          "turnCount": 244
+        },
+        {
+          "name": "Qwen3.8-Max",
+          "tokens": 2837475,
+          "inputTokens": 2809169,
+          "cachedInputTokens": 2547187,
+          "outputTokens": 28306,
+          "reasoningOutputTokens": 0,
+          "turnCount": 26
         },
         {
           "name": "Qwen Max",
@@ -255,21 +273,49 @@
           "turnCount": 629
         }
       ]
+    },
+    {
+      "name": "mac-opencode",
+      "platform": "darwin",
+      "collectedAt": "2026-07-20T12:40:14.328Z",
+      "tokens": 157397,
+      "inputTokens": 154763,
+      "cachedInputTokens": 140288,
+      "cacheCreationInputTokens": 0,
+      "cacheCreation5mInputTokens": 0,
+      "cacheCreation1hInputTokens": 0,
+      "outputTokens": 2634,
+      "reasoningOutputTokens": 1251,
+      "detailedTokens": 157397,
+      "models": [
+        {
+          "name": "Big Pickle",
+          "tokens": 157397,
+          "inputTokens": 154763,
+          "cachedInputTokens": 140288,
+          "cacheCreationInputTokens": 0,
+          "cacheCreation5mInputTokens": 0,
+          "cacheCreation1hInputTokens": 0,
+          "outputTokens": 2634,
+          "reasoningOutputTokens": 1251,
+          "turnCount": 13
+        }
+      ]
     }
   ],
   "models": [
     {
       "name": "gpt-5.6-sol",
-      "tokens": 317433572,
-      "inputTokens": 316263994,
-      "cachedInputTokens": 306084608,
+      "tokens": 339189610,
+      "inputTokens": 337971431,
+      "cachedInputTokens": 326470656,
       "cacheCreationInputTokens": 0,
       "cacheCreation5mInputTokens": 0,
       "cacheCreation1hInputTokens": 0,
-      "outputTokens": 1169578,
-      "reasoningOutputTokens": 530615,
-      "detailedTokens": 317433572,
-      "turnCount": 159,
+      "outputTokens": 1218179,
+      "reasoningOutputTokens": 548550,
+      "detailedTokens": 339189610,
+      "turnCount": 181,
       "turnCountComplete": true
     },
     {
@@ -330,16 +376,16 @@
     },
     {
       "name": "Kimi-K3",
-      "tokens": 48942311,
-      "inputTokens": 48538876,
-      "cachedInputTokens": 45927466,
+      "tokens": 50353041,
+      "inputTokens": 49941949,
+      "cachedInputTokens": 47258922,
       "cacheCreationInputTokens": 0,
       "cacheCreation5mInputTokens": 0,
       "cacheCreation1hInputTokens": 0,
-      "outputTokens": 403435,
+      "outputTokens": 411092,
       "reasoningOutputTokens": 0,
-      "detailedTokens": 48942311,
-      "turnCount": 542,
+      "detailedTokens": 50353041,
+      "turnCount": 561,
       "turnCountComplete": true
     },
     {
@@ -357,6 +403,20 @@
       "turnCountComplete": true
     },
     {
+      "name": "Claude Fable 5",
+      "tokens": 18442856,
+      "inputTokens": 17845861,
+      "cachedInputTokens": 14936989,
+      "cacheCreationInputTokens": 0,
+      "cacheCreation5mInputTokens": 0,
+      "cacheCreation1hInputTokens": 0,
+      "outputTokens": 596995,
+      "reasoningOutputTokens": 0,
+      "detailedTokens": 18442856,
+      "turnCount": 244,
+      "turnCountComplete": true
+    },
+    {
       "name": "gpt-5.5",
       "tokens": 3492814,
       "inputTokens": 3464551,
@@ -371,6 +431,20 @@
       "turnCountComplete": true
     },
     {
+      "name": "Qwen3.8-Max",
+      "tokens": 2837475,
+      "inputTokens": 2809169,
+      "cachedInputTokens": 2547187,
+      "cacheCreationInputTokens": 0,
+      "cacheCreation5mInputTokens": 0,
+      "cacheCreation1hInputTokens": 0,
+      "outputTokens": 28306,
+      "reasoningOutputTokens": 0,
+      "detailedTokens": 2837475,
+      "turnCount": 26,
+      "turnCountComplete": true
+    },
+    {
       "name": "Qwen Max",
       "tokens": 846853,
       "inputTokens": 830893,
@@ -382,6 +456,20 @@
       "reasoningOutputTokens": 0,
       "detailedTokens": 846853,
       "turnCount": 21,
+      "turnCountComplete": true
+    },
+    {
+      "name": "Big Pickle",
+      "tokens": 157397,
+      "inputTokens": 154763,
+      "cachedInputTokens": 140288,
+      "cacheCreationInputTokens": 0,
+      "cacheCreation5mInputTokens": 0,
+      "cacheCreation1hInputTokens": 0,
+      "outputTokens": 2634,
+      "reasoningOutputTokens": 1251,
+      "detailedTokens": 157397,
+      "turnCount": 13,
       "turnCountComplete": true
     },
     {
@@ -942,14 +1030,14 @@
     },
     {
       "date": "2026-06-18",
-      "tokens": 14804248,
-      "inputTokens": 14737454,
-      "cachedInputTokens": 14559111,
+      "tokens": 14961645,
+      "inputTokens": 14892217,
+      "cachedInputTokens": 14699399,
       "cacheCreationInputTokens": 0,
       "cacheCreation5mInputTokens": 0,
       "cacheCreation1hInputTokens": 0,
-      "outputTokens": 66794,
-      "reasoningOutputTokens": 29485
+      "outputTokens": 69428,
+      "reasoningOutputTokens": 30736
     },
     {
       "date": "2026-06-19",
@@ -1162,14 +1250,25 @@
     },
     {
       "date": "2026-07-18",
-      "tokens": 46428937,
-      "inputTokens": 46254461,
-      "cachedInputTokens": 44520320,
+      "tokens": 46931614,
+      "inputTokens": 46754911,
+      "cachedInputTokens": 45015168,
       "cacheCreationInputTokens": 0,
       "cacheCreation5mInputTokens": 0,
       "cacheCreation1hInputTokens": 0,
-      "outputTokens": 174476,
+      "outputTokens": 176703,
       "reasoningOutputTokens": 32168
+    },
+    {
+      "date": "2026-07-20",
+      "tokens": 43944422,
+      "inputTokens": 43265090,
+      "cachedInputTokens": 38706832,
+      "cacheCreationInputTokens": 0,
+      "cacheCreation5mInputTokens": 0,
+      "cacheCreation1hInputTokens": 0,
+      "outputTokens": 679332,
+      "reasoningOutputTokens": 17935
     }
   ]
 }

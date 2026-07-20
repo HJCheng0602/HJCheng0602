@@ -10,7 +10,8 @@
     "DeepSeek": "https://api-docs.deepseek.com/quick_start/pricing?article_id=article_1779470751466_8",
     "MiniMax": "https://platform.minimax.io/docs/guides/pricing-paygo",
     "Kimi": "https://www.kimi.com/resources/kimi-k2-7-code-pricing",
-    "Anthropic": "https://platform.claude.com/docs/en/about-claude/pricing"
+    "Anthropic": "https://platform.claude.com/docs/en/about-claude/pricing",
+    "OpenCode Zen": "https://opencode.ai/docs/zen/"
   },
   "models": {
     "gpt-5.6": { "provider": "OpenAI", "input": 5, "cachedInput": 0.5, "output": 30 },
@@ -35,6 +36,9 @@
     "Kimi-K2.7-Code": { "provider": "Kimi", "input": 0.95, "cachedInput": 0.19, "output": 4 },
     "claude-sonnet-4-6": { "provider": "Anthropic", "input": 3, "cacheWrite5m": 3.75, "cacheWrite1h": 6, "cachedInput": 0.3, "output": 15, "rateNote": "Standard global inference; US-only inference is 1.1x" },
     "claude-haiku-4-5-20251001": { "provider": "Anthropic", "input": 1, "cacheWrite5m": 1.25, "cacheWrite1h": 2, "cachedInput": 0.1, "output": 5 },
-    "claude-haiku-4-5": { "provider": "Anthropic", "input": 1, "cacheWrite5m": 1.25, "cacheWrite1h": 2, "cachedInput": 0.1, "output": 5 }
+    "claude-haiku-4-5": { "provider": "Anthropic", "input": 1, "cacheWrite5m": 1.25, "cacheWrite1h": 2, "cachedInput": 0.1, "output": 5 },
+    "Claude Fable 5": { "provider": "Anthropic", "input": 10, "cacheWrite5m": 12.5, "cacheWrite1h": 20, "cachedInput": 1, "output": 50, "rateNote": "Routed via Qoder (model key cmodel); 1h cache write follows the standard 2x input convention" },
+    "Qwen3.8-Max": { "provider": "Qwen Cloud", "input": 1.25, "cachedInput": 0.25, "output": 3.75, "rateNote": "Token Plan only, no public pay-as-you-go rate; estimated at Qwen3.7-Max rates" },
+    "Big Pickle": { "provider": "OpenCode Zen", "input": 0, "cachedInput": 0, "output": 0, "rateNote": "Stealth model, free on OpenCode Zen for a limited time; community speculation says GLM-4.6, unconfirmed" }
   }
 }

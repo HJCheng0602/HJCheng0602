@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 3,
+  "windowDays": 183,
+  "windowStart": "2026-01-19",
+  "windowEnd": "2026-07-20",
+  "device": "mac-opencode",
+  "platform": "darwin",
+  "collectedAt": "2026-07-20T12:40:14.328Z",
+  "models": [
+    {
+      "name": "Big Pickle",
+      "tokens": 157397,
+      "inputTokens": 154763,
+      "cachedInputTokens": 140288,
+      "cacheCreationInputTokens": 0,
+      "cacheCreation5mInputTokens": 0,
+      "cacheCreation1hInputTokens": 0,
+      "outputTokens": 2634,
+      "reasoningOutputTokens": 1251,
+      "turnCount": 13
+    }
+  ],
+  "days": [
+    {
+      "date": "2026-06-18",
+      "tokens": 157397,
+      "inputTokens": 154763,
+      "cachedInputTokens": 140288,
+      "cacheCreationInputTokens": 0,
+      "cacheCreation5mInputTokens": 0,
+      "cacheCreation1hInputTokens": 0,
+      "outputTokens": 2634,
+      "reasoningOutputTokens": 1251
+    }
+  ]
+}

@@ -12,7 +12,9 @@ const MODEL_MAP = {
   dmodel: 'DeepSeek-V4-Pro',
   mmodel: 'MiniMax-M3',
   kmodel_latest: 'Kimi-K3',
-  kmodel: 'Kimi-K2.7-Code'
+  kmodel: 'Kimi-K2.7-Code',
+  cmodel: 'Claude Fable 5',
+  qmodel_preview: 'Qwen3.8-Max'
 };
 
 const windowDays = 183;
