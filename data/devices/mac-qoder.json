@@ -1,11 +1,11 @@
 {
   "schemaVersion": 2,
   "windowDays": 183,
-  "windowStart": "2026-01-19",
-  "windowEnd": "2026-07-20",
+  "windowStart": "2026-01-20",
+  "windowEnd": "2026-07-21",
   "device": "mac-qoder",
   "platform": "darwin",
-  "collectedAt": "2026-07-20T12:37:07.693Z",
+  "collectedAt": "2026-07-21T12:20:19.269Z",
   "models": [
     {
       "name": "Qwen3.7-Max",
@@ -27,30 +27,30 @@
     },
     {
       "name": "Kimi-K3",
-      "tokens": 50353041,
-      "inputTokens": 49941949,
-      "cachedInputTokens": 47258922,
-      "outputTokens": 411092,
+      "tokens": 53567207,
+      "inputTokens": 53117327,
+      "cachedInputTokens": 50186538,
+      "outputTokens": 449880,
       "reasoningOutputTokens": 0,
-      "turnCount": 561
+      "turnCount": 588
     },
     {
       "name": "Claude Fable 5",
-      "tokens": 18442856,
-      "inputTokens": 17845861,
-      "cachedInputTokens": 14936989,
-      "outputTokens": 596995,
+      "tokens": 26049531,
+      "inputTokens": 25368222,
+      "cachedInputTokens": 19151628,
+      "outputTokens": 681309,
       "reasoningOutputTokens": 0,
-      "turnCount": 244
+      "turnCount": 284
     },
     {
       "name": "Qwen3.8-Max",
-      "tokens": 2837475,
-      "inputTokens": 2809169,
-      "cachedInputTokens": 2547187,
-      "outputTokens": 28306,
+      "tokens": 7524432,
+      "inputTokens": 7451948,
+      "cachedInputTokens": 6136558,
+      "outputTokens": 72484,
       "reasoningOutputTokens": 0,
-      "turnCount": 26
+      "turnCount": 74
     },
     {
       "name": "Qwen Max",
@@ -262,10 +262,18 @@
     },
     {
       "date": "2026-07-20",
-      "tokens": 22188384,
-      "inputTokens": 21557653,
-      "cachedInputTokens": 18320784,
-      "outputTokens": 630731,
+      "tokens": 25160379,
+      "inputTokens": 24517067,
+      "cachedInputTokens": 21111474,
+      "outputTokens": 643312,
+      "reasoningOutputTokens": 0
+    },
+    {
+      "date": "2026-07-21",
+      "tokens": 12535803,
+      "inputTokens": 12381104,
+      "cachedInputTokens": 7940936,
+      "outputTokens": 154699,
       "reasoningOutputTokens": 0
     }
   ]
