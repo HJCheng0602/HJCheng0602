@@ -61,7 +61,7 @@
     <text x="28" y="52" class="title sans">VIBE CODING STATS</text>
     <rect x="29" y="60" width="58" height="3" rx="1.5" fill="url(#footGrad)"/>
     <circle cx="700" cy="40" r="80" fill="url(#heroGlow)"/>
-    <text x="812" y="44" class="hero" text-anchor="end">936.9M<tspan class="heroUnit"> TOKENS</tspan></text>
+    <text x="812" y="44" class="hero" text-anchor="end">939.2M<tspan class="heroUnit"> TOKENS</tspan></text>
     <text x="812" y="63" class="muted" text-anchor="end">ROLLING 183 DAYS · SYNCED 2026-07-22</text>
     <circle cx="352" cy="25" r="6.5" fill="none" stroke="#087EA4" stroke-width="1" class="ripple" style="animation-delay:.4s"/><circle cx="352" cy="25" r="6.5" fill="none" stroke="#087EA4" stroke-width="1" class="ripple" style="animation-delay:2.2s"/>
     <circle cx="352" cy="25" r="2.4" fill="#087EA4" class="liveDot"/>
@@ -783,9 +783,9 @@
     <polygon points="483.8,267.95 483.8,275.95 476.8,279.65 476.8,271.65" fill="#7bace8"/>
     <polygon points="476.8,271.65 476.8,279.65 469.8,275.95 469.8,267.95" fill="#6095d8"/>
   </g><g class="cube liveCube" style="animation-delay:1.30s">
-    <polygon points="500,261.05 507,264.75 500,268.45 493,264.75" fill="#8cb9f2" stroke="#087EA4" stroke-opacity="0.28" stroke-width=".42"/>
-    <polygon points="507,264.75 507,276.75 500,280.45 500,268.45" fill="#669ee1"/>
-    <polygon points="500,268.45 500,280.45 493,276.75 493,264.75" fill="#4e88d1"/>
+    <polygon points="500,261.05 507,264.75 500,268.45 493,264.75" fill="#8ab8f2" stroke="#087EA4" stroke-opacity="0.28" stroke-width=".42"/>
+    <polygon points="507,264.75 507,276.75 500,280.45 500,268.45" fill="#649de0"/>
+    <polygon points="500,268.45 500,280.45 493,276.75 493,264.75" fill="#4c87d0"/>
   </g><g class="cube liveCube" style="animation-delay:1.26s">
     <polygon points="446.20000000000005,266.2 453.20000000000005,269.9 446.20000000000005,273.59999999999997 439.20000000000005,269.9" fill="#9fc4f4" stroke="#087EA4" stroke-opacity="0.28" stroke-width=".42"/>
     <polygon points="453.20000000000005,269.9 453.20000000000005,278.9 446.20000000000005,282.59999999999997 446.20000000000005,273.59999999999997" fill="#77aae6"/>
@@ -830,7 +830,7 @@
     <text x="734" y="183" class="stat">6</text><text x="734" y="198" class="statLabel">DEVICES</text>
     <line x1="598" y1="212" x2="798" y2="212" class="grid"/>
     <text x="598" y="240" class="stat">94%</text><text x="598" y="255" class="statLabel">CACHE HIT RATE</text>
-    <text x="798" y="240" text-anchor="end" class="stat statCost">$709</text><text x="798" y="255" text-anchor="end" class="statLabel">EST. API COST</text>
+    <text x="798" y="240" text-anchor="end" class="stat statCost">$715</text><text x="798" y="255" text-anchor="end" class="statLabel">EST. API COST</text>
     <rect x="598" y="262" width="200" height="6" rx="3" class="track"/><rect x="598" y="262" width="200" height="6" rx="3" fill="url(#meterGrad)" class="meterFill"/>
     <text x="598" y="281" class="statLabel">API PRICE COVERAGE</text><text x="798" y="281" text-anchor="end" class="statLabel">100%</text>
   </g>
@@ -923,11 +923,11 @@
 
       <g transform="translate(56 669)"><rect x="-8" y="-8" width="16" height="16" rx="4" fill="#F6F8FA" stroke="#D1D9E0"/><g fill="none" stroke="#0969DA" stroke-width="1.25" stroke-linecap="round"><circle r="4"/><path d="M-2 0h4M0-2v4"/></g></g>
       <text x="72" y="673" class="model">OTHER · 10 MODELS</text>
-      <text x="72" y="684" class="rowMeta">6% SHARE · 499 TURNS</text>
-      <g><rect x="204" y="659" width="146" height="28" rx="6" class="splitPanel"/><rect x="213" y="664" width="128" height="3.5" rx="1.75" class="track"/><rect x="213" y="664" width="119" height="3.5" rx="1.75" fill="#0969DA"/><rect x="332" y="664" width="9" height="3.5" rx="1.75" fill="#087EA4"/><text x="213" y="674" class="splitLabel">mac-qoder</text><text x="341" y="674" text-anchor="end" class="splitLabel">93%</text><text x="213" y="683" class="splitLabel">OTHER 4</text><text x="341" y="683" text-anchor="end" class="splitLabel">7%</text></g>
-      <text x="470" y="678" text-anchor="end" class="numberStrong">54.6M</text>
+      <text x="72" y="684" class="rowMeta">6% SHARE · 510 TURNS</text>
+      <g><rect x="204" y="659" width="146" height="28" rx="6" class="splitPanel"/><rect x="213" y="664" width="128" height="3.5" rx="1.75" class="track"/><rect x="213" y="664" width="120" height="3.5" rx="1.75" fill="#0969DA"/><rect x="333" y="664" width="8" height="3.5" rx="1.75" fill="#087EA4"/><text x="213" y="674" class="splitLabel">mac-qoder</text><text x="341" y="674" text-anchor="end" class="splitLabel">93%</text><text x="213" y="683" class="splitLabel">OTHER 4</text><text x="341" y="683" text-anchor="end" class="splitLabel">7%</text></g>
+      <text x="470" y="678" text-anchor="end" class="numberStrong">56.9M</text>
       <text x="610" y="678" text-anchor="end" class="numberStrong">77%</text>
-      <text x="796" y="673" text-anchor="end" class="numberStrong">$174</text>
+      <text x="796" y="673" text-anchor="end" class="numberStrong">$180</text>
 
     </g>
     <line x1="44" y1="700" x2="796" y2="700" class="grid"/>
