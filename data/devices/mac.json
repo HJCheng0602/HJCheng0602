@@ -5,7 +5,7 @@
   "windowEnd": "2026-07-22",
   "device": "mac",
   "platform": "darwin",
-  "collectedAt": "2026-07-22T08:31:32.374Z",
+  "collectedAt": "2026-07-22T11:01:13.569Z",
   "models": [
     {
       "name": "gpt-5.5",
@@ -18,12 +18,12 @@
     },
     {
       "name": "gpt-5.6-sol",
-      "tokens": 311385868,
-      "inputTokens": 310286776,
-      "cachedInputTokens": 300330752,
-      "outputTokens": 1099092,
-      "reasoningOutputTokens": 501392,
-      "turnCount": 170
+      "tokens": 311590867,
+      "inputTokens": 310489549,
+      "cachedInputTokens": 300506880,
+      "outputTokens": 1101318,
+      "reasoningOutputTokens": 502266,
+      "turnCount": 173
     },
     {
       "name": "gpt-5.6-terra",
@@ -78,11 +78,11 @@
     },
     {
       "date": "2026-07-22",
-      "tokens": 21016,
-      "inputTokens": 21004,
-      "cachedInputTokens": 3840,
-      "outputTokens": 12,
-      "reasoningOutputTokens": 0
+      "tokens": 226015,
+      "inputTokens": 223777,
+      "cachedInputTokens": 179968,
+      "outputTokens": 2238,
+      "reasoningOutputTokens": 874
     }
   ]
 }

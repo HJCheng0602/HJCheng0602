@@ -3,21 +3,21 @@
   "windowDays": 183,
   "windowStart": "2026-01-21",
   "windowEnd": "2026-07-22",
-  "updatedAt": "2026-07-22T08:31:59.321Z",
+  "updatedAt": "2026-07-22T11:01:14.497Z",
   "devices": [
     {
       "name": "mac",
       "platform": "darwin",
-      "collectedAt": "2026-07-22T08:31:32.374Z",
-      "tokens": 366460353,
-      "inputTokens": 365152386,
-      "cachedInputTokens": 353356032,
+      "collectedAt": "2026-07-22T11:01:13.569Z",
+      "tokens": 366665352,
+      "inputTokens": 365355159,
+      "cachedInputTokens": 353532160,
       "cacheCreationInputTokens": 0,
       "cacheCreation5mInputTokens": 0,
       "cacheCreation1hInputTokens": 0,
-      "outputTokens": 1307967,
-      "reasoningOutputTokens": 598206,
-      "detailedTokens": 366460353,
+      "outputTokens": 1310193,
+      "reasoningOutputTokens": 599080,
+      "detailedTokens": 366665352,
       "models": [
         {
           "name": "gpt-5.5",
@@ -30,12 +30,12 @@
         },
         {
           "name": "gpt-5.6-sol",
-          "tokens": 311385868,
-          "inputTokens": 310286776,
-          "cachedInputTokens": 300330752,
-          "outputTokens": 1099092,
-          "reasoningOutputTokens": 501392,
-          "turnCount": 170
+          "tokens": 311590867,
+          "inputTokens": 310489549,
+          "cachedInputTokens": 300506880,
+          "outputTokens": 1101318,
+          "reasoningOutputTokens": 502266,
+          "turnCount": 173
         },
         {
           "name": "gpt-5.6-terra",
@@ -49,58 +49,18 @@
       ]
     },
     {
-      "name": "linux-claude",
-      "platform": "linux",
-      "collectedAt": "2026-07-19T08:43:52.877Z",
-      "tokens": 235997395,
-      "inputTokens": 233078753,
-      "cachedInputTokens": 223523892,
-      "cacheCreationInputTokens": 9515670,
-      "cacheCreation5mInputTokens": 118333,
-      "cacheCreation1hInputTokens": 9397337,
-      "outputTokens": 2918642,
-      "reasoningOutputTokens": 0,
-      "detailedTokens": 235997395,
-      "models": [
-        {
-          "name": "claude-sonnet-4-6",
-          "tokens": 235883088,
-          "inputTokens": 232966700,
-          "cachedInputTokens": 223462684,
-          "cacheCreationInputTokens": 9464856,
-          "cacheCreation5mInputTokens": 67519,
-          "cacheCreation1hInputTokens": 9397337,
-          "outputTokens": 2916388,
-          "reasoningOutputTokens": 0,
-          "turnCount": 3170
-        },
-        {
-          "name": "claude-haiku-4-5-20251001",
-          "tokens": 114307,
-          "inputTokens": 112053,
-          "cachedInputTokens": 61208,
-          "cacheCreationInputTokens": 50814,
-          "cacheCreation5mInputTokens": 50814,
-          "cacheCreation1hInputTokens": 0,
-          "outputTokens": 2254,
-          "reasoningOutputTokens": 0,
-          "turnCount": 7
-        }
-      ]
-    },
-    {
       "name": "mac-qoder",
       "platform": "darwin",
-      "collectedAt": "2026-07-22T08:31:32.747Z",
-      "tokens": 235962523,
-      "inputTokens": 233657349,
-      "cachedInputTokens": 204986463,
+      "collectedAt": "2026-07-22T11:01:14.138Z",
+      "tokens": 236179715,
+      "inputTokens": 233873784,
+      "cachedInputTokens": 205146235,
       "cacheCreationInputTokens": 0,
       "cacheCreation5mInputTokens": 0,
       "cacheCreation1hInputTokens": 0,
-      "outputTokens": 2305174,
+      "outputTokens": 2305931,
       "reasoningOutputTokens": 0,
-      "detailedTokens": 235962523,
+      "detailedTokens": 236179715,
       "models": [
         {
           "name": "Qwen3.7-Max",
@@ -140,12 +100,12 @@
         },
         {
           "name": "Qwen3.8-Max",
-          "tokens": 9354320,
-          "inputTokens": 9275424,
-          "cachedInputTokens": 7458431,
-          "outputTokens": 78896,
+          "tokens": 9571512,
+          "inputTokens": 9491859,
+          "cachedInputTokens": 7618203,
+          "outputTokens": 79653,
           "reasoningOutputTokens": 0,
-          "turnCount": 97
+          "turnCount": 101
         },
         {
           "name": "Qwen Max",
@@ -200,6 +160,46 @@
           "outputTokens": 37,
           "reasoningOutputTokens": 0,
           "turnCount": 1
+        }
+      ]
+    },
+    {
+      "name": "linux-claude",
+      "platform": "linux",
+      "collectedAt": "2026-07-19T08:43:52.877Z",
+      "tokens": 235997395,
+      "inputTokens": 233078753,
+      "cachedInputTokens": 223523892,
+      "cacheCreationInputTokens": 9515670,
+      "cacheCreation5mInputTokens": 118333,
+      "cacheCreation1hInputTokens": 9397337,
+      "outputTokens": 2918642,
+      "reasoningOutputTokens": 0,
+      "detailedTokens": 235997395,
+      "models": [
+        {
+          "name": "claude-sonnet-4-6",
+          "tokens": 235883088,
+          "inputTokens": 232966700,
+          "cachedInputTokens": 223462684,
+          "cacheCreationInputTokens": 9464856,
+          "cacheCreation5mInputTokens": 67519,
+          "cacheCreation1hInputTokens": 9397337,
+          "outputTokens": 2916388,
+          "reasoningOutputTokens": 0,
+          "turnCount": 3170
+        },
+        {
+          "name": "claude-haiku-4-5-20251001",
+          "tokens": 114307,
+          "inputTokens": 112053,
+          "cachedInputTokens": 61208,
+          "cacheCreationInputTokens": 50814,
+          "cacheCreation5mInputTokens": 50814,
+          "cacheCreation1hInputTokens": 0,
+          "outputTokens": 2254,
+          "reasoningOutputTokens": 0,
+          "turnCount": 7
         }
       ]
     },
@@ -277,7 +277,7 @@
     {
       "name": "mac-opencode",
       "platform": "darwin",
-      "collectedAt": "2026-07-22T08:31:32.912Z",
+      "collectedAt": "2026-07-22T11:01:14.301Z",
       "tokens": 157397,
       "inputTokens": 154763,
       "cachedInputTokens": 140288,
@@ -306,16 +306,16 @@
   "models": [
     {
       "name": "gpt-5.6-sol",
-      "tokens": 339210626,
-      "inputTokens": 337992435,
-      "cachedInputTokens": 326474496,
+      "tokens": 339415625,
+      "inputTokens": 338195208,
+      "cachedInputTokens": 326650624,
       "cacheCreationInputTokens": 0,
       "cacheCreation5mInputTokens": 0,
       "cacheCreation1hInputTokens": 0,
-      "outputTokens": 1218191,
-      "reasoningOutputTokens": 548550,
-      "detailedTokens": 339210626,
-      "turnCount": 182,
+      "outputTokens": 1220417,
+      "reasoningOutputTokens": 549424,
+      "detailedTokens": 339415625,
+      "turnCount": 185,
       "turnCountComplete": true
     },
     {
@@ -418,16 +418,16 @@
     },
     {
       "name": "Qwen3.8-Max",
-      "tokens": 9354320,
-      "inputTokens": 9275424,
-      "cachedInputTokens": 7458431,
+      "tokens": 9571512,
+      "inputTokens": 9491859,
+      "cachedInputTokens": 7618203,
       "cacheCreationInputTokens": 0,
       "cacheCreation5mInputTokens": 0,
       "cacheCreation1hInputTokens": 0,
-      "outputTokens": 78896,
+      "outputTokens": 79653,
       "reasoningOutputTokens": 0,
-      "detailedTokens": 9354320,
-      "turnCount": 97,
+      "detailedTokens": 9571512,
+      "turnCount": 101,
       "turnCountComplete": true
     },
     {
@@ -1283,14 +1283,14 @@
     },
     {
       "date": "2026-07-22",
-      "tokens": 16833260,
-      "inputTokens": 16752309,
-      "cachedInputTokens": 13227308,
+      "tokens": 17255451,
+      "inputTokens": 17171517,
+      "cachedInputTokens": 13563208,
       "cacheCreationInputTokens": 0,
       "cacheCreation5mInputTokens": 0,
       "cacheCreation1hInputTokens": 0,
-      "outputTokens": 80951,
-      "reasoningOutputTokens": 0
+      "outputTokens": 83934,
+      "reasoningOutputTokens": 874
     }
   ]
 }
