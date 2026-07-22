@@ -5,7 +5,7 @@
   "windowEnd": "2026-07-22",
   "device": "mac-qoder",
   "platform": "darwin",
-  "collectedAt": "2026-07-22T07:57:45.765Z",
+  "collectedAt": "2026-07-22T08:31:32.747Z",
   "models": [
     {
       "name": "Qwen3.7-Max",
@@ -45,12 +45,12 @@
     },
     {
       "name": "Qwen3.8-Max",
-      "tokens": 8917693,
-      "inputTokens": 8842045,
-      "cachedInputTokens": 7083540,
-      "outputTokens": 75648,
+      "tokens": 9354320,
+      "inputTokens": 9275424,
+      "cachedInputTokens": 7458431,
+      "outputTokens": 78896,
       "reasoningOutputTokens": 0,
-      "turnCount": 88
+      "turnCount": 97
     },
     {
       "name": "Qwen Max",
@@ -278,10 +278,10 @@
     },
     {
       "date": "2026-07-22",
-      "tokens": 16375617,
-      "inputTokens": 16297926,
-      "cachedInputTokens": 12848577,
-      "outputTokens": 77691,
+      "tokens": 16812244,
+      "inputTokens": 16731305,
+      "cachedInputTokens": 13223468,
+      "outputTokens": 80939,
       "reasoningOutputTokens": 0
     }
   ]
