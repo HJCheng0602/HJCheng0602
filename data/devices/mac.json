@@ -1,11 +1,11 @@
 {
   "schemaVersion": 2,
   "windowDays": 183,
-  "windowStart": "2026-01-20",
-  "windowEnd": "2026-07-21",
+  "windowStart": "2026-01-21",
+  "windowEnd": "2026-07-22",
   "device": "mac",
   "platform": "darwin",
-  "collectedAt": "2026-07-21T12:20:18.777Z",
+  "collectedAt": "2026-07-22T00:20:47.715Z",
   "models": [
     {
       "name": "gpt-5.5",
