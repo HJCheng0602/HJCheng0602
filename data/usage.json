@@ -3,12 +3,12 @@
   "windowDays": 183,
   "windowStart": "2026-01-21",
   "windowEnd": "2026-07-22",
-  "updatedAt": "2026-07-22T11:01:46.816Z",
+  "updatedAt": "2026-07-22T11:12:09.242Z",
   "devices": [
     {
       "name": "mac",
       "platform": "darwin",
-      "collectedAt": "2026-07-22T11:01:13.569Z",
+      "collectedAt": "2026-07-22T11:12:08.536Z",
       "tokens": 366665352,
       "inputTokens": 365355159,
       "cachedInputTokens": 353532160,
@@ -51,16 +51,16 @@
     {
       "name": "mac-qoder",
       "platform": "darwin",
-      "collectedAt": "2026-07-22T11:01:14.138Z",
-      "tokens": 236179715,
-      "inputTokens": 233873784,
-      "cachedInputTokens": 205146235,
+      "collectedAt": "2026-07-22T11:12:08.889Z",
+      "tokens": 236409958,
+      "inputTokens": 234103267,
+      "cachedInputTokens": 205315686,
       "cacheCreationInputTokens": 0,
       "cacheCreation5mInputTokens": 0,
       "cacheCreation1hInputTokens": 0,
-      "outputTokens": 2305931,
+      "outputTokens": 2306691,
       "reasoningOutputTokens": 0,
-      "detailedTokens": 236179715,
+      "detailedTokens": 236409958,
       "models": [
         {
           "name": "Qwen3.7-Max",
@@ -100,12 +100,12 @@
         },
         {
           "name": "Qwen3.8-Max",
-          "tokens": 9571512,
-          "inputTokens": 9491859,
-          "cachedInputTokens": 7618203,
-          "outputTokens": 79653,
+          "tokens": 9801755,
+          "inputTokens": 9721342,
+          "cachedInputTokens": 7787654,
+          "outputTokens": 80413,
           "reasoningOutputTokens": 0,
-          "turnCount": 101
+          "turnCount": 105
         },
         {
           "name": "Qwen Max",
@@ -277,7 +277,7 @@
     {
       "name": "mac-opencode",
       "platform": "darwin",
-      "collectedAt": "2026-07-22T11:01:14.301Z",
+      "collectedAt": "2026-07-22T11:12:09.053Z",
       "tokens": 157397,
       "inputTokens": 154763,
       "cachedInputTokens": 140288,
@@ -418,16 +418,16 @@
     },
     {
       "name": "Qwen3.8-Max",
-      "tokens": 9571512,
-      "inputTokens": 9491859,
-      "cachedInputTokens": 7618203,
+      "tokens": 9801755,
+      "inputTokens": 9721342,
+      "cachedInputTokens": 7787654,
       "cacheCreationInputTokens": 0,
       "cacheCreation5mInputTokens": 0,
       "cacheCreation1hInputTokens": 0,
-      "outputTokens": 79653,
+      "outputTokens": 80413,
       "reasoningOutputTokens": 0,
-      "detailedTokens": 9571512,
-      "turnCount": 101,
+      "detailedTokens": 9801755,
+      "turnCount": 105,
       "turnCountComplete": true
     },
     {
@@ -1283,13 +1283,13 @@
     },
     {
       "date": "2026-07-22",
-      "tokens": 17255451,
-      "inputTokens": 17171517,
-      "cachedInputTokens": 13563208,
+      "tokens": 17485694,
+      "inputTokens": 17401000,
+      "cachedInputTokens": 13732659,
       "cacheCreationInputTokens": 0,
       "cacheCreation5mInputTokens": 0,
       "cacheCreation1hInputTokens": 0,
-      "outputTokens": 83934,
+      "outputTokens": 84694,
       "reasoningOutputTokens": 874
     }
   ]
